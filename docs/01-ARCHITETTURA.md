@@ -81,6 +81,38 @@ Il seme dell'avventura (Isola Dawn, Villaggio di Foosha) sta nell'**East Blue**:
 in alto a destra. Mettere per sbaglio un luogo dell'East Blue in basso a sinistra è l'errore
 tipico — controllare sempre il quadrante prima di scrivere una coordinata.
 
+## La disposizione dello schermo
+
+```
+┌──────────┬───────────────────────────────────┐
+│  BARRA   │                                   │
+│  180 px  │           AREA MAPPA              │
+│  fissa   │      (tutto ciò che resta)        │
+│          │                                   │
+│ copertine│   la scheda del luogo si aggancia │
+│  filtri  │   QUI dentro, mai sopra la barra  │
+│          │                                   │
+│disclaimer│                                   │
+└──────────┴───────────────────────────────────┘
+```
+
+**La mappa non è larga quanto la finestra.** È la regola da tenere a mente: la colonna di
+sinistra è riservata alla barra delle copertine (vedi `00-CONCEPT.md`) e ai filtri, e la mappa
+occupa soltanto lo spazio rimanente.
+
+Lo spazio è stato riservato **prima** di costruire la barra, di proposito. Tutto ciò che si
+aggancia a un bordo — la scheda del luogo, il pannello di mappatura — si posiziona rispetto
+all'area mappa, non allo schermo. Introdurre la colonna dopo avrebbe voluto dire rivedere ogni
+posizionamento già dato per buono, e ricontrollare la lettura delle coordinate.
+
+Su schermo piccolo la barra sparisce e la mappa riprende tutta la larghezza: il telefono non ha
+spazio da regalare a una colonna fissa.
+
+**Nota tecnica:** la lettura delle coordinate in modalità mappatura non risente della larghezza
+dell'area mappa, perché converte le posizioni usando la matrice di trasformazione dell'SVG
+(`getScreenCTM`) invece di calcoli fatti a mano sulle dimensioni della finestra. Verificato dopo
+l'introduzione della barra: il punto noto `7500` continua a leggersi `7500`.
+
 ## Come si disegnano le isole
 
 Le isole non sono cerchietti e non sono immagini: sono **forme vettoriali**, cioè elenchi di

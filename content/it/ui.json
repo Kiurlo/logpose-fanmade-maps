@@ -1,4 +1,10 @@
 {
+  "sito": {
+    "nome": "Log Pose",
+    "sottotitolo": "Il mondo di One Piece, navigabile nel tempo",
+    "barraInArrivo": "Qui arriverà la barra delle copertine dei volumi, per spostarsi nel tempo della storia.",
+    "disclaimer": "One Piece è di Eiichiro Oda e Shueisha. Progetto amatoriale e non ufficiale, senza scopo di lucro. La mappa è ridisegnata dal codice."
+  },
   "mari": {
     "north-blue": "North Blue",
     "east-blue": "East Blue",

@@ -32,6 +32,11 @@ luoghi.
 nel tempo. Ogni isola aggiunta d'ora in poi nasce già con la sua forma, senza lavoro extra.
 Per vedere come funziona: aprire `docs/forme-isole.html` con un doppio clic.
 
+**C'è una colonna fissa a sinistra (180 px)**, che oggi contiene solo il nome del progetto e il
+disclaimer sul copyright, ma serve soprattutto a **riservare lo spazio** per la barra delle
+copertine e i filtri. Conseguenza: la mappa non è larga quanto la finestra, e tutto ciò che si
+aggancia ai bordi si posiziona rispetto all'area mappa. Vedi `01-ARCHITETTURA.md`.
+
 **La scheda si apre dal lato opposto al luogo**: se il luogo è nella metà destra della mappa la
 scheda compare a sinistra, e viceversa. Così il luogo selezionato resta sempre scoperto senza
 dover calcolare nulla sull'altezza — con la scheda agganciata a un lato, la posizione verticale
@@ -108,6 +113,7 @@ riconoscibile per chi conosce l'opera.
 | 2026-08-25 | Costruzione | Fase 2: aggiunto lo sfondo mappa (oceano) e la prima isola cliccabile (Villaggio di Fuschia) con scheda informativa. Selezione salvata nell'indirizzo del sito. Configurato Next.js in modalità completamente statica (`output: export`) |
 | 2026-08-25 | Costruzione | Implementate le forme generate delle isole (`src/lib/forme.ts`): dal nome nasce un contorno irregolare, sempre identico a parità di nome. Aggiunta la pagina illustrativa `docs/forme-isole.html` |
 | 2026-08-25 | Costruzione | Aggiunto lo schema per i luoghi annidati (`contenutoIn`) e il tipo `villaggio`. Aggiunta l'Isola Dawn, con il Villaggio di Foosha al suo interno; sulla mappa si disegna solo l'isola. Documentato come funzioneranno le forme delle isole. Centralizzata la scelta della lingua in `src/lib/contenuti.ts` |
+| 2026-08-25 | Costruzione | Riservata la colonna sinistra (180 px) per la futura barra delle copertine, su indicazione di Gabriele che ha notato la collisione con la scheda. La colonna ospita intanto il nome del progetto e il **disclaimer sul copyright**, che il concept richiede e che mancava del tutto |
 | 2026-08-25 | Costruzione | La scheda del luogo si apre ora dal lato opposto rispetto al luogo (metà destra -> scheda a sinistra, e viceversa), così il luogo resta sempre visibile. Risolve il problema della scheda che copriva l'East Blue |
 | 2026-08-25 | Catalogazione | Prima posizione letta con la modalità mappatura: Isola Dawn spostata su 9440, 315 (rilevata da Gabriele). I contorni `path` sono ora **relativi al centro del luogo**, così spostare un luogo sposta anche il suo disegno |
 | 2026-08-25 | Costruzione | Aggiunta la **modalità mappatura** (`?mappatura=1`): sfondo di riferimento allineabile e lettura delle coordinate al clic, per catalogare senza andare a occhio. Idea di Gabriele. `public/riferimento/` escluso da Git e cancellato dal sito costruito, così l'immagine altrui non può finire pubblicata |

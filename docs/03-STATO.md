@@ -4,16 +4,19 @@
 > È ciò che permette di riprendere dopo tre settimane di pausa senza perdere il filo.
 > Se una sessione finisce senza aggiornarlo, il progetto ha perso memoria.
 
-**Ultimo aggiornamento:** _(da compilare)_
+**Ultimo aggiornamento:** 2026-08-25
 
 ---
 
 ## A che punto siamo
 
-**Fase attuale:** Fase 0 — preparazione
+**Fase attuale:** Fase 1 completata — il sito è online.
 
-Il progetto non è ancora stato creato. Sono state prese le decisioni di impostazione
-(vedi `00-CONCEPT.md`) e definito lo schema dei dati (`02-SCHEMA-DATI.md`).
+Il progetto Next.js di base è stato creato, pubblicato su GitHub
+(github.com/Kiurlo/one-piece-mappa) e collegato a Vercel. Il sito è raggiungibile su
+**one-piece-mappa.vercel.app** e mostra una pagina minima di benvenuto (nessuna mappa,
+nessuna isola ancora). Da ora ogni push su GitHub pubblica automaticamente la nuova
+versione su Vercel.
 
 ---
 
@@ -28,19 +31,17 @@ Il progetto non è ancora stato creato. Sono state prese le decisioni di imposta
 
 ## Prossimo passo
 
-**Fase 1 — il primo sito online.**
+**Fase 2 — lo sfondo mappa e la prima isola cliccabile.**
 
-Obiettivo: un sito raggiungibile da un link, con lo sfondo della mappa e **una sola isola
-cliccabile**. Brutto va benissimo. Deve solo esistere ed essere online.
+Obiettivo: aggiungere lo sfondo della mappa (provvisorio) e **una sola isola cliccabile**
+con la sua scheda informativa. Brutto va benissimo.
 
 Passi:
-1. Creare l'account GitHub e l'account Vercel
-2. Installare l'app Claude Desktop
-3. Far creare a Claude Code il progetto Next.js di base
-4. Pubblicare su Vercel — anche se la pagina è vuota
-5. Aggiungere lo sfondo mappa provvisorio
-6. Aggiungere una isola cliccabile con la sua scheda
-7. Ripubblicare
+1. Generare/preparare l'immagine di sfondo provvisoria della mappa
+2. Impostare lo strato SVG sopra lo sfondo, nello spazio-mappa astratto (0–10000 x 0–5000)
+3. Creare i primi file dati (`/data/luoghi.json`, `/content/it/luoghi.json`) con una sola isola
+4. Rendere l'isola cliccabile e mostrare una scheda con la sua descrizione
+5. Ripubblicare (basta un push su GitHub, Vercel fa il resto)
 
 ---
 
@@ -72,7 +73,7 @@ Passi:
 
 | Data | Tipo | Cosa è stato fatto |
 |---|---|---|
-| | | |
+| 2026-08-25 | Costruzione | Creato il progetto Next.js, pubblicato su GitHub e collegato a Vercel. Sito online (vuoto) su one-piece-mappa.vercel.app |
 
 **Tipi di sessione:**
 - **Costruzione** — si aggiunge una funzionalità; richiede un blocco di tempo; finisce online

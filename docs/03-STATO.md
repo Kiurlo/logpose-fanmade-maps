@@ -32,6 +32,12 @@ luoghi.
 nel tempo. Ogni isola aggiunta d'ora in poi nasce già con la sua forma, senza lavoro extra.
 Per vedere come funziona: aprire `docs/forme-isole.html` con un doppio clic.
 
+**La disposizione dello schermo è decisa** (vedi lo schema in `01-ARCHITETTURA.md`): fascia
+sinistra per le copertine, fascia destra per i filtri delle rotte, fascia in basso a tutta
+larghezza per la timeline, e ciò che resta è l'area mappa. Scheda del luogo e menu Info/Lingua
+**galleggiano** dentro l'area mappa senza rubarle spazio. Solo la fascia sinistra è costruita:
+le altre si faranno quando avranno contenuto, e i posti sono già segnati in `page.tsx`.
+
 **C'è una colonna fissa a sinistra (180 px)**, che oggi contiene solo il nome del progetto e il
 disclaimer sul copyright, ma serve soprattutto a **riservare lo spazio** per la barra delle
 copertine e i filtri. Conseguenza: la mappa non è larga quanto la finestra, e tutto ciò che si
@@ -83,6 +89,7 @@ riconoscibile per chi conosce l'opera.
 | Tema | Nota |
 |---|---|
 | Edizione italiana dei volumi | Da definire prima di catalogare i volumi |
+| **Copertine e timeline si sovrappongono come funzione?** | La barra copertine (concept #3) serve a navigare per volume; la timeline (concept #4) serve a dichiarare a che punto si è. **Sono due controlli basati entrambi sui volumi**, e il visitatore potrebbe confonderli. Da chiarire prima di costruirli: sono davvero due cose distinte, o uno solo che fa entrambe? |
 | Sfondo mappa | Provvisorio (oceano + Grand Line + Red Line disegnati da codice). Da migliorare in una sessione di tipo "Grafica" |
 | Fonte per le posizioni | Si usa una mappa fan-made come riferimento (vedi sotto). Serve una fonte più autorevole per marcare i luoghi come `canonica` invece che `stimata` |
 | Nome del progetto | Deciso: "Log Pose" (repository/URL: logpose-fanmade-maps) |
@@ -113,6 +120,7 @@ riconoscibile per chi conosce l'opera.
 | 2026-08-25 | Costruzione | Fase 2: aggiunto lo sfondo mappa (oceano) e la prima isola cliccabile (Villaggio di Fuschia) con scheda informativa. Selezione salvata nell'indirizzo del sito. Configurato Next.js in modalità completamente statica (`output: export`) |
 | 2026-08-25 | Costruzione | Implementate le forme generate delle isole (`src/lib/forme.ts`): dal nome nasce un contorno irregolare, sempre identico a parità di nome. Aggiunta la pagina illustrativa `docs/forme-isole.html` |
 | 2026-08-25 | Costruzione | Aggiunto lo schema per i luoghi annidati (`contenutoIn`) e il tipo `villaggio`. Aggiunta l'Isola Dawn, con il Villaggio di Foosha al suo interno; sulla mappa si disegna solo l'isola. Documentato come funzioneranno le forme delle isole. Centralizzata la scelta della lingua in `src/lib/contenuti.ts` |
+| 2026-08-25 | Costruzione | Decisa e documentata la **disposizione completa dello schermo** (fasce sinistra/destra/basso + area mappa), su domanda di Gabriele. Chiarito che il selettore delle rotte e i filtri per ciurma/personaggio sono lo stesso pannello. Le fasce vuote NON sono state costruite: solo predisposti i posti in `page.tsx` |
 | 2026-08-25 | Costruzione | Riservata la colonna sinistra (180 px) per la futura barra delle copertine, su indicazione di Gabriele che ha notato la collisione con la scheda. La colonna ospita intanto il nome del progetto e il **disclaimer sul copyright**, che il concept richiede e che mancava del tutto |
 | 2026-08-25 | Costruzione | La scheda del luogo si apre ora dal lato opposto rispetto al luogo (metà destra -> scheda a sinistra, e viceversa), così il luogo resta sempre visibile. Risolve il problema della scheda che copriva l'East Blue |
 | 2026-08-25 | Catalogazione | Prima posizione letta con la modalità mappatura: Isola Dawn spostata su 9440, 315 (rilevata da Gabriele). I contorni `path` sono ora **relativi al centro del luogo**, così spostare un luogo sposta anche il suo disegno |

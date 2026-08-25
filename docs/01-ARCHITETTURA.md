@@ -84,17 +84,59 @@ tipico — controllare sempre il quadrante prima di scrivere una coordinata.
 ## La disposizione dello schermo
 
 ```
-┌──────────┬───────────────────────────────────┐
-│  BARRA   │                                   │
-│  180 px  │           AREA MAPPA              │
-│  fissa   │      (tutto ciò che resta)        │
-│          │                                   │
-│ copertine│   la scheda del luogo si aggancia │
-│  filtri  │   QUI dentro, mai sopra la barra  │
-│          │                                   │
-│disclaimer│                                   │
-└──────────┴───────────────────────────────────┘
+┌──────────┬──────────────────────────────┬──────────┐
+│ SINISTRA │        [Info · Lingua] ──────┼──┐       │
+│  180 px  │                              │  │DESTRA │
+│  fissa   │         AREA MAPPA           │  │~220px │
+│          │   (la scheda galleggia qui)  │  │ rotte │
+│ copertine│                              │  │ciurme │
+│  volumi  │                              │  │person.│
+│          │                              │  │       │
+│disclaimer│                              │  │       │
+├──────────┴──────────────────────────────┴──┴───────┤
+│      TIMELINE — a che punto della storia sei       │
+└────────────────────────────────────────────────────┘
+   ✅ fatta        ✅ fatta          ⬜ da fare    ⬜ da fare
 ```
+
+**Le fasce e il perché di ciascuna:**
+
+| Fascia | Cosa ci va | Da dove viene |
+|---|---|---|
+| **Sinistra**, 180 px | copertine dei volumi, poi altri filtri; oggi nome e disclaimer | concept #3 |
+| **Destra**, ~220 px | scelta delle rotte da mostrare: per personaggio, ciurma, altro | concept #2 e #5 |
+| **In basso**, tutta larghezza | timeline e progresso no-spoiler | concept #4 |
+| **Area mappa** | ciò che resta | concept #1 |
+
+La timeline sta **sotto tutto e a tutta larghezza** perché il progresso no-spoiler governa ogni
+altra cosa: quali copertine mostrare, quali rotte esistono, quali luoghi compaiono. Comanda su
+tutto, quindi sta sotto tutto.
+
+**Scegliere le rotte è filtrare per personaggio.** Il "selettore delle rotte" e i "filtri per
+ciurma e personaggio" del concept sono lo stesso pannello, non due: sta nella fascia destra.
+
+### Cosa ruba spazio e cosa galleggia
+
+Distinzione importante, perché non tutti gli elementi vanno riservati:
+
+- **Rubano spazio** (restringono la mappa): le tre fasce qui sopra
+- **Galleggiano** sopra la mappa, senza cambiare la geometria: la **scheda del luogo** e il
+  **menu Info/Lingua** in alto a destra. Due o tre voci non meritano una fascia propria
+
+Tutto ciò che galleggia sta **dentro l'area mappa**, mai sopra le fasce laterali. È per questo
+che la regola "la scheda si apre dal lato opposto al luogo" continua a funzionare senza
+eccezioni anche quando le fasce ci saranno tutte.
+
+### Le fasce vuote non si costruiscono
+
+La fascia sinistra è stata fatta subito perché **portava contenuto vero** (nome del progetto e
+disclaimer obbligatorio). Le altre due si costruiranno quando avranno qualcosa dentro: riquadri
+vuoti con scritto "prossimamente" farebbero sembrare il sito un cantiere.
+
+Non è un rinvio rischioso, perché **il lavoro caro è già stato fatto**: la struttura è
+"l'area mappa è ciò che resta", quindi aggiungere una fascia riposiziona tutto da solo, e la
+lettura delle coordinate si aggiusta da sé (usa `getScreenCTM`, non calcoli sulla finestra).
+In `page.tsx` i posti sono già indicati come commenti.
 
 **La mappa non è larga quanto la finestra.** È la regola da tenere a mente: la colonna di
 sinistra è riservata alla barra delle copertine (vedi `00-CONCEPT.md`) e ai filtri, e la mappa

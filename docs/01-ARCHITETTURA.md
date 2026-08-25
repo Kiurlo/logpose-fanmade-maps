@@ -119,6 +119,15 @@ di dati, non di codice**. Si cambia un campo nel JSON e basta. Quindi si parte c
 `generata`, e le isole importanti si "promuovono" una alla volta, quando se ne ha voglia, in
 una sessione di tipo Catalogazione o Grafica. Nessuna fretta, nessuna riscrittura.
 
+> 📄 **Da vedere:** `docs/forme-isole.html` — apri il file con un doppio clic. Mostra sei
+> isole nate da sei nomi diversi, la stessa isola disegnata tre volte identica, e com'è fatto
+> davvero un contorno nei dati. Vale più di questa pagina di spiegazioni.
+
+**E in pratica, chi disegna?** Quasi mai nessuno. Le ~400 isole nascono tutte `generata`, cioè
+gratis. Per le poche isole iconiche che meritano il contorno vero, il lavoro non è "aprire un
+programma di disegno": si guarda una mappa di riferimento e si trascrivono i punti della costa —
+è il tipo di lavoro noioso e meccanico che si fa fare a Claude, non a mano.
+
 ## Il mondo si avvolge
 
 La Grand Line circonda il globo: sulla mappa piatta il bordo destro (x = 10000) e il bordo

@@ -27,6 +27,11 @@ I luoghi possono **stare dentro altri luoghi** (`contenutoIn`): sulla mappa comp
 Dawn, e dalla sua scheda si raggiunge il Villaggio di Foosha, e viceversa. Catalogati due
 luoghi.
 
+**Le isole non sono più cerchietti:** `forma: { tipo: "generata" }` è implementato
+(`src/lib/forme.ts`). Il codice ricava dal nome dell'isola un contorno irregolare e stabile
+nel tempo. Ogni isola aggiunta d'ora in poi nasce già con la sua forma, senza lavoro extra.
+Per vedere come funziona: aprire `docs/forme-isole.html` con un doppio clic.
+
 Il nome del progetto è **Log Pose** (dal dispositivo di navigazione della serie): scelto
 apposta per non usare "One Piece" o "Cappello di Paglia" nel nome pubblico, restando comunque
 riconoscibile per chi conosce l'opera.
@@ -44,17 +49,13 @@ riconoscibile per chi conosce l'opera.
 
 ## Prossimo passo
 
-**Fase 3 — proposta: le isole smettono di essere cerchietti.**
+**Fase 3 — proposta: qualche isola in più, poi lo zoom.**
 
-Le isole sono ancora pallini tondi. Il passo che cambia di più l'aspetto del sito, a parità di
-fatica, è implementare `forma: { tipo: "generata" }` — il codice che trasforma il seme di
-un'isola in un contorno frastagliato e stabile (vedi "Come si disegnano le isole" in
-`01-ARCHITETTURA.md`). Da lì in poi ogni isola aggiunta nasce già con una forma sua.
-
-Dopo, in ordine:
-1. Qualche isola in più dell'East Blue (le prime dell'avventura)
+1. Qualche isola in più dell'East Blue (le prime dell'avventura). Ognuna nasce già con la
+   sua forma: basta scrivere le cinque righe di JSON
 2. La prima rotta della ciurma di Cappello di Paglia fra quelle isole
-3. Lo zoom sulla mappa — che è ciò che farà comparire i luoghi contenuti (villaggi, città)
+3. Lo zoom sulla mappa — è ciò che farà comparire i luoghi contenuti (villaggi, città) e che
+   permetterà di apprezzare i contorni delle isole, oggi grandi pochi pixel
 
 ---
 
@@ -91,6 +92,7 @@ Dopo, in ordine:
 |---|---|---|
 | 2026-08-25 | Costruzione | Creato il progetto Next.js, pubblicato su GitHub e collegato a Vercel. Sito online (vuoto). Scelto il nome "Log Pose"; repository rinominato in logpose-fanmade-maps; progetto Vercel ricreato da zero per ottenere il link definitivo logpose-fanmade-maps.vercel.app (rinominare un progetto Vercel esistente non aggiorna da solo l'indirizzo *.vercel.app) |
 | 2026-08-25 | Costruzione | Fase 2: aggiunto lo sfondo mappa (oceano) e la prima isola cliccabile (Villaggio di Fuschia) con scheda informativa. Selezione salvata nell'indirizzo del sito. Configurato Next.js in modalità completamente statica (`output: export`) |
+| 2026-08-25 | Costruzione | Implementate le forme generate delle isole (`src/lib/forme.ts`): dal nome nasce un contorno irregolare, sempre identico a parità di nome. Aggiunta la pagina illustrativa `docs/forme-isole.html` |
 | 2026-08-25 | Costruzione | Aggiunto lo schema per i luoghi annidati (`contenutoIn`) e il tipo `villaggio`. Aggiunta l'Isola Dawn, con il Villaggio di Foosha al suo interno; sulla mappa si disegna solo l'isola. Documentato come funzioneranno le forme delle isole. Centralizzata la scelta della lingua in `src/lib/contenuti.ts` |
 | 2026-08-25 | Correzione | Il Villaggio di Fuschia era finito nel West Blue invece che nell'East Blue (errore segnalato da Gabriele confrontando con una mappa in rete). Corretta la coordinata e, soprattutto, **fissati i punti di ancoraggio dello spazio-mappa** in `01-ARCHITETTURA.md` perché non ricapiti. Aggiunti Grand Line, Red Line e nomi dei mari come riferimenti visibili. Creato `/content/it/ui.json` |
 

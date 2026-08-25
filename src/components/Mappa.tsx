@@ -11,6 +11,7 @@ import {
   SPESSORE_RED_LINE,
 } from "@/lib/geografia";
 import { ui } from "@/lib/contenuti";
+import { contornoGenerato } from "@/lib/forme";
 
 const RAGGIO_BASE = 90;
 
@@ -114,19 +115,31 @@ export default function Mappa({ luoghi, selezionato, onSeleziona }: MappaProps) 
       {luoghi.map((luogo) => {
         const raggio = RAGGIO_BASE * luogo.dimensione;
         const attivo = luogo.id === selezionato;
+
+        // Due sole possibilità: il contorno è tracciato a mano nei dati,
+        // oppure lo genera il codice dal seme. Vedi src/lib/forme.ts
+        const contorno =
+          luogo.forma.tipo === "path"
+            ? luogo.forma.d
+            : contornoGenerato(
+                luogo.forma.seme,
+                luogo.coordinate.x,
+                luogo.coordinate.y,
+                raggio,
+              );
+
         return (
           <g
             key={luogo.id}
             onClick={() => onSeleziona(luogo.id)}
             className="cursor-pointer"
           >
-            <circle
-              cx={luogo.coordinate.x}
-              cy={luogo.coordinate.y}
-              r={raggio}
+            <path
+              d={contorno}
               fill={COLORE_ISOLA}
               stroke={attivo ? "#ffffff" : "#3f2a14"}
               strokeWidth={attivo ? 24 : 12}
+              strokeLinejoin="round"
             />
             <text
               x={luogo.coordinate.x}

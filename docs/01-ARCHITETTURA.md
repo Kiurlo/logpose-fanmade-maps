@@ -55,6 +55,32 @@ Tutti i luoghi hanno coordinate in questo spazio. Il renderer converte in pixel 
 Conseguenza: si può ridisegnare la mappa, cambiare risoluzione o passare a un sistema a tiles
 **senza toccare un solo dato**.
 
+### I punti di ancoraggio
+
+Uno spazio astratto non serve a nulla se poi le isole si piazzano a occhio. Questi sono i
+riferimenti fissi a cui agganciare ogni nuova coordinata:
+
+| Riferimento | Coordinata | Perché |
+|---|---|---|
+| **Grand Line** | corre lungo `y = 2500` | è la fascia orizzontale che taglia il mondo a metà |
+| **Reverse Mountain** | `x = 5000, y = 2500` | primo incrocio fra Red Line e Grand Line |
+| **Mary Geoise / Isola degli Uomini-Pesce** | `x = 0` (= `x = 10000`), `y = 2500` | secondo incrocio, agli antipodi: **è qui che il mondo si avvolge** |
+
+Ne discendono i quattro mari, uno per quadrante:
+
+```
+        x: 0 ────────── 5000 ────────── 10000
+y: 0     │  North Blue   │   East Blue    │
+         │               │                │
+y: 2500  ├─── Grand Line ─── Grand Line ──┤
+         │               │                │
+y: 5000  │  West Blue    │   South Blue   │
+```
+
+Il seme dell'avventura (Isola Dawn, Villaggio di Fuschia) sta nell'**East Blue**: quadrante
+in alto a destra. Mettere per sbaglio un luogo dell'East Blue in basso a sinistra è l'errore
+tipico — controllare sempre il quadrante prima di scrivere una coordinata.
+
 ## Il mondo si avvolge
 
 La Grand Line circonda il globo: sulla mappa piatta il bordo destro (x = 10000) e il bordo

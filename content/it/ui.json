@@ -1,0 +1,18 @@
+{
+  "mari": {
+    "north-blue": "North Blue",
+    "east-blue": "East Blue",
+    "west-blue": "West Blue",
+    "south-blue": "South Blue",
+    "grand-line": "Grand Line",
+    "red-line": "Red Line"
+  },
+  "mappa": {
+    "titoloAccessibile": "Mappa del mondo di One Piece"
+  },
+  "scheda": {
+    "chiudi": "Chiudi scheda",
+    "rivelatoAlCapitolo": "Rivelato al capitolo",
+    "posizioneStimata": "posizione stimata"
+  }
+}

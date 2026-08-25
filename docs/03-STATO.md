@@ -20,6 +20,9 @@ nell'indirizzo del sito (`?luogo=foosha-village`), quindi è un link condivisibi
 Il sito è configurato come **completamente statico** (nessun server, come da regola non
 negoziabile): Next.js genera solo file HTML/CSS/JS fissi.
 
+Sulla mappa sono ora visibili i riferimenti geografici — Grand Line, Red Line e i nomi dei
+quattro mari — così si vede a colpo d'occhio se un luogo è nel quadrante giusto.
+
 Il nome del progetto è **Log Pose** (dal dispositivo di navigazione della serie): scelto
 apposta per non usare "One Piece" o "Cappello di Paglia" nel nome pubblico, restando comunque
 riconoscibile per chi conosce l'opera.
@@ -55,7 +58,8 @@ vera, sempre generata da codice.
 | Tema | Nota |
 |---|---|
 | Edizione italiana dei volumi | Da definire prima di catalogare i volumi |
-| Sfondo mappa | Da generare; prompt da preparare |
+| Sfondo mappa | Provvisorio (oceano + Grand Line + Red Line disegnati da codice). Da migliorare in una sessione di tipo "Grafica" |
+| Fonte per le posizioni | Si usa una mappa fan-made come riferimento (vedi sotto). Serve una fonte più autorevole per marcare i luoghi come `canonica` invece che `stimata` |
 | Nome del progetto | Deciso: "Log Pose" (repository/URL: logpose-fanmade-maps) |
 | Dominio | Rimandato di proposito |
 
@@ -81,6 +85,7 @@ vera, sempre generata da codice.
 |---|---|---|
 | 2026-08-25 | Costruzione | Creato il progetto Next.js, pubblicato su GitHub e collegato a Vercel. Sito online (vuoto). Scelto il nome "Log Pose"; repository rinominato in logpose-fanmade-maps; progetto Vercel ricreato da zero per ottenere il link definitivo logpose-fanmade-maps.vercel.app (rinominare un progetto Vercel esistente non aggiorna da solo l'indirizzo *.vercel.app) |
 | 2026-08-25 | Costruzione | Fase 2: aggiunto lo sfondo mappa (oceano) e la prima isola cliccabile (Villaggio di Fuschia) con scheda informativa. Selezione salvata nell'indirizzo del sito. Configurato Next.js in modalità completamente statica (`output: export`) |
+| 2026-08-25 | Correzione | Il Villaggio di Fuschia era finito nel West Blue invece che nell'East Blue (errore segnalato da Gabriele confrontando con una mappa in rete). Corretta la coordinata e, soprattutto, **fissati i punti di ancoraggio dello spazio-mappa** in `01-ARCHITETTURA.md` perché non ricapiti. Aggiunti Grand Line, Red Line e nomi dei mari come riferimenti visibili. Creato `/content/it/ui.json` |
 
 **Tipi di sessione:**
 - **Costruzione** — si aggiunge una funzionalità; richiede un blocco di tempo; finisce online
@@ -89,6 +94,37 @@ vera, sempre generata da codice.
 
 ---
 
+## Fonti per le posizioni
+
+Come riferimento per collocare i luoghi si usano mappe del mondo di One Piece reperibili in
+rete (attualmente una mappa fan-made in italiano, firmata @Sharpsider).
+
+**Due regole nell'usarle:**
+
+1. **Solo le posizioni, mai il disegno.** Le posizioni geografiche sono fatti e si possono
+   leggere da qualsiasi fonte; l'artwork appartiene a chi l'ha disegnato. La nostra mappa
+   resta generata dal codice — nessuna immagine altrui va copiata nel progetto o pubblicata.
+2. **Fan-made ≠ canonico.** Una mappa amatoriale è l'interpretazione di un fan, non una fonte
+   ufficiale. Finché la posizione viene da lì, il luogo va marcato `precisione: "stimata"`.
+   Questo è esattamente il principio di onestà del progetto: dichiarare ciò che non si sa.
+
+**Attenzione ai nomi:** le mappe italiane in rete usano i nomi dell'edizione italiana
+("Isola Dawn", "Regno di Arabasta"). Gli `id` devono restare basati sul nome internazionale
+(`dawn-island`, `arabasta-kingdom`) — vedi la convenzione in `02-SCHEMA-DATI.md`.
+
+---
+
 ## Problemi noti
 
-_(nessuno, per ora)_
+**L'HTML pubblicato è vuoto: la mappa la disegna il browser.**
+Il file `index.html` generato pesa ~7 KB e non contiene né le isole né i nomi dei mari: tutto
+viene costruito da JavaScript una volta aperta la pagina. Il sito funziona normalmente per chi
+lo visita, ma **i motori di ricerca e le anteprime dei link non vedono alcun contenuto**.
+Causa: la lettura della selezione dall'indirizzo (`useSearchParams`) impedisce a Next.js di
+pre-disegnare la pagina. Sistemabile disegnando la mappa lato build e lasciando al browser solo
+la gestione del clic. Non urgente, ma da affrontare prima di far conoscere il sito in giro.
+
+**Il sito online non è verificabile in automatico da Claude.**
+Vercel protegge il sito con un controllo anti-bot ("Security Checkpoint") che blocca il browser
+automatico e `curl`. In locale Claude verifica tutto da solo; **per il sito pubblicato serve
+che sia una persona a guardarlo e confermare.**

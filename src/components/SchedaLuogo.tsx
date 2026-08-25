@@ -1,6 +1,7 @@
 "use client";
 
 import type { Luogo, TestoLuogo } from "@/lib/tipi";
+import ui from "@content/it/ui.json";
 
 interface SchedaLuogoProps {
   luogo: Luogo & TestoLuogo;
@@ -13,7 +14,7 @@ export default function SchedaLuogo({ luogo, onChiudi }: SchedaLuogoProps) {
       <button
         onClick={onChiudi}
         className="float-right text-xl leading-none text-zinc-400 hover:text-zinc-700"
-        aria-label="Chiudi scheda"
+        aria-label={ui.scheda.chiudi}
       >
         ×
       </button>
@@ -22,8 +23,8 @@ export default function SchedaLuogo({ luogo, onChiudi }: SchedaLuogoProps) {
       <p className="mt-4 text-zinc-700">{luogo.descrizione}</p>
       <p className="mt-4 text-sm italic text-zinc-500">{luogo.curiosita}</p>
       <p className="mt-6 text-xs text-zinc-400">
-        Rivelato al capitolo {luogo.rivelatoAlCapitolo}
-        {luogo.precisione === "stimata" && " — posizione stimata"}
+        {ui.scheda.rivelatoAlCapitolo} {luogo.rivelatoAlCapitolo}
+        {luogo.precisione === "stimata" && ` — ${ui.scheda.posizioneStimata}`}
       </p>
     </aside>
   );

@@ -13,10 +13,14 @@
 **Fase attuale:** Fase 1 completata — il sito è online.
 
 Il progetto Next.js di base è stato creato, pubblicato su GitHub
-(github.com/Kiurlo/one-piece-mappa) e collegato a Vercel. Il sito è raggiungibile su
-**one-piece-mappa.vercel.app** e mostra una pagina minima di benvenuto (nessuna mappa,
+(github.com/Kiurlo/logpose-fanmade-maps) e collegato a Vercel. Il sito è raggiungibile su
+**logpose-fanmade-maps.vercel.app** e mostra una pagina minima di benvenuto (nessuna mappa,
 nessuna isola ancora). Da ora ogni push su GitHub pubblica automaticamente la nuova
 versione su Vercel.
+
+Il nome del progetto è **Log Pose** (dal dispositivo di navigazione della serie): scelto
+apposta per non usare "One Piece" o "Cappello di Paglia" nel nome pubblico, restando comunque
+riconoscibile per chi conosce l'opera.
 
 ---
 
@@ -51,7 +55,8 @@ Passi:
 |---|---|
 | Edizione italiana dei volumi | Da definire prima di catalogare i volumi |
 | Sfondo mappa | Da generare; prompt da preparare |
-| Nome del progetto / dominio | Rimandato di proposito |
+| Nome del progetto | Deciso: "Log Pose" (repository/URL: logpose-fanmade-maps) |
+| Dominio | Rimandato di proposito |
 
 ---
 
@@ -73,7 +78,7 @@ Passi:
 
 | Data | Tipo | Cosa è stato fatto |
 |---|---|---|
-| 2026-08-25 | Costruzione | Creato il progetto Next.js, pubblicato su GitHub e collegato a Vercel. Sito online (vuoto) su one-piece-mappa.vercel.app |
+| 2026-08-25 | Costruzione | Creato il progetto Next.js, pubblicato su GitHub e collegato a Vercel. Sito online (vuoto). Scelto il nome "Log Pose" (repository rinominato in logpose-fanmade-maps) |
 
 **Tipi di sessione:**
 - **Costruzione** — si aggiunge una funzionalità; richiede un blocco di tempo; finisce online

@@ -148,7 +148,8 @@ la gestione del clic. Non urgente, ma da affrontare prima di far conoscere il si
 Si apre a destra e nasconde proprio l'East Blue. Fastidio minore adesso con due luoghi, da
 risolvere quando ci sarà lo zoom (allora la mappa potrà spostarsi per lasciare spazio).
 
-**Il sito online non è verificabile in automatico da Claude.**
-Vercel protegge il sito con un controllo anti-bot ("Security Checkpoint") che blocca il browser
-automatico e `curl`. In locale Claude verifica tutto da solo; **per il sito pubblicato serve
-che sia una persona a guardarlo e confermare.**
+**Il sito online si verifica solo a metà in automatico.**
+Il browser automatico di Claude non riesce a visualizzare il sito pubblicato (a volte Vercel
+risponde con un controllo anti-bot). Claude può però **leggere il sito con `curl` e cercare i
+dati dentro il codice pubblicato**, quindi può confermare che una modifica sia davvero online.
+Per *guardare* il sito con gli occhi serve una persona.

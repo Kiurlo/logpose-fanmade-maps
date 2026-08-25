@@ -295,6 +295,60 @@ esistono campi "volume" o "episodio" sulle entità: esiste solo `rivelatoAlCapit
 L'utente può esprimersi come preferisce ("sono al volume 62", "sono all'episodio 500");
 l'interfaccia converte, il motore lavora sempre in capitoli.
 
+### Un solo strumento di navigazione, tre modi di esprimersi
+
+Non tutti seguono One Piece allo stesso modo: c'è chi legge il manga, chi guarda l'anime, chi è
+arrivato dalla serie Netflix. Una navigazione basata solo sulle copertine dei volumi
+escluderebbe due terzi del pubblico.
+
+Quindi **un unico controllo del progresso**, con l'unità scelta dall'utente:
+
+```
+NIENTE SPOILER — dove sei arrivato?
+
+  [ Volume ▾ ]  [ 62 ▾ ]
+    Volume        → tabella volumi.json
+    Episodio      → tabella episodi.json
+    Netflix       → tabella netflix.json  (stagione + puntata)
+    Ho letto tutto → nessun filtro
+```
+
+Qualunque scelta viene convertita in **un numero di capitolo** e da lì in poi il motore non sa
+più nulla di volumi o puntate. Aggiungere un'unità nuova è **una tabella di conversione in più**,
+mai una modifica all'impianto.
+
+**La voce "Ho letto tutto" non è opzionale:** senza, chi è in pari dovrebbe selezionare l'ultimo
+volume ogni volta, e chi vuole solo curiosare non saprebbe cosa scegliere.
+
+**Le tre unità non hanno la stessa precisione.** Un volume vale ~10 capitoli, un episodio ~2, una
+puntata Netflix molti di più. Con Netflix il filtro è quindi grossolano: è accettabile, ma va
+detto all'utente invece di far finta che sia preciso.
+
+**Attenzione all'edizione.** "Volume 62" non significa nulla senza sapere di quale edizione, e
+le numerazioni italiane possono differire da quelle giapponesi — vale anche per l'anime.
+L'interfaccia deve dichiarare l'edizione di riferimento, non lasciarla implicita.
+
+### Il primo ingresso, e perché l'URL fa da memoria
+
+Il progetto non usa cookie (regola 7), quindi **la scelta del progresso non può essere
+ricordata** da una visita all'altra. Il problema si risolve con la regola 8: lo stato sta
+nell'URL.
+
+```
+?progresso=v62      volume 62
+?progresso=e500     episodio 500
+?progresso=n1e8     Netflix stagione 1 puntata 8
+(assente)           nessun filtro: si vede tutto
+```
+
+Impostato il progresso, **l'indirizzo diventa il segnalibro**: chi lo salva ritrova il proprio
+punto a ogni ritorno, senza tracciamento e senza banner. In più è condivisibile.
+
+**All'ingresso, senza progresso indicato, si vede tutto** — una mappa vuota sembrerebbe un sito
+rotto. Ma il controllo dev'essere impossibile da ignorare e dichiarare la situazione a chiare
+lettere ("stai vedendo tutta la storia"). È lo stesso principio di onestà che vale per le
+posizioni incerte: il sito dice cosa sta facendo, invece di far finta.
+
 ## Stato nell'URL
 
 Lingua, progresso, filtri attivi e luogo selezionato vivono nella query string:

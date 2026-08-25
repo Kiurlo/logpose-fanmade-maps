@@ -88,8 +88,9 @@ riconoscibile per chi conosce l'opera.
 
 | Tema | Nota |
 |---|---|
-| Edizione italiana dei volumi | Da definire prima di catalogare i volumi |
-| **Copertine e timeline si sovrappongono come funzione?** | La barra copertine (concept #3) serve a navigare per volume; la timeline (concept #4) serve a dichiarare a che punto si è. **Sono due controlli basati entrambi sui volumi**, e il visitatore potrebbe confonderli. Da chiarire prima di costruirli: sono davvero due cose distinte, o uno solo che fa entrambe? |
+| **Edizione di riferimento (volumi e anime)** | Ora **urgente**: il menù del progresso deve dichiarare all'utente di quale edizione parla. Vale sia per i volumi italiani sia per la numerazione degli episodi |
+| ~~Copertine e timeline si sovrappongono?~~ | **Risolto**: un unico strumento di navigazione, con l'unità scelta dall'utente (Volume / Episodio / Netflix / Ho letto tutto). Vedi `01-ARCHITETTURA.md`. Resta da decidere se la barra copertine sopravvive come vista aggiuntiva o sparisce |
+| Netflix: fin dove arriva | Serve stabilire quali capitoli copre ogni puntata, e aggiornare la tabella quando escono nuove stagioni |
 | Sfondo mappa | Provvisorio (oceano + Grand Line + Red Line disegnati da codice). Da migliorare in una sessione di tipo "Grafica" |
 | Fonte per le posizioni | Si usa una mappa fan-made come riferimento (vedi sotto). Serve una fonte più autorevole per marcare i luoghi come `canonica` invece che `stimata` |
 | Nome del progetto | Deciso: "Log Pose" (repository/URL: logpose-fanmade-maps) |
@@ -120,6 +121,7 @@ riconoscibile per chi conosce l'opera.
 | 2026-08-25 | Costruzione | Fase 2: aggiunto lo sfondo mappa (oceano) e la prima isola cliccabile (Villaggio di Fuschia) con scheda informativa. Selezione salvata nell'indirizzo del sito. Configurato Next.js in modalità completamente statica (`output: export`) |
 | 2026-08-25 | Costruzione | Implementate le forme generate delle isole (`src/lib/forme.ts`): dal nome nasce un contorno irregolare, sempre identico a parità di nome. Aggiunta la pagina illustrativa `docs/forme-isole.html` |
 | 2026-08-25 | Costruzione | Aggiunto lo schema per i luoghi annidati (`contenutoIn`) e il tipo `villaggio`. Aggiunta l'Isola Dawn, con il Villaggio di Foosha al suo interno; sulla mappa si disegna solo l'isola. Documentato come funzioneranno le forme delle isole. Centralizzata la scelta della lingua in `src/lib/contenuti.ts` |
+| 2026-08-25 | Decisione | **Un solo strumento di navigazione** invece della sola barra copertine: l'utente sceglie l'unità (Volume / Episodio / Netflix / Ho letto tutto) e tutto viene convertito in capitoli. Idea di Gabriele, per non escludere chi segue l'anime o Netflix. Definito anche il comportamento al primo ingresso e l'URL come segnalibro al posto dei cookie. Nessun codice scritto: solo decisioni, in `01-ARCHITETTURA.md` |
 | 2026-08-25 | Costruzione | Decisa e documentata la **disposizione completa dello schermo** (fasce sinistra/destra/basso + area mappa), su domanda di Gabriele. Chiarito che il selettore delle rotte e i filtri per ciurma/personaggio sono lo stesso pannello. Le fasce vuote NON sono state costruite: solo predisposti i posti in `page.tsx` |
 | 2026-08-25 | Costruzione | Riservata la colonna sinistra (180 px) per la futura barra delle copertine, su indicazione di Gabriele che ha notato la collisione con la scheda. La colonna ospita intanto il nome del progetto e il **disclaimer sul copyright**, che il concept richiede e che mancava del tutto |
 | 2026-08-25 | Costruzione | La scheda del luogo si apre ora dal lato opposto rispetto al luogo (metà destra -> scheda a sinistra, e viceversa), così il luogo resta sempre visibile. Risolve il problema della scheda che copriva l'East Blue |

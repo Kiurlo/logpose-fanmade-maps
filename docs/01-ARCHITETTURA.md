@@ -128,6 +128,22 @@ gratis. Per le poche isole iconiche che meritano il contorno vero, il lavoro non
 programma di disegno": si guarda una mappa di riferimento e si trascrivono i punti della costa —
 è il tipo di lavoro noioso e meccanico che si fa fare a Claude, non a mano.
 
+### Come si dà a un'isola una forma decisa da noi
+
+Procedimento già collaudato (l'Isola Dawn è stata fatta così):
+
+1. **Si fornisce un riferimento visivo** a Claude: un'immagine, uno schizzo, anche approssimativo
+2. **Claude ricalca il contorno in punti**, espressi in modo relativo (0 = bordo sinistro della
+   forma, 1 = bordo destro), così la traccia si può riusare a qualsiasi dimensione
+3. **I punti vengono trasformati** in coordinate dello spazio-mappa e uniti con la stessa curva
+   morbida usata dalle forme generate
+4. **Si guarda il risultato e si corregge a parole**: "la rientranza in basso è troppo profonda",
+   "a destra sporge troppo". Ogni giro dura un minuto
+
+**Aspettarsi due o tre giri.** Ricalcare a occhio da un'immagine non viene mai giusto al primo
+colpo, ed è normale: correggere costa pochissimo perché cambia solo un campo nel JSON, mai il
+codice.
+
 ## Il mondo si avvolge
 
 La Grand Line circonda il globo: sulla mappa piatta il bordo destro (x = 10000) e il bordo

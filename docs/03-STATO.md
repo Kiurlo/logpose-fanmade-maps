@@ -32,6 +32,10 @@ luoghi.
 nel tempo. Ogni isola aggiunta d'ora in poi nasce già con la sua forma, senza lavoro extra.
 Per vedere come funziona: aprire `docs/forme-isole.html` con un doppio clic.
 
+**L'Isola Dawn ha una forma scelta da noi** (`tipo: "path"`): ricalcata da un'immagine di
+riferimento fornita da Gabriele. È la prova che entrambi i meccanismi funzionano e che passare
+dall'uno all'altro tocca solo i dati. Il procedimento è descritto in `01-ARCHITETTURA.md`.
+
 Il nome del progetto è **Log Pose** (dal dispositivo di navigazione della serie): scelto
 apposta per non usare "One Piece" o "Cappello di Paglia" nel nome pubblico, restando comunque
 riconoscibile per chi conosce l'opera.

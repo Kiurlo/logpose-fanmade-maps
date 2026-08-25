@@ -167,15 +167,14 @@ export default function Mappa({
 
         // Due sole possibilità: il contorno è tracciato a mano nei dati,
         // oppure lo genera il codice dal seme. Vedi src/lib/forme.ts
+        //
+        // In entrambi i casi il contorno è disegnato attorno all'origine (0,0)
+        // e poi spostato al suo posto: così cambiare `coordinate` sposta anche
+        // la forma, invece di lasciarla indietro.
         const contorno =
           luogo.forma.tipo === "path"
             ? luogo.forma.d
-            : contornoGenerato(
-                luogo.forma.seme,
-                luogo.coordinate.x,
-                luogo.coordinate.y,
-                raggio,
-              );
+            : contornoGenerato(luogo.forma.seme, 0, 0, raggio);
 
         return (
           <g
@@ -188,6 +187,7 @@ export default function Mappa({
           >
             <path
               d={contorno}
+              transform={`translate(${luogo.coordinate.x} ${luogo.coordinate.y})`}
               fill={COLORE_ISOLA}
               stroke={attivo ? "#ffffff" : "#3f2a14"}
               strokeWidth={attivo ? 24 : 12}

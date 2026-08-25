@@ -53,11 +53,27 @@ Gli id sono tecnici e non vengono mostrati agli utenti.
 | `ancoraggioNarrativo` | numero \| `null` | solo per contenuti non canonici: dove si collocano nella cronologia |
 | `contenutoIn` | id di un altro luogo \| `null` | il luogo che lo contiene. `null` = luogo di primo livello |
 | `dimensione` | numero, 1.0 = media | scala visiva sulla mappa |
-| `forma` | `{ tipo: "generata", seme: id }` oppure `{ tipo: "path", d: "..." }` | forme generate all'inizio, disegnate a mano solo per i luoghi importanti |
+| `forma` | `{ tipo: "generata", seme: id }` oppure `{ tipo: "path", d: "..." }` | forme generate all'inizio, disegnate a mano solo per i luoghi importanti. **Il `path` è relativo al centro del luogo**, non assoluto: vedi sotto |
 
 **Attenzione su `rivelatoAlCapitolo`:** è il capitolo in cui il luogo diventa noto al *lettore*,
 non quello in cui la ciurma ci arriva. Un'isola nominata al capitolo 100 e visitata al 200 ha
 valore 100.
+
+### Il contorno è relativo al centro del luogo
+
+I numeri dentro `forma.d` **non sono coordinate della mappa**: sono scostamenti dal centro del
+luogo, come se il luogo stesse in `0, 0`.
+
+```json
+"coordinate": { "x": 9440, "y": 315 },
+"forma": { "tipo": "path", "d": "M -60.5 -62.4 C -69.3 -60.6, ..." }
+```
+
+Il motivo è pratico: così **spostare un luogo sposta anche il suo disegno.** Se il contorno
+fosse in coordinate assolute, cambiare `coordinate` sposterebbe l'etichetta lasciando la forma
+indietro — e succederebbe ogni volta che si affina una posizione, cioè spesso.
+
+Conseguenza utile: lo stesso contorno si può riusare altrove cambiando solo `coordinate`.
 
 ### I luoghi stanno dentro altri luoghi
 

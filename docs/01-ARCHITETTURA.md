@@ -77,7 +77,7 @@ y: 2500  ├─── Grand Line ─── Grand Line ──┤
 y: 5000  │  West Blue    │   South Blue   │
 ```
 
-Il seme dell'avventura (Isola Dawn, Villaggio di Fuschia) sta nell'**East Blue**: quadrante
+Il seme dell'avventura (Isola Dawn, Villaggio di Foosha) sta nell'**East Blue**: quadrante
 in alto a destra. Mettere per sbaglio un luogo dell'East Blue in basso a sinistra è l'errore
 tipico — controllare sempre il quadrante prima di scrivere una coordinata.
 
@@ -151,14 +151,35 @@ cartografi: si mette sotto una mappa di riferimento, si legge dove stanno le cos
 
 **Come si usa:**
 
-1. Salvare l'immagine in `public/riferimento/mappa.jpg`
+1. Salvare l'immagine in `public/riferimento/mappa.jpg`, **già ritagliata** di eventuali
+   cornici decorative (si fa una volta sola con un qualsiasi programma di fotoritocco)
 2. Avviare il sito in locale e aprire `http://localhost:3000/?mappatura=1`
-3. Con i comandi in basso a sinistra, **allineare il riferimento sulle guide**: la sua Grand
-   Line sopra la nostra, la sua Reverse Mountain sopra la nostra banda centrale. In modalità
-   mappatura le guide diventano trasparenti apposta, per vedere entrambe
+3. L'allineamento è già impostato nei valori predefiniti: non serve toccare nulla
 4. Passare il puntatore: le coordinate si leggono in tempo reale. **Cliccare copia** il campo
    già pronto da incollare in `luoghi.json`
 5. Finito di catalogare, si chiude la modalità. Non c'è niente da "togliere"
+
+### L'allineamento non si fa a occhio
+
+A occhio la mappa di riferimento sembra combaciare, ma non combacia: quella attualmente in uso
+ha la Grand Line al **53,92%** dell'altezza invece del 50%, e la Red Line centrale al **48,32%**
+della larghezza invece del 50%. Piccolezze all'apparenza — ma significano ogni luogo spostato di
+circa 200 unità in basso e 170 a sinistra, **su tutte le schede**. Un errore sistematico, cioè il
+peggiore, perché è invisibile e uniforme.
+
+I valori predefiniti in `MappaPagina.tsx` correggono esattamente questo scarto.
+
+**Se si cambia immagine di riferimento vanno rimisurati.** Il metodo: si analizzano i pixel
+dell'immagine cercando la banda chiara orizzontale (Grand Line) e la banda verticale rossastra
+(Red Line), se ne ricava la posizione in frazione di larghezza/altezza, poi si risolve:
+
+```
+Sinistra + frazioneRedLine  × Larghezza = 5000     (Red Line su x = 5000)
+Alto     + frazioneGrandLine × Altezza  = 2500     (Grand Line su y = 2500)
+```
+
+scegliendo Larghezza e Altezza abbastanza grandi da coprire comunque tutta la mappa. Chiedere a
+Claude di rifare la misura: è lavoro da poche righe di script.
 
 **Perché il riferimento non entra mai nel progetto**
 

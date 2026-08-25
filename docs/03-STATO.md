@@ -10,13 +10,15 @@
 
 ## A che punto siamo
 
-**Fase attuale:** Fase 1 completata — il sito è online.
+**Fase attuale:** Fase 2 completata — prima isola cliccabile online.
 
-Il progetto Next.js di base è stato creato, pubblicato su GitHub
-(github.com/Kiurlo/logpose-fanmade-maps) e collegato a Vercel. Il sito è raggiungibile su
-**logpose-fanmade-maps.vercel.app** e mostra una pagina minima di benvenuto (nessuna mappa,
-nessuna isola ancora). Da ora ogni push su GitHub pubblica automaticamente la nuova
-versione su Vercel.
+Il sito (**logpose-fanmade-maps.vercel.app**) mostra ora una mappa vera: uno sfondo oceano
+a tutto schermo e un'isola cliccabile, il Villaggio di Fuschia. Cliccandola si apre una
+scheda con nome, descrizione e capitolo di prima apparizione. La selezione resta
+nell'indirizzo del sito (`?luogo=foosha-village`), quindi è un link condivisibile.
+
+Il sito è configurato come **completamente statico** (nessun server, come da regola non
+negoziabile): Next.js genera solo file HTML/CSS/JS fissi.
 
 Il nome del progetto è **Log Pose** (dal dispositivo di navigazione della serie): scelto
 apposta per non usare "One Piece" o "Cappello di Paglia" nel nome pubblico, restando comunque
@@ -35,17 +37,16 @@ riconoscibile per chi conosce l'opera.
 
 ## Prossimo passo
 
-**Fase 2 — lo sfondo mappa e la prima isola cliccabile.**
+**Fase 3 — proposta: qualche isola in più e le prime rotte.**
 
-Obiettivo: aggiungere lo sfondo della mappa (provvisorio) e **una sola isola cliccabile**
-con la sua scheda informativa. Brutto va benissimo.
+Idee per la prossima sessione (da confermare insieme prima di iniziare):
+1. Aggiungere 3-4 isole in più dell'East Blue (le prime dell'avventura)
+2. Disegnare la prima rotta della ciurma di Cappello di Paglia fra quelle isole
+3. Iniziare a pensare a uno sfondo mappa meno "piatto" (ancora generato da codice, non artwork copiato)
 
-Passi:
-1. Generare/preparare l'immagine di sfondo provvisoria della mappa
-2. Impostare lo strato SVG sopra lo sfondo, nello spazio-mappa astratto (0–10000 x 0–5000)
-3. Creare i primi file dati (`/data/luoghi.json`, `/content/it/luoghi.json`) con una sola isola
-4. Rendere l'isola cliccabile e mostrare una scheda con la sua descrizione
-5. Ripubblicare (basta un push su GitHub, Vercel fa il resto)
+Nota tecnica per dopo: l'attuale sfondo oceano è un semplice rettangolo colorato — va bene
+come base, ma prima o poi (sessione di tipo "Grafica") si potrà rendere più simile a una mappa
+vera, sempre generata da codice.
 
 ---
 
@@ -64,7 +65,7 @@ Passi:
 
 | Categoria | Fatti | Stimati totali |
 |---|---|---|
-| Luoghi | 0 | ~400 |
+| Luoghi | 1 | ~400 |
 | Personaggi | 0 | ~100 |
 | Ciurme | 0 | ~20 |
 | Rotte | 0 | ~15 |
@@ -79,6 +80,7 @@ Passi:
 | Data | Tipo | Cosa è stato fatto |
 |---|---|---|
 | 2026-08-25 | Costruzione | Creato il progetto Next.js, pubblicato su GitHub e collegato a Vercel. Sito online (vuoto). Scelto il nome "Log Pose"; repository rinominato in logpose-fanmade-maps; progetto Vercel ricreato da zero per ottenere il link definitivo logpose-fanmade-maps.vercel.app (rinominare un progetto Vercel esistente non aggiorna da solo l'indirizzo *.vercel.app) |
+| 2026-08-25 | Costruzione | Fase 2: aggiunto lo sfondo mappa (oceano) e la prima isola cliccabile (Villaggio di Fuschia) con scheda informativa. Selezione salvata nell'indirizzo del sito. Configurato Next.js in modalità completamente statica (`output: export`) |
 
 **Tipi di sessione:**
 - **Costruzione** — si aggiunge una funzionalità; richiede un blocco di tempo; finisce online

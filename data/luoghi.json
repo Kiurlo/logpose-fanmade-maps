@@ -1,0 +1,16 @@
+[
+  {
+    "id": "foosha-village",
+    "coordinate": { "x": 480, "y": 3850 },
+    "precisione": "stimata",
+    "tipo": "citta",
+    "mare": "east-blue",
+    "canone": "manga",
+    "rivelatoAlCapitolo": 1,
+    "ancoraggioNarrativo": null,
+    "archi": ["romance-dawn"],
+    "dimensione": 1.0,
+    "forma": { "tipo": "generata", "seme": "foosha-village" },
+    "immagini": []
+  }
+]

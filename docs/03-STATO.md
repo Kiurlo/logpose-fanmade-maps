@@ -78,7 +78,7 @@ Passi:
 
 | Data | Tipo | Cosa è stato fatto |
 |---|---|---|
-| 2026-08-25 | Costruzione | Creato il progetto Next.js, pubblicato su GitHub e collegato a Vercel. Sito online (vuoto). Scelto il nome "Log Pose" (repository rinominato in logpose-fanmade-maps) |
+| 2026-08-25 | Costruzione | Creato il progetto Next.js, pubblicato su GitHub e collegato a Vercel. Sito online (vuoto). Scelto il nome "Log Pose"; repository rinominato in logpose-fanmade-maps; progetto Vercel ricreato da zero per ottenere il link definitivo logpose-fanmade-maps.vercel.app (rinominare un progetto Vercel esistente non aggiorna da solo l'indirizzo *.vercel.app) |
 
 **Tipi di sessione:**
 - **Costruzione** — si aggiunge una funzionalità; richiede un blocco di tempo; finisce online

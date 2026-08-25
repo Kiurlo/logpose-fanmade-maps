@@ -6,6 +6,7 @@ import Mappa, { type Riferimento } from "@/components/Mappa";
 import PannelloMappatura from "@/components/PannelloMappatura";
 import SchedaLuogo from "@/components/SchedaLuogo";
 import { luoghiDiPrimoLivello, luogoPerId } from "@/lib/contenuti";
+import { LARGHEZZA_MAPPA } from "@/lib/geografia";
 
 /**
  * Modalità mappatura: si attiva aggiungendo ?mappatura=1 all'indirizzo.
@@ -91,6 +92,11 @@ export default function MappaPagina() {
           luogo={luogoSelezionato}
           onChiudi={chiudi}
           onSeleziona={seleziona}
+          lato={
+            luogoSelezionato.coordinate.x >= LARGHEZZA_MAPPA / 2
+              ? "sinistra"
+              : "destra"
+          }
         />
       )}
       {mappatura && (

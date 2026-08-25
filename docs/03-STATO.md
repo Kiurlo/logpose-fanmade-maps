@@ -32,6 +32,11 @@ luoghi.
 nel tempo. Ogni isola aggiunta d'ora in poi nasce già con la sua forma, senza lavoro extra.
 Per vedere come funziona: aprire `docs/forme-isole.html` con un doppio clic.
 
+**La scheda si apre dal lato opposto al luogo**: se il luogo è nella metà destra della mappa la
+scheda compare a sinistra, e viceversa. Così il luogo selezionato resta sempre scoperto senza
+dover calcolare nulla sull'altezza — con la scheda agganciata a un lato, la posizione verticale
+del luogo semplicemente non conta. Su telefono la scheda occupa tutto lo schermo, come prima.
+
 **C'è una modalità mappatura** (`?mappatura=1`, solo in locale): mostra sotto la mappa
 un'immagine di riferimento da ricalcare e legge le coordinate al clic. È lo strumento con cui
 si catalogheranno le prossime centinaia di luoghi senza andare a occhio. Vedi
@@ -103,6 +108,7 @@ riconoscibile per chi conosce l'opera.
 | 2026-08-25 | Costruzione | Fase 2: aggiunto lo sfondo mappa (oceano) e la prima isola cliccabile (Villaggio di Fuschia) con scheda informativa. Selezione salvata nell'indirizzo del sito. Configurato Next.js in modalità completamente statica (`output: export`) |
 | 2026-08-25 | Costruzione | Implementate le forme generate delle isole (`src/lib/forme.ts`): dal nome nasce un contorno irregolare, sempre identico a parità di nome. Aggiunta la pagina illustrativa `docs/forme-isole.html` |
 | 2026-08-25 | Costruzione | Aggiunto lo schema per i luoghi annidati (`contenutoIn`) e il tipo `villaggio`. Aggiunta l'Isola Dawn, con il Villaggio di Foosha al suo interno; sulla mappa si disegna solo l'isola. Documentato come funzioneranno le forme delle isole. Centralizzata la scelta della lingua in `src/lib/contenuti.ts` |
+| 2026-08-25 | Costruzione | La scheda del luogo si apre ora dal lato opposto rispetto al luogo (metà destra -> scheda a sinistra, e viceversa), così il luogo resta sempre visibile. Risolve il problema della scheda che copriva l'East Blue |
 | 2026-08-25 | Catalogazione | Prima posizione letta con la modalità mappatura: Isola Dawn spostata su 9440, 315 (rilevata da Gabriele). I contorni `path` sono ora **relativi al centro del luogo**, così spostare un luogo sposta anche il suo disegno |
 | 2026-08-25 | Costruzione | Aggiunta la **modalità mappatura** (`?mappatura=1`): sfondo di riferimento allineabile e lettura delle coordinate al clic, per catalogare senza andare a occhio. Idea di Gabriele. `public/riferimento/` escluso da Git e cancellato dal sito costruito, così l'immagine altrui non può finire pubblicata |
 | 2026-08-25 | Correzione | Il Villaggio di Fuschia era finito nel West Blue invece che nell'East Blue (errore segnalato da Gabriele confrontando con una mappa in rete). Corretta la coordinata e, soprattutto, **fissati i punti di ancoraggio dello spazio-mappa** in `01-ARCHITETTURA.md` perché non ricapiti. Aggiunti Grand Line, Red Line e nomi dei mari come riferimenti visibili. Creato `/content/it/ui.json` |
@@ -143,10 +149,6 @@ lo visita, ma **i motori di ricerca e le anteprime dei link non vedono alcun con
 Causa: la lettura della selezione dall'indirizzo (`useSearchParams`) impedisce a Next.js di
 pre-disegnare la pagina. Sistemabile disegnando la mappa lato build e lasciando al browser solo
 la gestione del clic. Non urgente, ma da affrontare prima di far conoscere il sito in giro.
-
-**La scheda copre l'angolo in alto a destra della mappa.**
-Si apre a destra e nasconde proprio l'East Blue. Fastidio minore adesso con due luoghi, da
-risolvere quando ci sarà lo zoom (allora la mappa potrà spostarsi per lasciare spazio).
 
 **Il sito online si verifica solo a metà in automatico.**
 Il browser automatico di Claude non riesce a visualizzare il sito pubblicato (a volte Vercel

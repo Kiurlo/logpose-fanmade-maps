@@ -7,18 +7,33 @@ interface SchedaLuogoProps {
   luogo: Luogo & TestoLuogo;
   onChiudi: () => void;
   onSeleziona: (id: string) => void;
+  /** Da che parte agganciare la scheda: sempre l'opposto rispetto al luogo. */
+  lato: "sinistra" | "destra";
 }
+
+/**
+ * Su schermo piccolo la scheda occupa tutto e il lato non conta.
+ * Su desktop si aggancia al lato indicato, così il luogo selezionato resta
+ * sempre scoperto — qualunque sia la sua altezza sulla mappa.
+ */
+const ANCORAGGIO = {
+  sinistra: "left-0 sm:left-4",
+  destra: "right-0 sm:right-4",
+} as const;
 
 export default function SchedaLuogo({
   luogo,
   onChiudi,
   onSeleziona,
+  lato,
 }: SchedaLuogoProps) {
   const contenitore = luogoPerId(luogo.contenutoIn);
   const contenuti = contenutiIn(luogo.id);
 
   return (
-    <aside className="absolute right-0 top-0 h-full w-full max-w-sm overflow-y-auto bg-white p-6 shadow-xl sm:right-4 sm:top-4 sm:h-auto sm:max-h-[calc(100%-2rem)] sm:rounded-lg">
+    <aside
+      className={`absolute top-0 h-full w-full max-w-sm overflow-y-auto bg-white p-6 shadow-xl sm:top-4 sm:h-auto sm:max-h-[calc(100%-2rem)] sm:rounded-lg ${ANCORAGGIO[lato]}`}
+    >
       <button
         onClick={onChiudi}
         className="float-right text-xl leading-none text-zinc-400 hover:text-zinc-700"

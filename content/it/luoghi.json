@@ -1,8 +1,14 @@
 {
+  "dawn-island": {
+    "nome": "Isola Dawn",
+    "sottotitolo": "Dove comincia tutto",
+    "descrizione": "Isola dell'East Blue, sotto la giurisdizione del Regno di Goa. È l'isola natale di Monkey D. Rufy: qui si trovano il Villaggio di Foosha, il Monte Colubo e la capitale del regno.",
+    "curiosita": "Il nome «Dawn», alba in inglese, richiama il titolo del primo capitolo del manga: Romance Dawn."
+  },
   "foosha-village": {
-    "nome": "Villaggio di Fuschia",
+    "nome": "Villaggio di Foosha",
     "sottotitolo": "Il villaggio natale di Rufy",
-    "descrizione": "Un piccolo villaggio di pescatori nell'East Blue. È qui che Monkey D. Rufy è cresciuto sognando di diventare il Re dei Pirati, ispirato dal pirata Shanks il Rosso.",
+    "descrizione": "Un piccolo villaggio di pescatori sulla costa dell'Isola Dawn. È qui che Monkey D. Rufy è cresciuto sognando di diventare il Re dei Pirati, ispirato dal pirata Shanks il Rosso.",
     "curiosita": "È il primo luogo che il lettore incontra in tutta la storia di One Piece."
   }
 }

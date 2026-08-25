@@ -7,12 +7,23 @@
     "grand-line": "Grand Line",
     "red-line": "Red Line"
   },
+  "tipi": {
+    "isola": "Isola",
+    "arcipelago": "Arcipelago",
+    "regno": "Regno",
+    "citta": "Città",
+    "villaggio": "Villaggio",
+    "struttura": "Struttura",
+    "punto-notevole": "Punto notevole"
+  },
   "mappa": {
     "titoloAccessibile": "Mappa del mondo di One Piece"
   },
   "scheda": {
     "chiudi": "Chiudi scheda",
     "rivelatoAlCapitolo": "Rivelato al capitolo",
-    "posizioneStimata": "posizione stimata"
+    "posizioneStimata": "posizione stimata",
+    "contiene": "Luoghi al suo interno",
+    "siTrovaIn": "Si trova in"
   }
 }

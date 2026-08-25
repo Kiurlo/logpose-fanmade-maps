@@ -1,6 +1,13 @@
 export type Precisione = "canonica" | "stimata";
 
-export type TipoLuogo = "isola" | "citta" | "regno" | "struttura" | "punto-notevole";
+export type TipoLuogo =
+  | "isola"
+  | "arcipelago"
+  | "regno"
+  | "citta"
+  | "villaggio"
+  | "struttura"
+  | "punto-notevole";
 
 export type Mare =
   | "east-blue"
@@ -27,6 +34,8 @@ export interface Luogo {
   canone: Canone;
   rivelatoAlCapitolo: number;
   ancoraggioNarrativo: number | null;
+  /** Id del luogo che lo contiene, oppure null se è di primo livello. */
+  contenutoIn: string | null;
   archi: string[];
   dimensione: number;
   forma: Forma;

@@ -81,6 +81,44 @@ Il seme dell'avventura (Isola Dawn, Villaggio di Fuschia) sta nell'**East Blue**
 in alto a destra. Mettere per sbaglio un luogo dell'East Blue in basso a sinistra è l'errore
 tipico — controllare sempre il quadrante prima di scrivere una coordinata.
 
+## Come si disegnano le isole
+
+Le isole non sono cerchietti e non sono immagini: sono **forme vettoriali**, cioè elenchi di
+coordinate che il codice trasforma in un contorno. Non si "sovrappone un disegno" alla mappa —
+il contorno *è* un dato, come le coordinate. Per questo la mappa resta nostra e generata da
+codice, come richiede il concept.
+
+Il campo `forma` prevede due modi, ed è la stessa scelta per tutte le ~400 isole:
+
+**1. `generata` — il codice inventa il contorno**
+
+```json
+"forma": { "tipo": "generata", "seme": "dawn-island" }
+```
+
+Il codice parte da un cerchio e lo deforma in modo irregolare — insenature, promontori,
+frastagliature. Il "seme" è l'id dell'isola: **a parità di seme il risultato è sempre
+identico**, quindi la stessa isola avrà sempre la stessa forma, oggi e fra tre anni. Isole
+diverse avranno forme diverse.
+
+È il modo con cui si popolano centinaia di isole senza disegnarne nemmeno una a mano. Non
+saranno i contorni veri, ma saranno plausibili e stabili.
+
+**2. `path` — il contorno vero, tracciato da noi**
+
+```json
+"forma": { "tipo": "path", "d": "M 9200 480 L 9260 500 L 9280 560 ..." }
+```
+
+Per le isole importanti si traccia il contorno reale e lo si salva come sequenza di
+coordinate (un "path", il formato standard dei disegni vettoriali). Sempre nello spazio-mappa
+astratto 0–10000 × 0–5000, quindi coerente con tutto il resto.
+
+**La cosa importante:** passare da `generata` a `path` per una singola isola è **una modifica
+di dati, non di codice**. Si cambia un campo nel JSON e basta. Quindi si parte con tutto
+`generata`, e le isole importanti si "promuovono" una alla volta, quando se ne ha voglia, in
+una sessione di tipo Catalogazione o Grafica. Nessuna fretta, nessuna riscrittura.
+
 ## Il mondo si avvolge
 
 La Grand Line circonda il globo: sulla mappa piatta il bordo destro (x = 10000) e il bordo

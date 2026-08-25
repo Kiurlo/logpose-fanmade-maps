@@ -31,6 +31,7 @@ Gli id sono tecnici e non vengono mostrati agli utenti.
     "canone": "manga",
     "rivelatoAlCapitolo": 322,
     "ancoraggioNarrativo": null,
+    "contenutoIn": null,
     "archi": ["water-seven"],
     "dimensione": 1.4,
     "forma": { "tipo": "generata", "seme": "water-seven" },
@@ -45,17 +46,41 @@ Gli id sono tecnici e non vengono mostrati agli utenti.
 |---|---|---|
 | `coordinate` | x: 0–10000, y: 0–5000 | spazio-mappa astratto |
 | `precisione` | `canonica` \| `stimata` | `stimata` = dedotta dall'ordine di navigazione |
-| `tipo` | `isola` \| `citta` \| `regno` \| `struttura` \| `punto-notevole` | |
+| `tipo` | `isola` \| `arcipelago` \| `regno` \| `citta` \| `villaggio` \| `struttura` \| `punto-notevole` | |
 | `mare` | `east-blue` \| `west-blue` \| `north-blue` \| `south-blue` \| `grand-line-paradise` \| `nuovo-mondo` \| `calm-belt` \| `red-line` | |
 | `canone` | `manga` \| `anime` \| `film` \| `spinoff` | |
 | `rivelatoAlCapitolo` | numero | primo capitolo in cui il luogo è noto al lettore |
 | `ancoraggioNarrativo` | numero \| `null` | solo per contenuti non canonici: dove si collocano nella cronologia |
+| `contenutoIn` | id di un altro luogo \| `null` | il luogo che lo contiene. `null` = luogo di primo livello |
 | `dimensione` | numero, 1.0 = media | scala visiva sulla mappa |
 | `forma` | `{ tipo: "generata", seme: id }` oppure `{ tipo: "path", d: "..." }` | forme generate all'inizio, disegnate a mano solo per i luoghi importanti |
 
 **Attenzione su `rivelatoAlCapitolo`:** è il capitolo in cui il luogo diventa noto al *lettore*,
 non quello in cui la ciurma ci arriva. Un'isola nominata al capitolo 100 e visitata al 200 ha
 valore 100.
+
+### I luoghi stanno dentro altri luoghi
+
+Il Villaggio di Foosha sta sull'Isola Dawn. Alubarna sta nel Regno di Arabasta. I boschetti
+stanno nell'Arcipelago Sabaody. È la norma, non l'eccezione: `contenutoIn` serve a questo.
+
+```
+dawn-island          contenutoIn: null            ← compare sulla mappa
+  └─ foosha-village  contenutoIn: "dawn-island"   ← compare nella scheda dell'isola
+```
+
+**Regola di disegno:** sulla mappa del mondo si disegnano **solo i luoghi con
+`contenutoIn: null`.** A quella scala un villaggio e la sua isola sono lo stesso puntino:
+disegnarli entrambi produce solo confusione. I luoghi contenuti sono raggiungibili dalla
+scheda del luogo che li contiene, e compariranno sulla mappa quando ci sarà lo zoom.
+
+**Le coordinate però si compilano lo stesso**, anche per i luoghi contenuti: servono al
+momento dello zoom, e vale il principio "i dati non si rimandano". Se la posizione precisa
+dentro l'isola non è nota, si mette una coordinata vicina a quella del contenitore e si
+marca `precisione: "stimata"`.
+
+**Il mare si ripete:** un luogo contenuto ha lo stesso `mare` del contenitore. È una
+ripetizione voluta — permette di filtrare per mare senza dover risalire la catena.
 
 ---
 

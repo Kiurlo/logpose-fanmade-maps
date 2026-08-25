@@ -3,20 +3,13 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import Mappa from "@/components/Mappa";
 import SchedaLuogo from "@/components/SchedaLuogo";
-import type { Luogo, TestoLuogo } from "@/lib/tipi";
-import datiLuoghi from "@data/luoghi.json";
-import testiLuoghi from "@content/it/luoghi.json";
-
-const luoghi: (Luogo & TestoLuogo)[] = (datiLuoghi as Luogo[]).map((luogo) => ({
-  ...luogo,
-  ...(testiLuoghi as Record<string, TestoLuogo>)[luogo.id],
-}));
+import { luoghiDiPrimoLivello, luogoPerId } from "@/lib/contenuti";
 
 export default function MappaPagina() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const selezionato = searchParams.get("luogo");
-  const luogoSelezionato = luoghi.find((luogo) => luogo.id === selezionato) ?? null;
+  const luogoSelezionato = luogoPerId(selezionato);
 
   function seleziona(id: string) {
     const params = new URLSearchParams(searchParams.toString());
@@ -33,9 +26,17 @@ export default function MappaPagina() {
 
   return (
     <div className="relative h-full w-full bg-[#1e5f8c]">
-      <Mappa luoghi={luoghi} selezionato={selezionato} onSeleziona={seleziona} />
+      <Mappa
+        luoghi={luoghiDiPrimoLivello}
+        selezionato={selezionato}
+        onSeleziona={seleziona}
+      />
       {luogoSelezionato && (
-        <SchedaLuogo luogo={luogoSelezionato} onChiudi={chiudi} />
+        <SchedaLuogo
+          luogo={luogoSelezionato}
+          onChiudi={chiudi}
+          onSeleziona={seleziona}
+        />
       )}
     </div>
   );

@@ -10,7 +10,7 @@ import {
   SPESSORE_GRAND_LINE,
   SPESSORE_RED_LINE,
 } from "@/lib/geografia";
-import ui from "@content/it/ui.json";
+import { ui } from "@/lib/contenuti";
 
 const RAGGIO_BASE = 90;
 

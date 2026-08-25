@@ -13,9 +13,9 @@
 **Fase attuale:** Fase 2 completata — prima isola cliccabile online.
 
 Il sito (**logpose-fanmade-maps.vercel.app**) mostra ora una mappa vera: uno sfondo oceano
-a tutto schermo e un'isola cliccabile, il Villaggio di Fuschia. Cliccandola si apre una
-scheda con nome, descrizione e capitolo di prima apparizione. La selezione resta
-nell'indirizzo del sito (`?luogo=foosha-village`), quindi è un link condivisibile.
+a tutto schermo e un'isola cliccabile, l'Isola Dawn. Cliccandola si apre una scheda con nome,
+descrizione e capitolo di prima apparizione. La selezione resta nell'indirizzo del sito
+(`?luogo=dawn-island`), quindi è un link condivisibile.
 
 Il sito è configurato come **completamente statico** (nessun server, come da regola non
 negoziabile): Next.js genera solo file HTML/CSS/JS fissi.
@@ -31,6 +31,11 @@ luoghi.
 (`src/lib/forme.ts`). Il codice ricava dal nome dell'isola un contorno irregolare e stabile
 nel tempo. Ogni isola aggiunta d'ora in poi nasce già con la sua forma, senza lavoro extra.
 Per vedere come funziona: aprire `docs/forme-isole.html` con un doppio clic.
+
+**C'è una modalità mappatura** (`?mappatura=1`, solo in locale): mostra sotto la mappa
+un'immagine di riferimento da ricalcare e legge le coordinate al clic. È lo strumento con cui
+si catalogheranno le prossime centinaia di luoghi senza andare a occhio. Vedi
+`01-ARCHITETTURA.md`; l'immagine va messa in `public/riferimento/`, che è escluso da Git.
 
 **L'Isola Dawn ha una forma scelta da noi** (`tipo: "path"`): ricalcata da un'immagine di
 riferimento fornita da Gabriele. È la prova che entrambi i meccanismi funzionano e che passare
@@ -98,6 +103,7 @@ riconoscibile per chi conosce l'opera.
 | 2026-08-25 | Costruzione | Fase 2: aggiunto lo sfondo mappa (oceano) e la prima isola cliccabile (Villaggio di Fuschia) con scheda informativa. Selezione salvata nell'indirizzo del sito. Configurato Next.js in modalità completamente statica (`output: export`) |
 | 2026-08-25 | Costruzione | Implementate le forme generate delle isole (`src/lib/forme.ts`): dal nome nasce un contorno irregolare, sempre identico a parità di nome. Aggiunta la pagina illustrativa `docs/forme-isole.html` |
 | 2026-08-25 | Costruzione | Aggiunto lo schema per i luoghi annidati (`contenutoIn`) e il tipo `villaggio`. Aggiunta l'Isola Dawn, con il Villaggio di Foosha al suo interno; sulla mappa si disegna solo l'isola. Documentato come funzioneranno le forme delle isole. Centralizzata la scelta della lingua in `src/lib/contenuti.ts` |
+| 2026-08-25 | Costruzione | Aggiunta la **modalità mappatura** (`?mappatura=1`): sfondo di riferimento allineabile e lettura delle coordinate al clic, per catalogare senza andare a occhio. Idea di Gabriele. `public/riferimento/` escluso da Git e cancellato dal sito costruito, così l'immagine altrui non può finire pubblicata |
 | 2026-08-25 | Correzione | Il Villaggio di Fuschia era finito nel West Blue invece che nell'East Blue (errore segnalato da Gabriele confrontando con una mappa in rete). Corretta la coordinata e, soprattutto, **fissati i punti di ancoraggio dello spazio-mappa** in `01-ARCHITETTURA.md` perché non ricapiti. Aggiunti Grand Line, Red Line e nomi dei mari come riferimenti visibili. Creato `/content/it/ui.json` |
 
 **Tipi di sessione:**

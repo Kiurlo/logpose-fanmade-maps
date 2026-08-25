@@ -144,6 +144,39 @@ Procedimento già collaudato (l'Isola Dawn è stata fatta così):
 colpo, ed è normale: correggere costa pochissimo perché cambia solo un campo nel JSON, mai il
 codice.
 
+## Modalità mappatura — ricalcare da una mappa di riferimento
+
+Indovinare le coordinate a occhio è faticoso e produce errori. Il metodo giusto è quello dei
+cartografi: si mette sotto una mappa di riferimento, si legge dove stanno le cose, si toglie.
+
+**Come si usa:**
+
+1. Salvare l'immagine in `public/riferimento/mappa.jpg`
+2. Avviare il sito in locale e aprire `http://localhost:3000/?mappatura=1`
+3. Con i comandi in basso a sinistra, **allineare il riferimento sulle guide**: la sua Grand
+   Line sopra la nostra, la sua Reverse Mountain sopra la nostra banda centrale. In modalità
+   mappatura le guide diventano trasparenti apposta, per vedere entrambe
+4. Passare il puntatore: le coordinate si leggono in tempo reale. **Cliccare copia** il campo
+   già pronto da incollare in `luoghi.json`
+5. Finito di catalogare, si chiude la modalità. Non c'è niente da "togliere"
+
+**Perché il riferimento non entra mai nel progetto**
+
+`public/riferimento/` è escluso da Git, e la regola in `.gitignore` non va rimossa.
+
+Il motivo è che **Git non dimentica**: un'immagine finita anche una sola volta in un commit
+pubblicato resta per sempre nella cronologia su GitHub, pubblica e scaricabile, anche dopo
+averla cancellata. Cancellare un file toglie il file, non la sua storia. Per questo il
+riferimento non entra, invece di "toglierlo dopo": ricordarsi di togliere è esattamente la
+cosa che prima o poi fallisce.
+
+Conseguenza pratica: non essendo su GitHub, **Vercel non lo vede mai** e il sito pubblicato non
+può contenerlo. In più lo script `postbuild` cancella la cartella anche dal sito costruito in
+locale, così non può sfuggire nemmeno pubblicando a mano.
+
+Vale sempre la distinzione di fondo: **le posizioni sono fatti e si leggono ovunque, il disegno
+appartiene a chi l'ha fatto.** Noi prendiamo le prime e non ridistribuiamo il secondo.
+
 ## Il mondo si avvolge
 
 La Grand Line circonda il globo: sulla mappa piatta il bordo destro (x = 10000) e il bordo

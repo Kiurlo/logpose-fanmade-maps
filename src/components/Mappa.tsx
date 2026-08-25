@@ -28,13 +28,44 @@ const ETICHETTE_MARI = [
   { chiave: "south-blue", x: 7500, y: 3750 },
 ] as const;
 
+/** Sfondo di riferimento, visibile solo in modalità mappatura (mai in produzione). */
+export interface Riferimento {
+  url: string;
+  x: number;
+  y: number;
+  larghezza: number;
+  altezza: number;
+  opacita: number;
+}
+
 interface MappaProps {
   luoghi: (Luogo & TestoLuogo)[];
   selezionato: string | null;
   onSeleziona: (id: string) => void;
+  riferimento?: Riferimento | null;
+  onCoordinata?: (x: number, y: number) => void;
 }
 
-export default function Mappa({ luoghi, selezionato, onSeleziona }: MappaProps) {
+export default function Mappa({
+  luoghi,
+  selezionato,
+  onSeleziona,
+  riferimento,
+  onCoordinata,
+}: MappaProps) {
+  /** Converte la posizione del puntatore in coordinate dello spazio-mappa. */
+  function leggiCoordinata(evento: React.MouseEvent<SVGSVGElement>) {
+    if (!onCoordinata) return;
+    const svg = evento.currentTarget;
+    const matrice = svg.getScreenCTM();
+    if (!matrice) return;
+    const punto = svg.createSVGPoint();
+    punto.x = evento.clientX;
+    punto.y = evento.clientY;
+    const inMappa = punto.matrixTransform(matrice.inverse());
+    onCoordinata(Math.round(inMappa.x), Math.round(inMappa.y));
+  }
+
   return (
     <svg
       viewBox={`0 0 ${LARGHEZZA_MAPPA} ${ALTEZZA_MAPPA}`}
@@ -42,6 +73,7 @@ export default function Mappa({ luoghi, selezionato, onSeleziona }: MappaProps) 
       className="block h-full w-full"
       role="img"
       aria-label={ui.mappa.titoloAccessibile}
+      onMouseMove={onCoordinata ? leggiCoordinata : undefined}
     >
       <rect
         x={0}
@@ -51,39 +83,56 @@ export default function Mappa({ luoghi, selezionato, onSeleziona }: MappaProps) 
         fill={COLORE_OCEANO}
       />
 
-      {/* Grand Line: la fascia orizzontale che taglia il mondo a metà */}
-      <rect
-        x={0}
-        y={GRAND_LINE_Y - SPESSORE_GRAND_LINE / 2}
-        width={LARGHEZZA_MAPPA}
-        height={SPESSORE_GRAND_LINE}
-        fill={COLORE_GRAND_LINE}
-      />
+      {/* Mappa di riferimento da ricalcare. Solo in locale, mai sul sito pubblicato. */}
+      {riferimento && (
+        <image
+          href={riferimento.url}
+          x={riferimento.x}
+          y={riferimento.y}
+          width={riferimento.larghezza}
+          height={riferimento.altezza}
+          opacity={riferimento.opacita}
+          preserveAspectRatio="none"
+        />
+      )}
 
-      {/* Red Line: l'anello continentale. Sulla mappa piatta appare come due
-          bande verticali — quella centrale (Reverse Mountain) e quella sulla
-          cucitura del mondo, divisa fra bordo sinistro e bordo destro. */}
-      <rect
-        x={REVERSE_MOUNTAIN_X - SPESSORE_RED_LINE / 2}
-        y={0}
-        width={SPESSORE_RED_LINE}
-        height={ALTEZZA_MAPPA}
-        fill={COLORE_RED_LINE}
-      />
-      <rect
-        x={CUCITURA_X}
-        y={0}
-        width={SPESSORE_RED_LINE / 2}
-        height={ALTEZZA_MAPPA}
-        fill={COLORE_RED_LINE}
-      />
-      <rect
-        x={LARGHEZZA_MAPPA - SPESSORE_RED_LINE / 2}
-        y={0}
-        width={SPESSORE_RED_LINE / 2}
-        height={ALTEZZA_MAPPA}
-        fill={COLORE_RED_LINE}
-      />
+      {/* In mappatura le guide restano visibili ma trasparenti: servono proprio
+          ad allineare il riferimento, quindi si devono vedere entrambi. */}
+      <g opacity={riferimento ? 0.4 : 1}>
+        {/* Grand Line: la fascia orizzontale che taglia il mondo a metà */}
+        <rect
+          x={0}
+          y={GRAND_LINE_Y - SPESSORE_GRAND_LINE / 2}
+          width={LARGHEZZA_MAPPA}
+          height={SPESSORE_GRAND_LINE}
+          fill={COLORE_GRAND_LINE}
+        />
+
+        {/* Red Line: l'anello continentale. Sulla mappa piatta appare come due
+            bande verticali — quella centrale (Reverse Mountain) e quella sulla
+            cucitura del mondo, divisa fra bordo sinistro e bordo destro. */}
+        <rect
+          x={REVERSE_MOUNTAIN_X - SPESSORE_RED_LINE / 2}
+          y={0}
+          width={SPESSORE_RED_LINE}
+          height={ALTEZZA_MAPPA}
+          fill={COLORE_RED_LINE}
+        />
+        <rect
+          x={CUCITURA_X}
+          y={0}
+          width={SPESSORE_RED_LINE / 2}
+          height={ALTEZZA_MAPPA}
+          fill={COLORE_RED_LINE}
+        />
+        <rect
+          x={LARGHEZZA_MAPPA - SPESSORE_RED_LINE / 2}
+          y={0}
+          width={SPESSORE_RED_LINE / 2}
+          height={ALTEZZA_MAPPA}
+          fill={COLORE_RED_LINE}
+        />
+      </g>
 
       {ETICHETTE_MARI.map((mare) => (
         <text
@@ -131,7 +180,10 @@ export default function Mappa({ luoghi, selezionato, onSeleziona }: MappaProps) 
         return (
           <g
             key={luogo.id}
-            onClick={() => onSeleziona(luogo.id)}
+            onClick={(evento) => {
+              evento.stopPropagation();
+              onSeleziona(luogo.id);
+            }}
             className="cursor-pointer"
           >
             <path

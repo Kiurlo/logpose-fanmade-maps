@@ -39,3 +39,19 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# ---------------------------------------------------------------------------
+# MAPPE DI RIFERIMENTO — NON RIMUOVERE QUESTA REGOLA
+#
+# Qui dentro stanno le mappe altrui che usiamo per ricalcare le posizioni.
+# Le posizioni sono fatti e si possono leggere ovunque; il disegno appartiene a
+# chi l'ha fatto e NON va ridistribuito.
+#
+# Git non dimentica: se un'immagine finisce anche una sola volta in un commit
+# pubblicato, resta per sempre nella cronologia su GitHub, pubblica, anche dopo
+# averla cancellata. Per questo non entra mai, invece di "toglierla dopo".
+#
+# Conseguenza utile: non essendo su GitHub, Vercel non la vede mai e il sito
+# pubblicato non può contenerla. In locale invece si vede normalmente.
+# ---------------------------------------------------------------------------
+/public/riferimento/

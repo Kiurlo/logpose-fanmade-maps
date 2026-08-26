@@ -22,7 +22,6 @@ const RAGGIO_PUNTO_NOTEVOLE = 35;
 const COLORE_OCEANO = "#1e5f8c";
 const COLORE_GRAND_LINE = "#2e7fa8";
 const COLORE_RED_LINE = "#8f4b3c";
-const COLORE_RED_LINE_BORDO = "#5c2f22";
 const COLORE_ISOLA = "#d9b26f";
 const COLORE_PUNTO_NOTEVOLE = "#ffe9a8";
 
@@ -115,16 +114,32 @@ export default function Mappa({
         />
 
         {/* Red Line: l'anello continentale. Sulla mappa piatta appare come due
-            bande verticali — quella centrale (Reverse Mountain, ricalcata dalla
-            mappa di riferimento: si vede la vera strozzatura della montagna) e
-            quella sulla cucitura del mondo (Mary Geoise, ancora un rettangolo
-            semplice: non ancora ricalcata, vedi 01-ARCHITETTURA.md). */}
+            bande verticali — quella centrale (Reverse Mountain) e quella sulla
+            cucitura del mondo (Mary Geoise, ancora un rettangolo semplice: non
+            ancora ricalcata, vedi 01-ARCHITETTURA.md).
+
+            La fascia di Reverse Mountain è un rettangolo sopra e sotto, con al
+            centro la vera strozzatura letta a mano dalla mappa di riferimento
+            (src/lib/red-line.ts). Il passaggio dal rettangolo (stretto) alla
+            stella (larga, i quattro bracci del fiume) è un imbuto che allarga
+            i due bordi fino a toccare esattamente le punte nord-ovest e
+            nord-est della stella: senza, il rettangolo continuerebbe dritto
+            mentre i bracci si allontanano, lasciando un varco di mare aperto
+            in mezzo. Nessuna di queste forme ha un bordo scuro: si toccano
+            esattamente, e un bordo le avrebbe fatte vedere come pezzi
+            separati invece che come un'unica terra. */}
         <path
-          d={CONTORNO_RED_LINE_PRINCIPALE}
+          d={`M ${REVERSE_MOUNTAIN_X - SPESSORE_RED_LINE / 2} 0
+              L ${REVERSE_MOUNTAIN_X + SPESSORE_RED_LINE / 2} 0
+              L 5750 1980 L 4150 2080 Z`}
           fill={COLORE_RED_LINE}
-          stroke={COLORE_RED_LINE_BORDO}
-          strokeWidth={8}
-          strokeLinejoin="round"
+        />
+        <path d={CONTORNO_RED_LINE_PRINCIPALE} fill={COLORE_RED_LINE} />
+        <path
+          d={`M ${REVERSE_MOUNTAIN_X - SPESSORE_RED_LINE / 2} ${ALTEZZA_MAPPA}
+              L ${REVERSE_MOUNTAIN_X + SPESSORE_RED_LINE / 2} ${ALTEZZA_MAPPA}
+              L 4550 2900 Z`}
+          fill={COLORE_RED_LINE}
         />
         <rect
           x={CUCITURA_X}

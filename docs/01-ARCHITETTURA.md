@@ -280,46 +280,55 @@ Finché la Red Line era un semplice rettangolo rosso, qualsiasi luogo messo al s
 sembrava fluttuare nel vuoto. Con la Red Line ricalcata dalla mappa di riferimento, Reverse
 Mountain torna a essere quello che è: un punto **dentro** una terra vera.
 
-### Il ricalco (`scripts/traccia-red-line.mjs`)
+### Il ricalco (`scripts/traccia-red-line.mjs`) — letto a occhio, non da un algoritmo
 
 La Red Line non è una macchia chiusa come un'isola: è una fascia che attraversa l'intera mappa
-da nord a sud. Il metodo di `traccia-isole.mjs` (riempire da un centro) non funziona qui, perché
-non c'è un "dentro" da riempire — la forma tocca sempre il bordo superiore e inferiore della
-mappa. Il ricalco procede invece **riga per riga**: per ogni altezza (ogni valore di y), si
-scandisce una finestra di x e si cerca la rifinitura rossastra disegnata lungo il bordo della
-Red Line (lo stesso segno distintivo, ma stavolta usato come indicatore di colore invece che
-come muro di un riempimento). Il punto più a ovest e il punto più a est trovati a quell'altezza
-diventano il bordo della fascia in quel punto.
+da nord a sud. Il metodo di `traccia-isole.mjs` (riempire da un centro fino alla linea scura) è
+stato provato prima, adattato per una forma che tocca i bordi della mappa invece di essere
+chiusa — e ha smascherato due problemi veri del disegno di riferimento, non del metodo:
 
-**Una scelta deliberata: si traccia l'inviluppo esterno, non ogni baia.** Sulla mappa di
-riferimento la Red Line è disegnata come una catena di creste con insenature profonde fra loro
-— normale per una catena montuosa. Se si tracciassero anche le insenature, in alcuni punti
-resterebbe un varco d'acqua aperta che attraversa la fascia da parte a parte: sembrerebbe che si
-possa passare lì, il che è falso (la Red Line si attraversa solo a Reverse Mountain e agli
-antipodi). Si prende perciò solo il punto più a ovest e il punto più a est **a ogni altezza**,
-ignorando i varchi interni: il risultato è sempre una barriera unica, come deve essere.
+1. **La linea di china ha piccoli buchi** lasciati dalla compressione JPEG, soprattutto sui
+   tratti sottili: il riempimento ci passa attraverso e scappa nel mare aperto. Una leggera
+   sfocatura prima di leggere lo scuro chiude questi buchi.
+2. **Vicino a Reverse Mountain molte isole** (Isola Cozia, Isola Polestar, Spider Miles...) sono
+   disegnate a un pelo dalla costa della Red Line: la stessa sfocatura che chiude i buchi della
+   china salda anche loro alla Red Line, perché lo spazio di mare fra i due disegni è largo
+   pochi pixel quanto i buchi da chiudere. Non esiste una soglia unica che risolva il primo
+   problema senza causare il secondo — è stato verificato provando diversi valori.
 
-Il risultato, verificato guardando l'immagine, mostra bene la strozzatura intorno a Reverse
-Mountain: la fascia è visibilmente più stretta lì che al nord o al sud, anche se non si
-restringe fino a un punto — le quattro creste che confluiscono verso il passaggio (visibili
-sulla mappa di riferimento come una stella a quattro punte) allargano un poco l'inviluppo anche
-alla latitudine esatta dell'incrocio. Per un riferimento visivo, l'approssimazione è più che
-sufficiente.
+Per questo il contorno intorno a Reverse Mountain (la "stella" a quattro bracci dove il fiume
+confluisce) è stato **letto a occhio**, non generato: stesso procedimento usato per il contorno
+dell'Isola Dawn (vedi sopra, "Come si dà a un'isola una forma decisa da noi"). Un ritaglio della
+mappa di riferimento con una griglia di coordinate sovrapposta, sedici punti letti lungo il
+contorno esterno in ordine orario, verificati per sovrapposizione ridisegnandoli sopra
+l'originale. I sedici punti vivono in `scripts/traccia-red-line.mjs`, commentati; lo script li
+trasforma nella stessa curva morbida delle isole e scrive `src/lib/red-line.ts`.
+
+**Il passaggio dalla stella al resto della Red Line è un imbuto, non un rettangolo dritto.** La
+stella copre solo una piccola fascia di altezza (dove il disegno mostra i quattro bracci); sopra
+e sotto, la Red Line torna al solito rettangolo sottile. Un rettangolo dritto però continuerebbe
+a scendere mentre i bracci della stella si allontanano lateralmente, lasciando un varco di mare
+aperto proprio dove dovrebbe esserci terra — è per questo che in `Mappa.tsx` i due raccordi
+sono un imbuto (un quadrilatero) che allarga i bordi fino a toccare esattamente le punte
+nord-ovest e nord-est della stella, invece di un semplice rettangolo.
+
+**Problema noto: l'imbuto è dritto, quindi spigoloso.** Visto da vicino funziona bene (le punte
+combaciano con la costa vera), ma visto da lontano l'insieme legge più come una vela triangolare
+che come una montagna. Migliorabile aggiungendo qualche punto intermedio per curvare l'imbuto,
+quando capiterà una sessione di tipo Grafica — non è urgente, perché il problema che l'aveva
+causato (l'isola-fantasma e le isole inglobate) è risolto.
 
 ### Solo una fascia delle due
 
 La Red Line incrocia la Grand Line in **due punti agli antipodi** (vedi "I punti di ancoraggio"
 più sopra): quello di Reverse Mountain (x = 5000) e quello di Mary Geoise / Isola degli
 Uomini-Pesce (x = 0, cioè x = 10000 — è la cucitura del mondo). Per ora **solo la fascia di
-Reverse Mountain è stata ricalcata.** L'altra resta un rettangolo semplice, con lo stesso metodo
-di sempre.
+Reverse Mountain ha la stella.** L'altra resta un rettangolo semplice.
 
-Non è una dimenticanza: sul lato della cucitura la rifinitura rossastra usata come segno
-distintivo non si distingue con sicurezza in tutti i punti della mappa di riferimento (forse
-perché lì il disegno è diverso, forse per come è stata ritagliata l'immagine). Piuttosto che
-tracciare qualcosa di inaffidabile, si è scelto di rimandare: quella fascia si rifarà quando si
-cataloga la zona che le sta intorno (Marineford, Impel Down, Mary Geoise), sessione in cui sarà
-comunque necessario guardare da vicino quel pezzo di mappa.
+Non è una dimenticanza: quella fascia richiederebbe lo stesso lavoro a mano (ritaglio, griglia,
+lettura a occhio, verifica) fatto qui. Si rifarà quando si cataloga la zona che le sta intorno
+(Marineford, Impel Down, Mary Geoise), sessione in cui sarà comunque necessario guardare da
+vicino quel pezzo di mappa.
 
 ### Punti notevoli: un segnalino, non un'isola
 

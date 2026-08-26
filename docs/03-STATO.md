@@ -8,6 +8,30 @@
 
 ---
 
+## Come riprendere in una chat nuova
+
+Conviene aprire una chat nuova per ogni sessione di lavoro: le chat lunghe rimandano ogni volta
+tutta la conversazione precedente e diventano costose. Questo diario serve proprio a rendere la
+cosa indolore.
+
+**Da incollare all'inizio della nuova chat:**
+
+> Riprendiamo il progetto Log Pose (mappa interattiva di One Piece).
+> Leggi `CLAUDE.md` e tutti i documenti in `/docs`, in particolare `03-STATO.md`.
+> Poi dimmi con parole tue a che punto siamo e qual è il prossimo passo, prima di toccare
+> qualsiasi cosa.
+>
+> Ricorda: non sono uno sviluppatore. Spiegami in italiano semplice cosa stai per fare, e le
+> operazioni tecniche falle tu invece di chiedermi di eseguire comandi.
+
+Se la sessione riguarda la catalogazione, aggiungere: *"Oggi voglio posizionare altri luoghi con
+la modalità mappatura."*
+
+**Cosa vive solo su questo computer** (non è su GitHub, quindi una chat nuova non lo sa finché
+non glielo si dice): l'immagine di riferimento in `public/riferimento/mappa.jpg`.
+
+---
+
 ## A che punto siamo
 
 **Fase attuale:** Fase 2 completata — prima isola cliccabile online.
@@ -65,10 +89,28 @@ riconoscibile per chi conosce l'opera.
 
 ## Fatto
 
-- [x] Concept e funzionalità definiti
-- [x] Architettura scelta
-- [x] Schema dati progettato
-- [x] Documenti di base creati
+**Impostazione**
+- [x] Concept, architettura, schema dati, documenti di base
+- [x] Progetto Next.js creato, su GitHub, pubblicato in automatico da Vercel
+- [x] Nome deciso: Log Pose
+
+**Il sito**
+- [x] Mappa a tutto schermo con Grand Line, Red Line e i quattro mari
+- [x] Punti di ancoraggio dello spazio-mappa fissati
+- [x] Luoghi cliccabili con scheda; selezione salvata nell'URL
+- [x] Luoghi annidati (`contenutoIn`): un'isola contiene un villaggio
+- [x] Forme delle isole: generate dal nome, oppure ricalcate a mano
+- [x] Colonna sinistra con nome del progetto e disclaimer
+- [x] Disposizione completa dello schermo decisa
+
+**Strumenti di lavoro**
+- [x] Modalità mappatura (`?mappatura=1`) per leggere le coordinate dal riferimento
+- [x] Allineamento del riferimento misurato, non a occhio
+
+**Deciso ma non ancora costruito**
+- [ ] Controllo unico del progresso (Volume / Episodio / Netflix / Ho letto tutto)
+- [ ] Fascia destra per i filtri delle rotte
+- [ ] Menu Info / Lingua
 
 ---
 

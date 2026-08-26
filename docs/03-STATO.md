@@ -82,6 +82,12 @@ a tutto schermo e otto luoghi cliccabili. Cliccandone uno si apre una scheda con
 descrizione e capitolo di prima apparizione. La selezione resta nell'indirizzo del sito
 (`?luogo=dawn-island`), quindi è un link condivisibile.
 
+**Le isole hanno la forma vera.** Esiste ora `scripts/traccia-isole.mjs`, che ricava da solo
+il contorno delle isole dalla mappa di riferimento: riempie l'isola partendo dal centro, si
+ferma alla linea scura che la cerchia, ne segue il bordo. Sei isole dell'East Blue sono state
+ricalcate così, e con loro sono arrivate anche le **proporzioni giuste** — prima erano tutte
+grandi più o meno uguali. Il procedimento e i suoi limiti sono in `01-ARCHITETTURA.md`.
+
 **L'East Blue non è più deserto.** Ci sono ora otto luoghi sulla mappa e sei dentro di essi:
 l'intero viaggio della ciurma dal capitolo 1 al 100 — Isola Dawn, Shells Town, Isole Organ
 (con Orange Town), Isola degli Animali Strani, Isole Ghecco (con il Villaggio di Sirop),
@@ -150,6 +156,7 @@ riconoscibile per chi conosce l'opera.
 - [x] Colonna sinistra con nome del progetto e disclaimer
 - [x] Disposizione completa dello schermo decisa
 - [x] East Blue popolato: le tappe del viaggio dal capitolo 1 al 100
+- [x] Ricalco automatico dei contorni delle isole dalla mappa di riferimento
 
 **Strumenti di lavoro**
 - [x] Modalità mappatura (`?mappatura=1`) per leggere le coordinate dal riferimento
@@ -214,6 +221,7 @@ tratto fra due tappe.
 | Data | Tipo | Cosa è stato fatto |
 |---|---|---|
 | 2026-08-26 | Catalogazione | Popolato l'East Blue: 12 luoghi nuovi (8 sulla mappa, 4 contenuti dentro altri), cioè tutte le tappe del viaggio dal capitolo 1 al 100. Le posizioni **non sono state lette a mano**: Claude ha ritagliato la mappa di riferimento con `sharp`, letto i nomi e convertito i pixel in coordinate con la stessa matematica della modalità mappatura. Controprova: l'Isola Dawn, posizionata a mano da Gabriele a 9440/315, il calcolo la ritrova a 9419/321 |
+| 2026-08-26 | Costruzione | Aggiunto `scripts/traccia-isole.mjs`: ricalca da solo il contorno delle isole dalla mappa di riferimento, sfruttando la linea scura che le cerchia come muro di un riempimento. Richiesta di Gabriele, che aveva notato quanto le forme generate fossero diverse dal riferimento. Ricalcate sei isole dell'East Blue; **sostituito anche il contorno dell'Isola Dawn**, che era stato tracciato a mano da un'altra immagine ed era sproporzionato rispetto alle vicine. Baratie e Shells Town restano con la forma generata, perché sulla mappa non sono terre emerse |
 | 2026-08-26 | Decisione | Chiarito come lavorare da due computer (PC Windows al lavoro, MacBook a casa): si usa GitHub, non Google Drive. Domanda di Gabriele. Vedi la sezione "Lavorare da due computer" qui sopra |
 | 2026-08-25 | Costruzione | Creato il progetto Next.js, pubblicato su GitHub e collegato a Vercel. Sito online (vuoto). Scelto il nome "Log Pose"; repository rinominato in logpose-fanmade-maps; progetto Vercel ricreato da zero per ottenere il link definitivo logpose-fanmade-maps.vercel.app (rinominare un progetto Vercel esistente non aggiorna da solo l'indirizzo *.vercel.app) |
 | 2026-08-25 | Costruzione | Fase 2: aggiunto lo sfondo mappa (oceano) e la prima isola cliccabile (Villaggio di Fuschia) con scheda informativa. Selezione salvata nell'indirizzo del sito. Configurato Next.js in modalità completamente statica (`output: export`) |

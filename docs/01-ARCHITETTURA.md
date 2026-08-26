@@ -218,6 +218,52 @@ Procedimento già collaudato (l'Isola Dawn è stata fatta così):
 colpo, ed è normale: correggere costa pochissimo perché cambia solo un campo nel JSON, mai il
 codice.
 
+### Ricalco automatico dei contorni
+
+Tracciare a mano va bene per un'isola, non per quattrocento. Per questo esiste
+`scripts/traccia-isole.mjs`: legge la mappa di riferimento e ricava da solo il contorno delle
+isole, scrivendolo in `data/luoghi.json` come un normale `forma: { tipo: "path" }`.
+
+```
+node scripts/traccia-isole.mjs                  prova senza scrivere niente
+node scripts/traccia-isole.mjs --scrivi         aggiorna i dati
+node scripts/traccia-isole.mjs --scrivi id1 id2 solo alcuni luoghi
+```
+
+**Come fa.** Non riconosce le isole "a vista": sfrutta un fatto della mappa in uso, cioè che
+**ogni isola è cerchiata da una linea scura**. I passaggi sono quattro:
+
+1. si parte dal centro del luogo, cioè dalla coordinata già presente nei dati
+2. si riempie a macchia d'olio finché non si incontra la linea scura, che fa da muro
+3. si tappano i buchi lasciati dalle scritte disegnate sopra l'isola
+4. si segue il bordo pixel per pixel, si tiene un punto ogni tanto, e si uniscono con la
+   **stessa curva morbida** delle forme generate
+
+Il risultato viene poi convertito nello spazio-mappa astratto e reso **relativo al centro**,
+come vuole lo schema dati. Lo script aggiorna anche `coordinate` (al centro reale dell'isola,
+che spesso non è dove l'avevamo messa a occhio) e `dimensione`, che serve solo a posizionare
+l'etichetta sotto l'isola.
+
+**Fallisce in modo onesto.** Dove non c'è un'isola disegnata, lo dice e non scrive niente — il
+luogo resta con la sua forma generata. È il caso di Shells Town, che sulla mappa in uso non
+compare, e del Baratie, che è un ristorante-nave disegnato e non una terra emersa.
+
+**I limiti, che vanno conosciuti:**
+
+- funziona solo dove il contorno è **chiuso**; se la linea ha un'interruzione il riempimento
+  scappa nel mare aperto, e lo script se ne accorge dall'area enorme e rinuncia
+- l'immagine di riferimento è **stirata** in orizzontale per allinearsi al nostro spazio-mappa
+  (l'allineamento è quello misurato in `MappaPagina.tsx`): i contorni ereditano la stessa
+  deformazione, ed è giusto così, altrimenti non combacerebbero con le posizioni
+- di un arcipelago ricalca **l'isola sotto il centro indicato**, non tutte le isolette
+
+**Il confine da non passare.** Vale la stessa regola delle posizioni: quello che esce è un
+elenco di punti, non un'immagine, e nessun pixel della mappa altrui entra nel progetto o viene
+ripubblicato. Però ricalcare *tutte* le isole da un'unica mappa amatoriale assomiglia più a una
+copia che leggere una posizione. Perciò: i contorni così ottenuti restano `precisione:
+"stimata"`, la fonte resta citata in `03-STATO.md`, e quando la costa vera di un'isola è nota
+dal manga quel contorno va sostituito.
+
 ## Modalità mappatura — ricalcare da una mappa di riferimento
 
 Indovinare le coordinate a occhio è faticoso e produce errori. Il metodo giusto è quello dei

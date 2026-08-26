@@ -28,7 +28,9 @@ Se la sessione riguarda la catalogazione, aggiungere: *"Oggi voglio posizionare 
 la modalità mappatura."*
 
 **Cosa vive solo su questo computer** (non è su GitHub, quindi una chat nuova non lo sa finché
-non glielo si dice): l'immagine di riferimento in `public/riferimento/mappa.jpg`.
+non glielo si dice): le immagini di riferimento in `public/riferimento/` —
+`mappa.jpg` (l'originale, per ricalcare le isole) e `mappa-red-line.jpg` (la stessa mappa a
+contrasto aumentato, preparata da Gabriele, usata per ricalcare l'oceano e la Red Line).
 
 ---
 
@@ -51,9 +53,9 @@ Non serve saperlo fare: basta dirlo a Claude a inizio e fine sessione. Se si sal
 e si lavora sulla stessa cosa da entrambi i computer, Git non perde niente ma chiede di
 scegliere quale versione tenere — ed è un momento antipatico che l'abitudine evita.
 
-**L'unica cosa che non viaggia da sola** è `public/riferimento/mappa.jpg` (6,6 MB), esclusa da
-Git di proposito perché è il disegno di qualcun altro. Va copiata a mano una volta sola, con
-una chiavetta o via Drive.
+**Le uniche cose che non viaggiano da sole** sono i file dentro `public/riferimento/`
+(`mappa.jpg` e `mappa-red-line.jpg`), esclusi da Git di proposito perché sono il disegno di
+qualcun altro. Vanno copiati a mano, con una chiavetta o via Drive.
 
 **Perché non sincronizzare l'intera cartella con Google Drive:**
 
@@ -82,43 +84,60 @@ a tutto schermo e otto luoghi cliccabili. Cliccandone uno si apre una scheda con
 descrizione e capitolo di prima apparizione. La selezione resta nell'indirizzo del sito
 (`?luogo=dawn-island`), quindi è un link condivisibile.
 
-**La Red Line ora è vera, non più un rettangolo — e non più un'isola fantasma.** Gabriele ha
-notato due cose in due passaggi successivi: prima che Reverse Mountain era disegnata come
-un'isola in mezzo al mare (mentre è il punto in cui la Red Line viene attraversata dalla Grand
-Line), poi — dopo il primo tentativo di correzione — che la strozzatura non si vedeva ancora e
-che la forma finiva sopra alcune isole vicine.
+**La Red Line, dopo quattro tentativi nella stessa giornata, ora è quella vera.** È la storia
+più lunga di questo diario, e vale la pena raccontarla per intero perché ogni tentativo
+sbagliato ha insegnato qualcosa di vero sul disegno di riferimento, non solo sul codice.
 
-La prima causa era di metodo (un rettangolo placeholder al posto della vera costa). La seconda
-era più sottile: un tentativo di ricalco automatico riga per riga usava il colore come segno di
-riconoscimento, ma quello stesso colore lo usano anche le isole vicine (Isola Cozia, Isola
-Polestar, Spider Miles...) per il proprio bordo — così la Red Line finiva per inglobarle. Un
-secondo tentativo con un riempimento automatico (come le isole, fino alla linea scura) ha
-rivelato un problema del disegno stesso: piccoli buchi lasciati dalla compressione JPEG nei
-tratti sottili, che fanno scappare il riempimento nel mare aperto, e nessuna sfocatura correttiva
-risolve quello senza saldare anche le isole vicine.
+**Il problema di partenza:** Reverse Mountain era disegnata come un'isola in mezzo al mare,
+mentre è il punto in cui la Red Line viene attraversata dalla Grand Line. Segnalato da Gabriele.
 
-**Soluzione finale: la stessa isola-a-mano dell'Isola Dawn, applicata a Reverse Mountain.** I
-quattro bracci della "stella" dove il fiume confluisce sono stati letti a occhio da una griglia
-di coordinate sovrapposta al ritaglio della mappa, verificati per sovrapposizione. Introdotto
-anche un modo diverso di disegnare i "punti notevoli" (un segnalino, non una forma piena) — vedi
-`01-ARCHITETTURA.md`, "Come si disegna la Red Line".
+**Tentativo 1 — un rettangolo, poi una stella ricalcata a mano.** Prima corretto con un
+rettangolo placeholder (insufficiente: Reverse Mountain sembrava ancora fluttuare). Poi
+ricalcata a mano, come l'Isola Dawn, la "stella" a quattro bracci di Reverse Mountain da una
+griglia di coordinate. Gabriele ha guardato il sito vero e ha fatto notare due difetti: la
+strozzatura non si vedeva bene e mancavano i canali, e la forma finiva sopra alcune isole
+vicine.
 
-**Un primo tentativo di raccordo era peggio del problema originale.** Per unire il rettangolo
-sottile della Red Line alla stella (molto più larga) si era provato un imbuto che allargava i
-bordi fino a toccare le punte dei bracci più lontani — su un tratto di quasi duemila unità
-diventava un **triangolo enorme che dominava tutto il quadrante nord**, molto più vistoso e
-brutto del problema che doveva risolvere. Segnalato subito da Gabriele guardando il sito vero
-("amico, non ti offendere, ma è venuta una schifezza"). Corretto fermando il rettangolo appena
-dentro il corpo centrale della stella, non alle punte dei suoi bracci: lì la larghezza combacia
-già, senza bisogno di alcun raccordo.
+**Tentativo 2 — ricalco automatico per colore, poi per riempimento.** Un primo script leggeva
+la rifinitura rossastra lungo il bordo come segno di riconoscimento — ma quella stessa
+rifinitura la usano anche le isole vicine (Isola Cozia, Isola Polestar, Spider Miles...) per il
+proprio bordo, quindi la Red Line finiva per inglobarle. Un secondo script, con un riempimento
+automatico come le isole (fino alla linea scura), ha rivelato un problema del disegno stesso:
+piccoli buchi lasciati dalla compressione JPEG nei tratti sottili, che fanno scappare il
+riempimento nel mare aperto — e nessuna sfocatura correttiva chiude quei buchi senza saldare
+anche le isole vicine, disegnate a un pelo dalla costa su questa mappa.
 
-**Lezione per la prossima volta:** un rettangolo di controllo visto da vicino (come nei ritagli
-usati per verificare il ricalco) non basta — va sempre controllato anche l'aspetto **a piena
-mappa**, perché una forma ragionevole in un dettaglio può diventare enorme e assurda in scala.
+**Tentativo 3 — la stella a mano, di nuovo, con un raccordo.** Tornati al ricalco a mano (unico
+metodo affidabile con l'immagine disponibile allora), con un imbuto per raccordare la stella al
+resto della Red Line (un rettangolo). L'imbuto, su un tratto di quasi duemila unità, diventava
+un **triangolo enorme che dominava tutto il quadrante nord**. Segnalato da Gabriele guardando il
+sito vero ("amico, non ti offendere, ma è venuta una schifezza"). Corretto fermando il
+rettangolo dentro il corpo della stella, senza raccordo — ma restava un problema di fondo:
+si stava trattando la Red Line come una striscia sottile, quando non lo è.
 
-Resta da fare l'altra fascia della Red Line, quella della cucitura del mondo (Mary Geoise):
-richiederebbe lo stesso lavoro a mano fatto qui, e si farà insieme alla catalogazione di
-Marineford e Impel Down.
+**Tentativo 4 (quello buono) — capire che la Red Line è tutto ciò che non è mare.** Gabriele ha
+fornito una seconda immagine di riferimento (`mappa-red-line.jpg`, un'esportazione a contrasto
+aumentato fatta da lui) e ha chiesto ipotesi prima di toccare altro. Lì si vede con chiarezza
+che **la Red Line avvolge ogni mare su tutti i lati**, anche sopra e sotto (i poli) — non solo
+una striscia verticale come si era sempre creduto. Cambiato il modello alla radice: la Red Line
+si disegna come sfondo di **tutta** la mappa, e sopra si ritaglia un'unica grande forma
+d'acqua — i quattro mari e la Grand Line, che si sono rivelati **tutti connessi** intorno a
+Reverse Mountain da stretti canali. Un solo ricalco (`scripts/traccia-oceano.mjs`), usando il
+colore (ora nettamente distinto) come muro invece della linea scura. Dettagli e i quattro
+tentativi per esteso in `01-ARCHITETTURA.md`, "Come si disegna la Red Line".
+
+**Lezioni per la prossima volta:**
+- Un rettangolo di controllo visto da vicino non basta: va sempre controllato anche l'aspetto
+  **a piena mappa**, perché una forma ragionevole in un dettaglio può diventare enorme e
+  assurda in scala
+- Quando un problema resiste a più tentativi di correzione, vale la pena chiedersi se il
+  modello di fondo è sbagliato, invece di continuare a rifinire lo stesso approccio
+- Una seconda immagine di riferimento con più contrasto ha risolto in un colpo solo tre
+  sessioni di tentativi falliti: vale la pena chiederla prima, non dopo
+
+Introdotto anche un modo diverso di disegnare i "punti notevoli" (Reverse Mountain, Capo
+Gemello...): un segnalino, non una forma piena, dato che ora sono semplicemente punti dentro la
+Red Line di sfondo.
 
 **Si è entrati nella Grand Line Paradise.** Dopo l'East Blue, dodici luoghi nuovi coprono
 i capitoli 100-190 circa: Reverse Mountain e Capo Gemello (il confine, dove la balena Laboon
@@ -286,7 +305,7 @@ Ora la rotta ha dove passare, dall'Isola Dawn fino ad Alubarna. Serve creare `/d
 | 2026-08-26 | Catalogazione | Popolato l'East Blue: 12 luoghi nuovi (8 sulla mappa, 4 contenuti dentro altri), cioè tutte le tappe del viaggio dal capitolo 1 al 100. Le posizioni **non sono state lette a mano**: Claude ha ritagliato la mappa di riferimento con `sharp`, letto i nomi e convertito i pixel in coordinate con la stessa matematica della modalità mappatura. Controprova: l'Isola Dawn, posizionata a mano da Gabriele a 9440/315, il calcolo la ritrova a 9419/321 |
 | 2026-08-26 | Costruzione | Aggiunto `scripts/traccia-isole.mjs`: ricalca da solo il contorno delle isole dalla mappa di riferimento, sfruttando la linea scura che le cerchia come muro di un riempimento. Richiesta di Gabriele, che aveva notato quanto le forme generate fossero diverse dal riferimento. Ricalcate sei isole dell'East Blue; **sostituito anche il contorno dell'Isola Dawn**, che era stato tracciato a mano da un'altra immagine ed era sproporzionato rispetto alle vicine. Baratie e Shells Town restano con la forma generata, perché sulla mappa non sono terre emerse |
 | 2026-08-26 | Costruzione | Aggiunto il primo tratto della Grand Line Paradise (dodici luoghi, capitoli 100-190 circa): Reverse Mountain, Capo Gemello, Whisky Peak, Little Garden, Regno di Drum con Big Horn, Regno di Arabasta con Nanohana/Erumalu/Yuba/Rainbase/Alubarna. Scoperto durante il lavoro che gran parte delle isole "extra" disegnate sulla mappa di riferimento non sono canone del manga ma materiale collaterale (SBS/Vivre Card): decisione di Gabriele di scartarle e proseguire solo con luoghi verificabili nella storia. Capitoli controllati con una ricerca esterna invece che a memoria |
-| 2026-08-26 | Costruzione | Disegnata la vera Red Line al posto del rettangolo placeholder, in due passaggi. Primo tentativo: ricalco automatico riga per riga per colore — sbagliato, perché lo stesso colore lo usano anche le isole vicine per il proprio bordo, e la Red Line finiva per inglobarle (osservazione di Gabriele). Secondo tentativo: riempimento automatico come le isole (fino alla linea scura) — ha rivelato che la china ha piccoli buchi da compressione JPEG, e nessuna sfocatura correttiva chiude quelli senza saldare anche le isole vicine. Soluzione: la stella intorno a Reverse Mountain è letta a occhio da una griglia di coordinate, stesso metodo dell'Isola Dawn, con un imbuto (non un rettangolo dritto) per raccordarla al resto della fascia senza lasciare varchi d'acqua aperta. Introdotta anche una modalità di disegno diversa per i luoghi `tipo: "punto-notevole"` (un segnalino, non una forma piena). Tracciata solo la fascia di Reverse Mountain; quella della cucitura del mondo (Mary Geoise) resta un rettangolo, rimandata allo stesso lavoro a mano quando si catalogherà quella zona |
+| 2026-08-26 | Costruzione | La Red Line, dopo quattro tentativi: rettangolo → stella a mano → ricalco automatico (per colore, poi per riempimento, entrambi scartati per problemi reali del disegno) → di nuovo stella a mano con un imbuto di raccordo (scartato perché diventava un triangolo enorme a piena mappa, segnalato da Gabriele). Il quarto tentativo ha cambiato il modello alla radice, dopo che Gabriele ha fornito una seconda immagine di riferimento a contrasto aumentato (`mappa-red-line.jpg`): la Red Line non è una striscia, avvolge ogni mare su tutti i lati. Ora si disegna come sfondo di tutta la mappa, con l'oceano (i quattro mari e la Grand Line, rivelatisi tutti connessi intorno a Reverse Mountain) ritagliato sopra in un unico ricalco (`scripts/traccia-oceano.mjs`). Introdotta anche una modalità di disegno diversa per i luoghi `tipo: "punto-notevole"` (un segnalino, non una forma piena). Racconto per esteso in questo diario e in `01-ARCHITETTURA.md` |
 | 2026-08-26 | Decisione | Chiarito come lavorare da due computer (PC Windows al lavoro, MacBook a casa): si usa GitHub, non Google Drive. Domanda di Gabriele. Vedi la sezione "Lavorare da due computer" qui sopra |
 | 2026-08-25 | Costruzione | Creato il progetto Next.js, pubblicato su GitHub e collegato a Vercel. Sito online (vuoto). Scelto il nome "Log Pose"; repository rinominato in logpose-fanmade-maps; progetto Vercel ricreato da zero per ottenere il link definitivo logpose-fanmade-maps.vercel.app (rinominare un progetto Vercel esistente non aggiorna da solo l'indirizzo *.vercel.app) |
 | 2026-08-25 | Costruzione | Fase 2: aggiunto lo sfondo mappa (oceano) e la prima isola cliccabile (Villaggio di Fuschia) con scheda informativa. Selezione salvata nell'indirizzo del sito. Configurato Next.js in modalità completamente statica (`output: export`) |

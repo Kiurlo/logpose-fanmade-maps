@@ -3,16 +3,14 @@
 import type { Luogo, TestoLuogo } from "@/lib/tipi";
 import {
   ALTEZZA_MAPPA,
-  CUCITURA_X,
   GRAND_LINE_Y,
   LARGHEZZA_MAPPA,
   REVERSE_MOUNTAIN_X,
   SPESSORE_GRAND_LINE,
-  SPESSORE_RED_LINE,
 } from "@/lib/geografia";
 import { ui } from "@/lib/contenuti";
 import { contornoGenerato } from "@/lib/forme";
-import { CONTORNO_RED_LINE_PRINCIPALE } from "@/lib/red-line";
+import { CONTORNO_OCEANO } from "@/lib/oceano";
 
 const RAGGIO_BASE = 90;
 /** I punti notevoli (Reverse Mountain, Capo Gemello...) non sono isole: sono
@@ -80,12 +78,18 @@ export default function Mappa({
       aria-label={ui.mappa.titoloAccessibile}
       onMouseMove={onCoordinata ? leggiCoordinata : undefined}
     >
+      {/* La Red Line è lo sfondo di TUTTA la mappa, non due strisce come si
+          pensava all'inizio: la mappa di riferimento mostra che avvolge ogni
+          mare su ogni lato (anche sopra e sotto, i poli), non solo a destra e
+          a sinistra. L'oceano navigabile — i quattro mari più la Grand Line,
+          tutti connessi intorno a Reverse Mountain — è il grande ritaglio
+          disegnato sopra, non il contrario. Vedi 01-ARCHITETTURA.md. */}
       <rect
         x={0}
         y={0}
         width={LARGHEZZA_MAPPA}
         height={ALTEZZA_MAPPA}
-        fill={COLORE_OCEANO}
+        fill={COLORE_RED_LINE}
       />
 
       {/* Mappa di riferimento da ricalcare. Solo in locale, mai sul sito pubblicato. */}
@@ -101,59 +105,37 @@ export default function Mappa({
         />
       )}
 
+      <defs>
+        {/* La fascia della Grand Line è larga quanto tutta la mappa, ma
+            l'oceano no: fuori dal suo contorno è terra (Red Line), anche
+            alla stessa altezza (i quattro mari, ai loro bordi esterni,
+            toccano comunque la Red Line). Senza questo ritaglio la fascia
+            dipingerebbe di blu anche quella terra. */}
+        <clipPath id="ritaglio-oceano">
+          <path d={CONTORNO_OCEANO} />
+        </clipPath>
+      </defs>
+
       {/* In mappatura le guide restano visibili ma trasparenti: servono proprio
           ad allineare il riferimento, quindi si devono vedere entrambi. */}
       <g opacity={riferimento ? 0.4 : 1}>
-        {/* Grand Line: la fascia orizzontale che taglia il mondo a metà */}
+        {/* L'oceano: un solo grande ritaglio, ricalcato dalla mappa di
+            riferimento (src/lib/oceano.ts). I quattro mari non sono davvero
+            separati — intorno a Reverse Mountain sono connessi da stretti
+            canali — quindi sono un contorno solo, non quattro. */}
+        <path d={CONTORNO_OCEANO} fill={COLORE_OCEANO} />
+
+        {/* Grand Line: la fascia orizzontale che taglia il mondo a metà,
+            disegnata sopra l'oceano per restare visibile e distinta (è
+            attraversabile, a differenza della Red Line), e ritagliata sulla
+            stessa forma dell'oceano. */}
         <rect
           x={0}
           y={GRAND_LINE_Y - SPESSORE_GRAND_LINE / 2}
           width={LARGHEZZA_MAPPA}
           height={SPESSORE_GRAND_LINE}
           fill={COLORE_GRAND_LINE}
-        />
-
-        {/* Red Line: l'anello continentale. Sulla mappa piatta appare come due
-            bande verticali — quella centrale (Reverse Mountain) e quella sulla
-            cucitura del mondo (Mary Geoise, ancora un rettangolo semplice: non
-            ancora ricalcata, vedi 01-ARCHITETTURA.md).
-
-            La fascia di Reverse Mountain è un rettangolo sopra e sotto, con al
-            centro la vera strozzatura letta a mano dalla mappa di riferimento
-            (src/lib/red-line.ts). Il rettangolo si ferma appena dentro il
-            corpo centrale della stella (non alle punte dei suoi bracci, che
-            sono molto più larghe): un primo tentativo li univa con un imbuto
-            fino alle punte, ma su un tratto di quasi duemila unità diventava
-            un enorme triangolo che dominava tutto il quadrante. Fermandosi al
-            corpo centrale non serve alcun raccordo. */}
-        <rect
-          x={REVERSE_MOUNTAIN_X - SPESSORE_RED_LINE / 2}
-          y={0}
-          width={SPESSORE_RED_LINE}
-          height={2430}
-          fill={COLORE_RED_LINE}
-        />
-        <path d={CONTORNO_RED_LINE_PRINCIPALE} fill={COLORE_RED_LINE} />
-        <rect
-          x={REVERSE_MOUNTAIN_X - SPESSORE_RED_LINE / 2}
-          y={2600}
-          width={SPESSORE_RED_LINE}
-          height={ALTEZZA_MAPPA - 2600}
-          fill={COLORE_RED_LINE}
-        />
-        <rect
-          x={CUCITURA_X}
-          y={0}
-          width={SPESSORE_RED_LINE / 2}
-          height={ALTEZZA_MAPPA}
-          fill={COLORE_RED_LINE}
-        />
-        <rect
-          x={LARGHEZZA_MAPPA - SPESSORE_RED_LINE / 2}
-          y={0}
-          width={SPESSORE_RED_LINE / 2}
-          height={ALTEZZA_MAPPA}
-          fill={COLORE_RED_LINE}
+          clipPath="url(#ritaglio-oceano)"
         />
       </g>
 

@@ -270,67 +270,80 @@ dal manga quel contorno va sostituito.
 
 ## Come si disegna la Red Line
 
-**Reverse Mountain non è un'isola.** È il punto in cui la Red Line — la catena montuosa che
-avvolge il mondo da polo a polo — viene attraversata dalle acque della Grand Line. All'inizio
-era stata disegnata come un'isola per errore (una scorciatoia presa mentre si popolava l'East
-Blue): Gabriele se n'è accorto e ha chiesto di correggerla.
+**La Red Line non è una striscia sulla mappa: è tutto ciò che non è mare.** Questa è la terza
+versione di questa sezione, e vale la pena raccontare come ci si è arrivati, perché ogni
+versione precedente sembrava giusta finché non si è vista una mappa di riferimento migliore.
 
-**La correzione vera non era spostare Reverse Mountain, ma disegnare la Red Line stessa.**
-Finché la Red Line era un semplice rettangolo rosso, qualsiasi luogo messo al suo interno
-sembrava fluttuare nel vuoto. Con la Red Line ricalcata dalla mappa di riferimento, Reverse
-Mountain torna a essere quello che è: un punto **dentro** una terra vera.
+**Versione 1 — un rettangolo.** All'inizio la Red Line era due semplici rettangoli verticali
+(Reverse Mountain al centro, la cucitura del mondo sui bordi). Un placeholder dichiarato tale.
+Il problema si è visto quando Reverse Mountain — un luogo `tipo: "punto-notevole"` — è stata
+disegnata *dentro* quel rettangolo: sembrava un'isola fluttuante nel mare, perché il rettangolo
+non aveva nessuna forma vera.
 
-### Il ricalco (`scripts/traccia-red-line.mjs`) — letto a occhio, non da un algoritmo
+**Versione 2 — una stella disegnata a mano.** Si è ricalcata a occhio la "stella" a quattro
+bracci di Reverse Mountain da una griglia di coordinate, con il rettangolo sottile sopra e
+sotto. Corretto nel dettaglio, ma Gabriele ha fatto notare due difetti guardando il sito vero:
+la stella non mostrava bene i canali fra i bracci, e un tentativo di raccordo fra stella e
+rettangolo (un "imbuto") diventava un enorme triangolo a piena mappa. Il problema di fondo,
+capito solo dopo: si stava cercando di ricalcare la Red Line come se fosse una striscia
+sottile, quando **sulla mappa di riferimento vera occupa la maggior parte del disegno.**
 
-La Red Line non è una macchia chiusa come un'isola: è una fascia che attraversa l'intera mappa
-da nord a sud. Il metodo di `traccia-isole.mjs` (riempire da un centro fino alla linea scura) è
-stato provato prima, adattato per una forma che tocca i bordi della mappa invece di essere
-chiusa — e ha smascherato due problemi veri del disegno di riferimento, non del metodo:
+**Versione 3 (attuale) — l'oceano ritagliato sopra la Red Line.** Gabriele ha fornito una
+seconda immagine di riferimento, `public/riferimento/mappa-red-line.jpg` (un'esportazione a
+contrasto aumentato di `mappa.jpg`, fatta da lui: stesso disegno, colori più netti). Lì si vede
+chiaramente che **la Red Line avvolge ogni mare su tutti i lati** — anche sopra e sotto (i
+poli), non solo a destra e a sinistra come si era sempre pensato. I quattro mari sono isole
+d'acqua dentro un continente unico, non il contrario.
 
-1. **La linea di china ha piccoli buchi** lasciati dalla compressione JPEG, soprattutto sui
-   tratti sottili: il riempimento ci passa attraverso e scappa nel mare aperto. Una leggera
-   sfocatura prima di leggere lo scuro chiude questi buchi.
-2. **Vicino a Reverse Mountain molte isole** (Isola Cozia, Isola Polestar, Spider Miles...) sono
-   disegnate a un pelo dalla costa della Red Line: la stessa sfocatura che chiude i buchi della
-   china salda anche loro alla Red Line, perché lo spazio di mare fra i due disegni è largo
-   pochi pixel quanto i buchi da chiudere. Non esiste una soglia unica che risolva il primo
-   problema senza causare il secondo — è stato verificato provando diversi valori.
+Da questo nasce il modello attuale, molto più semplice di tutti i precedenti:
 
-Per questo il contorno intorno a Reverse Mountain (la "stella" a quattro bracci dove il fiume
-confluisce) è stato **letto a occhio**, non generato: stesso procedimento usato per il contorno
-dell'Isola Dawn (vedi sopra, "Come si dà a un'isola una forma decisa da noi"). Un ritaglio della
-mappa di riferimento con una griglia di coordinate sovrapposta, sedici punti letti lungo il
-contorno esterno in ordine orario, verificati per sovrapposizione ridisegnandoli sopra
-l'originale. I sedici punti vivono in `scripts/traccia-red-line.mjs`, commentati; lo script li
-trasforma nella stessa curva morbida delle isole e scrive `src/lib/red-line.ts`.
+1. **Si disegna la Red Line come sfondo di tutta la mappa** (un rettangolo che copre l'intero
+   spazio-mappa)
+2. **Si ritaglia sopra un'unica forma d'acqua** — i quattro mari e la Grand Line, ricalcati
+   insieme dalla nuova mappa di riferimento — nel colore dell'oceano
+3. La Grand Line si disegna come una fascia sopra l'oceano, **ritagliata sulla stessa forma**
+   (altrimenti dipingerebbe di blu anche la terra alla sua stessa altezza, fuori dai mari)
 
-**Il passaggio dalla stella al resto della Red Line è il solito rettangolo sottile, fermato al
-punto giusto.** La stella copre solo una piccola fascia di altezza (dove il disegno mostra i
-quattro bracci); sopra e sotto, la Red Line torna al rettangolo di sempre. Il rettangolo si
-ferma appena **dentro il corpo centrale** della stella — non alle punte dei suoi bracci, molto
-più larghe — perché lì la larghezza dei due combacia già, senza bisogno di alcun raccordo.
+Non c'è più bisogno di ricalcare la Red Line stessa, né di preoccuparsi di raccordi: quello che
+non è oceano è automaticamente Red Line, ovunque sulla mappa.
 
-**Un primo tentativo usava un raccordo esplicito, ed è stato scartato.** L'idea iniziale era di
-allargare i bordi del rettangolo con un imbuto fino a toccare le punte dei bracci più lontani
-(nord-ovest e nord-est), per non lasciare un varco di mare aperto fra il rettangolo e la
-stella. Visto in un ritaglio ravvicinato sembrava corretto. Visto sulla mappa intera, quell'imbuto
-attraversava quasi duemila unità di altezza e diventava un **triangolo enorme che dominava tutto
-il quadrante nord** — molto peggio del problema che doveva risolvere. Corretto fermando
-semplicemente il rettangolo al corpo centrale della stella, senza alcun raccordo: la lezione è
-che una forma di controllo vista solo da vicino può nascondere un problema di scala che si vede
-soltanto guardando la mappa intera.
+### Perché i quattro mari sono un solo ricalco (`scripts/traccia-oceano.mjs`)
 
-### Solo una fascia delle due
+North Blue, East Blue, West Blue e South Blue non sono davvero separati: intorno a Reverse
+Mountain sono connessi da stretti canali (gli stessi "bracci" della vecchia stella — visti da
+vicino sono varchi d'acqua, non terra). Riempiendo a partire da un punto in uno qualsiasi dei
+quattro mari, il riempimento raggiunge sempre gli altri tre. Il risultato è un solo, enorme
+contorno — non un difetto del metodo, è la vera forma del mondo.
 
-La Red Line incrocia la Grand Line in **due punti agli antipodi** (vedi "I punti di ancoraggio"
-più sopra): quello di Reverse Mountain (x = 5000) e quello di Mary Geoise / Isola degli
-Uomini-Pesce (x = 0, cioè x = 10000 — è la cucitura del mondo). Per ora **solo la fascia di
-Reverse Mountain ha la stella.** L'altra resta un rettangolo semplice.
+Il ricalco usa lo stesso principio delle isole (riempire da un centro fino a un muro), ma con
+un muro diverso: non la linea scura del disegno, bensì **il colore**. Sulla mappa a contrasto
+aumentato la Red Line è arancione acceso, nettamente diversa dal beige di mare e isole insieme
+— un muro molto più robusto di una linea sottile, perché non ha i piccoli buchi di compressione
+JPEG che avevano reso inaffidabile il tentativo precedente.
 
-Non è una dimenticanza: quella fascia richiederebbe lo stesso lavoro a mano (ritaglio, griglia,
-lettura a occhio, verifica) fatto qui. Si rifarà quando si cataloga la zona che le sta intorno
-(Marineford, Impel Down, Mary Geoise), sessione in cui sarà comunque necessario guardare da
-vicino quel pezzo di mappa.
+**Un problema nuovo, specifico di questa immagine:** la cornice decorativa a scacchi intorno al
+disegno ha un colore troppo simile al beige del mare per distinguerla via colore (un quadretto
+chiaro e uno scuro, nessuno dei due arancione). Il riempimento ci scappava attraverso fino al
+bordo dell'immagine. Soluzione: si tratta l'intera fascia di margine (dove finisce la cornice e
+inizia l'arancione pieno, misurato a occhio) come muro a prescindere dal colore.
+
+### Un'immagine di riferimento diversa, con il proprio allineamento
+
+`mappa-red-line.jpg` non è un ritaglio identico a `mappa.jpg`: dimensioni diverse, quindi un
+allineamento diverso (`ALLINEAMENTO` dentro `traccia-oceano.mjs`), misurato allo stesso modo di
+sempre — due punti già noti (il varco di Reverse Mountain deve cadere su 5000,2500; Isola
+Polestar deve cadere vicino a dove l'avevamo già catalogata) invece delle percentuali descritte
+più sopra per `mappa.jpg`. Le due immagini restano entrambe utili: `mappa.jpg` per ricalcare le
+isole (la tecnica del muro-a-linea-scura ci lavora bene), `mappa-red-line.jpg` per tutto ciò che
+riguarda la Red Line e l'oceano (dove serve il muro-a-colore).
+
+### Punti notevoli dentro la Red Line
+
+Reverse Mountain non ha più bisogno di una forma propria: è semplicemente un punto sulla Red
+Line di sfondo, che ora è vera terra invece di un rettangolo. Resta un luogo a sé nello schema
+dati (per la sua scheda, la sua descrizione, il suo capitolo di rivelazione), disegnato con un
+segnalino invece che con una forma piena — vedi più sotto, "Punti notevoli: un segnalino, non
+un'isola".
 
 ### Punti notevoli: un segnalino, non un'isola
 

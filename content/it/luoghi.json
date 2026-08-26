@@ -10,5 +10,77 @@
     "sottotitolo": "Il villaggio natale di Rufy",
     "descrizione": "Un piccolo villaggio di pescatori sulla costa dell'Isola Dawn. È qui che Monkey D. Rufy è cresciuto sognando di diventare il Re dei Pirati, ispirato dal pirata Shanks il Rosso.",
     "curiosita": "È il primo luogo che il lettore incontra in tutta la storia di One Piece."
+  },
+  "shells-town": {
+    "nome": "Shells Town",
+    "sottotitolo": "La città della base navale",
+    "descrizione": "Città dell'East Blue che ospita il 153° distretto della Marina, comandato dal capitano Morgan detto «Ascia di ferro», temuto dai suoi stessi uomini quanto dagli abitanti. È qui che Monkey D. Rufy trova Roronoa Zoro legato al palo del cortile della base, e lo convince a unirsi a lui.",
+    "curiosita": "È il luogo in cui nasce davvero la ciurma: Zoro è il primo compagno che Rufy recluta."
+  },
+  "organ-islands": {
+    "nome": "Isole Organ",
+    "sottotitolo": "L'arcipelago di Orange Town",
+    "descrizione": "Gruppo di isole dell'East Blue. Sull'isola principale sorge Orange Town, la città messa a ferro e fuoco dalla ciurma di Bagy il clown.",
+    "curiosita": "Il nome nasce dalla forma dell'arcipelago, che ricorda le canne di un organo."
+  },
+  "orange-town": {
+    "nome": "Orange Town",
+    "sottotitolo": "La città saccheggiata da Bagy",
+    "descrizione": "Città di mercanti abbandonata in fretta dagli abitanti in fuga dalla ciurma di Bagy il clown, che ne ha fatto la propria base. Solo il sindaco Boodle è rimasto, deciso a difendere ciò che resta. Qui Rufy incontra per la prima volta Nami.",
+    "curiosita": "Il nome viene dagli aranceti che circondavano la città prima del saccheggio."
+  },
+  "island-of-rare-animals": {
+    "nome": "Isola degli Animali Strani",
+    "sottotitolo": "L'isola di Gaimon",
+    "descrizione": "Piccola isola dell'East Blue popolata da animali dall'aspetto bizzarro, incroci improbabili fra specie diverse. Ci vive Gaimon, un uomo rimasto incastrato dentro un baule vent'anni prima e da allora guardiano di cinque forzieri del tesoro.",
+    "curiosita": "I cinque forzieri che Gaimon ha protetto per vent'anni erano vuoti. Ha scelto di restare comunque, a fare compagnia agli animali."
+  },
+  "gecko-islands": {
+    "nome": "Isole Ghecco",
+    "sottotitolo": "L'arcipelago del Villaggio di Sirop",
+    "descrizione": "Arcipelago tranquillo dell'East Blue, lontano dalle rotte più battute. Sull'isola principale si trova il Villaggio di Sirop.",
+    "curiosita": ""
+  },
+  "syrup-village": {
+    "nome": "Villaggio di Sirop",
+    "sottotitolo": "Il villaggio di Usop",
+    "descrizione": "Villaggio costiero dove non succede mai niente, se non le bugie che Usop grida ogni mattina per svegliare il paese. Sulla collina sorge la villa di Kaya, giovane ereditiera malata e amica d'infanzia di Usop.",
+    "curiosita": "È qui che la ciurma riceve la sua prima vera nave, la Going Merry, regalo di Kaya."
+  },
+  "baratie": {
+    "nome": "Baratie",
+    "sottotitolo": "Il ristorante galleggiante",
+    "descrizione": "Ristorante costruito sopra una nave, ancorato in mezzo al mare dell'East Blue. Lo dirige Zeff detto «Gamba rossa», ex pirata; i camerieri sono cuochi e combattenti allo stesso tempo, perché la clientela non è sempre pacifica. Qui lavora Sanji.",
+    "curiosita": "La regola della casa è che nessun affamato viene mai cacciato via, per quanto sia povero o pericoloso."
+  },
+  "conomi-islands": {
+    "nome": "Arcipelago Konomi",
+    "sottotitolo": "Le isole di Nami",
+    "descrizione": "Gruppo di isole dell'East Blue tenute sotto il giogo della ciurma di Arlong, che impone agli abitanti un tributo mensile in denaro in cambio della vita.",
+    "curiosita": ""
+  },
+  "cocoyasi-village": {
+    "nome": "Villaggio di Cocoyashi",
+    "sottotitolo": "Il villaggio dove Nami è cresciuta",
+    "descrizione": "Villaggio di mandarineti dell'Arcipelago Konomi. Qui Nami è cresciuta insieme alla sorella Nojiko, allevata da Bellemère, un'ex soldatessa della Marina.",
+    "curiosita": ""
+  },
+  "arlong-park": {
+    "nome": "Arlong Park",
+    "sottotitolo": "La roccaforte degli uomini-pesce",
+    "descrizione": "Complesso fortificato costruito dalla ciurma di Arlong sull'Arcipelago Konomi, con una piscina che si apre direttamente sul mare. Da qui gli uomini-pesce controllano tutte le isole vicine.",
+    "curiosita": ""
+  },
+  "polestar-islands": {
+    "nome": "Isole Polestar",
+    "sottotitolo": "L'ultimo arcipelago prima della Grand Line",
+    "descrizione": "Arcipelago dell'East Blue situato all'imboccatura della Grand Line. Sull'isola principale sorge Loguetown, tappa obbligata per chiunque voglia tentare la traversata di Reverse Mountain.",
+    "curiosita": ""
+  },
+  "loguetown": {
+    "nome": "Loguetown",
+    "sottotitolo": "La città dell'inizio e della fine",
+    "descrizione": "Grande città portuale dell'East Blue: qui è nato Gol D. Roger e qui è stato giustiziato, sul patibolo che sorge ancora nella piazza centrale. Ultimo porto in cui rifornirsi prima di entrare nella Grand Line.",
+    "curiosita": "Fu dal patibolo di questa città che Gol D. Roger pronunciò le parole che diedero inizio all'era della pirateria."
   }
 }

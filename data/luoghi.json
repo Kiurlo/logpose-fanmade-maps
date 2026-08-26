@@ -44,5 +44,281 @@
       "seme": "foosha-village"
     },
     "immagini": []
+  },
+  {
+    "id": "shells-town",
+    "coordinate": {
+      "x": 8827,
+      "y": 466
+    },
+    "precisione": "stimata",
+    "tipo": "citta",
+    "mare": "east-blue",
+    "canone": "manga",
+    "rivelatoAlCapitolo": 2,
+    "ancoraggioNarrativo": null,
+    "contenutoIn": null,
+    "archi": [
+      "romance-dawn"
+    ],
+    "dimensione": 0.7,
+    "forma": {
+      "tipo": "generata",
+      "seme": "shells-town"
+    },
+    "immagini": []
+  },
+  {
+    "id": "organ-islands",
+    "coordinate": {
+      "x": 8214,
+      "y": 616
+    },
+    "precisione": "stimata",
+    "tipo": "arcipelago",
+    "mare": "east-blue",
+    "canone": "manga",
+    "rivelatoAlCapitolo": 9,
+    "ancoraggioNarrativo": null,
+    "contenutoIn": null,
+    "archi": [
+      "orange-town"
+    ],
+    "dimensione": 1.1,
+    "forma": {
+      "tipo": "generata",
+      "seme": "organ-islands"
+    },
+    "immagini": []
+  },
+  {
+    "id": "orange-town",
+    "coordinate": {
+      "x": 8180,
+      "y": 590
+    },
+    "precisione": "stimata",
+    "tipo": "citta",
+    "mare": "east-blue",
+    "canone": "manga",
+    "rivelatoAlCapitolo": 9,
+    "ancoraggioNarrativo": null,
+    "contenutoIn": "organ-islands",
+    "archi": [
+      "orange-town"
+    ],
+    "dimensione": 0.5,
+    "forma": {
+      "tipo": "generata",
+      "seme": "orange-town"
+    },
+    "immagini": []
+  },
+  {
+    "id": "island-of-rare-animals",
+    "coordinate": {
+      "x": 8161,
+      "y": 722
+    },
+    "precisione": "stimata",
+    "tipo": "isola",
+    "mare": "east-blue",
+    "canone": "manga",
+    "rivelatoAlCapitolo": 22,
+    "ancoraggioNarrativo": null,
+    "contenutoIn": null,
+    "archi": [
+      "orange-town"
+    ],
+    "dimensione": 0.5,
+    "forma": {
+      "tipo": "generata",
+      "seme": "island-of-rare-animals"
+    },
+    "immagini": []
+  },
+  {
+    "id": "gecko-islands",
+    "coordinate": {
+      "x": 7852,
+      "y": 841
+    },
+    "precisione": "stimata",
+    "tipo": "arcipelago",
+    "mare": "east-blue",
+    "canone": "manga",
+    "rivelatoAlCapitolo": 23,
+    "ancoraggioNarrativo": null,
+    "contenutoIn": null,
+    "archi": [
+      "syrup-village"
+    ],
+    "dimensione": 1,
+    "forma": {
+      "tipo": "generata",
+      "seme": "gecko-islands"
+    },
+    "immagini": []
+  },
+  {
+    "id": "syrup-village",
+    "coordinate": {
+      "x": 7820,
+      "y": 815
+    },
+    "precisione": "stimata",
+    "tipo": "villaggio",
+    "mare": "east-blue",
+    "canone": "manga",
+    "rivelatoAlCapitolo": 23,
+    "ancoraggioNarrativo": null,
+    "contenutoIn": "gecko-islands",
+    "archi": [
+      "syrup-village"
+    ],
+    "dimensione": 0.5,
+    "forma": {
+      "tipo": "generata",
+      "seme": "syrup-village"
+    },
+    "immagini": []
+  },
+  {
+    "id": "baratie",
+    "coordinate": {
+      "x": 7451,
+      "y": 1127
+    },
+    "precisione": "stimata",
+    "tipo": "struttura",
+    "mare": "east-blue",
+    "canone": "manga",
+    "rivelatoAlCapitolo": 43,
+    "ancoraggioNarrativo": null,
+    "contenutoIn": null,
+    "archi": [
+      "baratie"
+    ],
+    "dimensione": 0.5,
+    "forma": {
+      "tipo": "generata",
+      "seme": "baratie"
+    },
+    "immagini": []
+  },
+  {
+    "id": "conomi-islands",
+    "coordinate": {
+      "x": 7125,
+      "y": 552
+    },
+    "precisione": "stimata",
+    "tipo": "arcipelago",
+    "mare": "east-blue",
+    "canone": "manga",
+    "rivelatoAlCapitolo": 69,
+    "ancoraggioNarrativo": null,
+    "contenutoIn": null,
+    "archi": [
+      "arlong-park"
+    ],
+    "dimensione": 1,
+    "forma": {
+      "tipo": "generata",
+      "seme": "conomi-islands"
+    },
+    "immagini": []
+  },
+  {
+    "id": "cocoyasi-village",
+    "coordinate": {
+      "x": 7100,
+      "y": 528
+    },
+    "precisione": "stimata",
+    "tipo": "villaggio",
+    "mare": "east-blue",
+    "canone": "manga",
+    "rivelatoAlCapitolo": 71,
+    "ancoraggioNarrativo": null,
+    "contenutoIn": "conomi-islands",
+    "archi": [
+      "arlong-park"
+    ],
+    "dimensione": 0.5,
+    "forma": {
+      "tipo": "generata",
+      "seme": "cocoyasi-village"
+    },
+    "immagini": []
+  },
+  {
+    "id": "arlong-park",
+    "coordinate": {
+      "x": 7152,
+      "y": 575
+    },
+    "precisione": "stimata",
+    "tipo": "struttura",
+    "mare": "east-blue",
+    "canone": "manga",
+    "rivelatoAlCapitolo": 69,
+    "ancoraggioNarrativo": null,
+    "contenutoIn": "conomi-islands",
+    "archi": [
+      "arlong-park"
+    ],
+    "dimensione": 0.4,
+    "forma": {
+      "tipo": "generata",
+      "seme": "arlong-park"
+    },
+    "immagini": []
+  },
+  {
+    "id": "polestar-islands",
+    "coordinate": {
+      "x": 5714,
+      "y": 1673
+    },
+    "precisione": "stimata",
+    "tipo": "arcipelago",
+    "mare": "east-blue",
+    "canone": "manga",
+    "rivelatoAlCapitolo": 96,
+    "ancoraggioNarrativo": null,
+    "contenutoIn": null,
+    "archi": [
+      "loguetown"
+    ],
+    "dimensione": 1.1,
+    "forma": {
+      "tipo": "generata",
+      "seme": "polestar-islands"
+    },
+    "immagini": []
+  },
+  {
+    "id": "loguetown",
+    "coordinate": {
+      "x": 5700,
+      "y": 1650
+    },
+    "precisione": "stimata",
+    "tipo": "citta",
+    "mare": "east-blue",
+    "canone": "manga",
+    "rivelatoAlCapitolo": 96,
+    "ancoraggioNarrativo": null,
+    "contenutoIn": "polestar-islands",
+    "archi": [
+      "loguetown"
+    ],
+    "dimensione": 0.6,
+    "forma": {
+      "tipo": "generata",
+      "seme": "loguetown"
+    },
+    "immagini": []
   }
 ]

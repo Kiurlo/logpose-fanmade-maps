@@ -320,5 +320,281 @@
       "seme": "loguetown"
     },
     "immagini": []
+  },
+  {
+    "id": "reverse-mountain",
+    "coordinate": {
+      "x": 5000,
+      "y": 2500
+    },
+    "precisione": "stimata",
+    "tipo": "punto-notevole",
+    "mare": "grand-line-paradise",
+    "canone": "manga",
+    "rivelatoAlCapitolo": 100,
+    "ancoraggioNarrativo": null,
+    "contenutoIn": null,
+    "archi": [
+      "reverse-mountain"
+    ],
+    "dimensione": 1.2,
+    "forma": {
+      "tipo": "generata",
+      "seme": "reverse-mountain"
+    },
+    "immagini": []
+  },
+  {
+    "id": "cape-twin",
+    "coordinate": {
+      "x": 5900,
+      "y": 2460
+    },
+    "precisione": "stimata",
+    "tipo": "punto-notevole",
+    "mare": "grand-line-paradise",
+    "canone": "manga",
+    "rivelatoAlCapitolo": 100,
+    "ancoraggioNarrativo": null,
+    "contenutoIn": "reverse-mountain",
+    "archi": [
+      "reverse-mountain"
+    ],
+    "dimensione": 0.4,
+    "forma": {
+      "tipo": "generata",
+      "seme": "cape-twin"
+    },
+    "immagini": []
+  },
+  {
+    "id": "whisky-peak",
+    "coordinate": {
+      "x": 6250,
+      "y": 2440
+    },
+    "precisione": "stimata",
+    "tipo": "citta",
+    "mare": "grand-line-paradise",
+    "canone": "manga",
+    "rivelatoAlCapitolo": 106,
+    "ancoraggioNarrativo": null,
+    "contenutoIn": null,
+    "archi": [
+      "whisky-peak"
+    ],
+    "dimensione": 0.8,
+    "forma": {
+      "tipo": "generata",
+      "seme": "whisky-peak"
+    },
+    "immagini": []
+  },
+  {
+    "id": "little-garden",
+    "coordinate": {
+      "x": 6676,
+      "y": 2429
+    },
+    "precisione": "stimata",
+    "tipo": "isola",
+    "mare": "grand-line-paradise",
+    "canone": "manga",
+    "rivelatoAlCapitolo": 114,
+    "ancoraggioNarrativo": null,
+    "contenutoIn": null,
+    "archi": [
+      "little-garden"
+    ],
+    "dimensione": 0.43,
+    "forma": {
+      "tipo": "path",
+      "d": "M -14.9 -38.3 C -8.4 -38.8, -2.8 -37.7, 3.7 -37 C 10.3 -36.3, 17.4 -35.2, 24.3 -34.3 C 31.1 -33.4, 38 -33, 44.8 -31.6 C 51.7 -30.3, 63.2 -28.2, 65.4 -26.2 C 67.6 -24.2, 57 -22.2, 57.9 -19.5 C 58.8 -16.8, 68.5 -14.1, 71 -10.1 C 73.5 -6.1, 73.5 -0.2, 72.9 4.7 C 72.2 9.6, 71.6 15.7, 67.3 19.5 C 62.9 23.3, 53.6 24.7, 46.7 27.6 C 39.9 30.5, 32.7 35.4, 26.2 37 C 19.6 38.6, 14 36.8, 7.5 37 C 0.9 37.2, -6.2 38.1, -13.1 38.3 C -19.9 38.6, -27.4 39.9, -33.6 38.3 C -39.9 36.8, -46.4 33, -50.4 28.9 C -54.5 24.9, -54.5 19.1, -57.9 14.1 C -61.3 9.2, -68.5 4.3, -71 -0.7 C -73.5 -5.6, -75.3 -11, -72.9 -15.5 C -70.4 -20, -62.3 -24.4, -56 -27.6 C -49.8 -30.7, -42.3 -32.5, -35.5 -34.3 C -28.6 -36.1, -21.5 -37.9, -14.9 -38.3 Z"
+    },
+    "immagini": []
+  },
+  {
+    "id": "drum-island",
+    "coordinate": {
+      "x": 7021,
+      "y": 2714
+    },
+    "precisione": "stimata",
+    "tipo": "regno",
+    "mare": "grand-line-paradise",
+    "canone": "manga",
+    "rivelatoAlCapitolo": 130,
+    "ancoraggioNarrativo": null,
+    "contenutoIn": null,
+    "archi": [
+      "drum-island"
+    ],
+    "dimensione": 0.98,
+    "forma": {
+      "tipo": "path",
+      "d": "M -8.4 -88.1 C 9.3 -88.8, 26.2 -87.4, 43.9 -82.7 C 61.6 -78, 84.7 -69.7, 98.1 -59.9 C 111.5 -50, 116.8 -36.1, 124.2 -23.5 C 131.7 -11, 139.5 2.7, 142.9 15.5 C 146.3 28.2, 152.3 42.1, 144.8 53.1 C 137.3 64.1, 114.6 75.5, 98.1 81.4 C 81.6 87.2, 59.5 90.6, 45.8 88.1 C 32.1 85.6, 24.3 76.2, 15.9 66.6 C 7.5 56.9, 7.8 35.9, -4.7 30.3 C -17.1 24.7, -49.5 29.1, -58.8 33 C -68.2 36.8, -68.8 50.7, -60.7 53.1 C -52.6 55.6, -19 42.4, -10.3 47.7 C -1.6 53.1, 0 78.9, -8.4 85.4 C -16.8 91.9, -43 90.3, -60.7 86.8 C -78.5 83.2, -100.9 74, -114.9 63.9 C -128.9 53.8, -142.6 38.6, -144.8 26.2 C -147 13.9, -134.8 2, -128 -10.1 C -121.1 -22.2, -114.6 -35, -103.7 -46.4 C -92.8 -57.8, -78.5 -71.7, -62.6 -78.7 C -46.7 -85.6, -26.2 -87.4, -8.4 -88.1 Z"
+    },
+    "immagini": []
+  },
+  {
+    "id": "big-horn",
+    "coordinate": {
+      "x": 7000,
+      "y": 2680
+    },
+    "precisione": "stimata",
+    "tipo": "citta",
+    "mare": "grand-line-paradise",
+    "canone": "manga",
+    "rivelatoAlCapitolo": 136,
+    "ancoraggioNarrativo": null,
+    "contenutoIn": "drum-island",
+    "archi": [
+      "drum-island"
+    ],
+    "dimensione": 0.5,
+    "forma": {
+      "tipo": "generata",
+      "seme": "big-horn"
+    },
+    "immagini": []
+  },
+  {
+    "id": "arabasta-kingdom",
+    "coordinate": {
+      "x": 7489,
+      "y": 2478
+    },
+    "precisione": "stimata",
+    "tipo": "regno",
+    "mare": "grand-line-paradise",
+    "canone": "manga",
+    "rivelatoAlCapitolo": 154,
+    "ancoraggioNarrativo": null,
+    "contenutoIn": null,
+    "archi": [
+      "arabasta"
+    ],
+    "dimensione": 1.1,
+    "forma": {
+      "tipo": "path",
+      "d": "M -9.3 -98.9 C 9 -100.4, 26.5 -98.4, 44.8 -94.8 C 63.2 -91.2, 82.2 -81.6, 100.9 -77.3 C 119.6 -73.1, 141.4 -76.4, 156.9 -69.3 C 172.5 -62.1, 186.8 -46, 194.3 -34.3 C 201.8 -22.6, 200.8 -11.9, 201.8 0.7 C 202.7 13.2, 208.9 28.2, 199.9 41 C 190.9 53.8, 165.6 68.8, 147.6 77.3 C 129.5 85.9, 109.9 88.5, 91.5 92.1 C 73.2 95.7, 52.3 100.4, 37.4 98.9 C 22.4 97.3, 8.4 92.1, 1.9 82.7 C -4.7 73.3, -2.2 55.8, -1.9 42.4 C -1.6 28.9, 1.9 15.5, 3.7 2 C 5.6 -11.4, 12.8 -28.2, 9.3 -38.3 C 5.9 -48.4, -13.1 -61.9, -16.8 -58.5 C -20.5 -55.1, -13.4 -31.6, -13.1 -18.2 C -12.8 -4.7, -13.7 8.7, -14.9 22.2 C -16.2 35.6, -14.6 51.8, -20.5 62.5 C -26.5 73.3, -36.1 80.9, -50.4 86.8 C -64.8 92.6, -88.1 98.4, -106.5 97.5 C -124.9 96.6, -146 89.2, -160.7 81.4 C -175.3 73.5, -187.4 62.3, -194.3 50.4 C -201.1 38.6, -205.5 23.5, -201.8 10.1 C -198 -3.4, -185.3 -18.8, -171.9 -30.3 C -158.5 -41.7, -139.2 -49.3, -121.4 -58.5 C -103.7 -67.7, -84.1 -78.7, -65.4 -85.4 C -46.7 -92.1, -27.7 -97.3, -9.3 -98.9 Z"
+    },
+    "immagini": []
+  },
+  {
+    "id": "nanohana",
+    "coordinate": {
+      "x": 7320,
+      "y": 2410
+    },
+    "precisione": "stimata",
+    "tipo": "citta",
+    "mare": "grand-line-paradise",
+    "canone": "manga",
+    "rivelatoAlCapitolo": 155,
+    "ancoraggioNarrativo": null,
+    "contenutoIn": "arabasta-kingdom",
+    "archi": [
+      "arabasta"
+    ],
+    "dimensione": 0.5,
+    "forma": {
+      "tipo": "generata",
+      "seme": "nanohana"
+    },
+    "immagini": []
+  },
+  {
+    "id": "erumalu",
+    "coordinate": {
+      "x": 7480,
+      "y": 2440
+    },
+    "precisione": "stimata",
+    "tipo": "citta",
+    "mare": "grand-line-paradise",
+    "canone": "manga",
+    "rivelatoAlCapitolo": 165,
+    "ancoraggioNarrativo": null,
+    "contenutoIn": "arabasta-kingdom",
+    "archi": [
+      "arabasta"
+    ],
+    "dimensione": 0.45,
+    "forma": {
+      "tipo": "generata",
+      "seme": "erumalu"
+    },
+    "immagini": []
+  },
+  {
+    "id": "yuba",
+    "coordinate": {
+      "x": 7600,
+      "y": 2500
+    },
+    "precisione": "stimata",
+    "tipo": "villaggio",
+    "mare": "grand-line-paradise",
+    "canone": "manga",
+    "rivelatoAlCapitolo": 172,
+    "ancoraggioNarrativo": null,
+    "contenutoIn": "arabasta-kingdom",
+    "archi": [
+      "arabasta"
+    ],
+    "dimensione": 0.4,
+    "forma": {
+      "tipo": "generata",
+      "seme": "yuba"
+    },
+    "immagini": []
+  },
+  {
+    "id": "rainbase",
+    "coordinate": {
+      "x": 7350,
+      "y": 2520
+    },
+    "precisione": "stimata",
+    "tipo": "citta",
+    "mare": "grand-line-paradise",
+    "canone": "manga",
+    "rivelatoAlCapitolo": 180,
+    "ancoraggioNarrativo": null,
+    "contenutoIn": "arabasta-kingdom",
+    "archi": [
+      "arabasta"
+    ],
+    "dimensione": 0.5,
+    "forma": {
+      "tipo": "generata",
+      "seme": "rainbase"
+    },
+    "immagini": []
+  },
+  {
+    "id": "alubarna",
+    "coordinate": {
+      "x": 7500,
+      "y": 2540
+    },
+    "precisione": "stimata",
+    "tipo": "citta",
+    "mare": "grand-line-paradise",
+    "canone": "manga",
+    "rivelatoAlCapitolo": 190,
+    "ancoraggioNarrativo": null,
+    "contenutoIn": "arabasta-kingdom",
+    "archi": [
+      "arabasta"
+    ],
+    "dimensione": 0.6,
+    "forma": {
+      "tipo": "generata",
+      "seme": "alubarna"
+    },
+    "immagini": []
   }
 ]

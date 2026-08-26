@@ -82,5 +82,77 @@
     "sottotitolo": "La città dell'inizio e della fine",
     "descrizione": "Grande città portuale dell'East Blue: qui è nato Gol D. Roger e qui è stato giustiziato, sul patibolo che sorge ancora nella piazza centrale. Ultimo porto in cui rifornirsi prima di entrare nella Grand Line.",
     "curiosita": "Fu dal patibolo di questa città che Gol D. Roger pronunciò le parole che diedero inizio all'era della pirateria."
+  },
+  "reverse-mountain": {
+    "nome": "Reverse Mountain",
+    "sottotitolo": "Dove le quattro correnti si incontrano",
+    "descrizione": "L'unica montagna al mondo su cui una nave può navigare in salita: le correnti dei quattro mari vi confluiscono e la risalgono fino alla cima, da cui si scende dritti nella Grand Line. È il passaggio che la ciurma di Cappello di Paglia usa per lasciare l'East Blue.",
+    "curiosita": "Il faro sulla cima è gestito da un unico guardiano, Crocus, ex membro della ciurma del Re dei Pirati Gol D. Roger."
+  },
+  "cape-twin": {
+    "nome": "Capo Gemello",
+    "sottotitolo": "Dove Laboon aspetta da cinquant'anni",
+    "descrizione": "Le due punte rocciose alla base di Reverse Mountain, dal lato dell'East Blue. Qui la balena Laboon aspetta da cinquant'anni il ritorno della ciurma dei pirati Rumbar, che gli chiesero di fermarsi ad aspettarli prima di entrare nella Grand Line.",
+    "curiosita": "Laboon porta ancora sul corpo le cicatrici di innumerevoli scontri contro le rocce del capo, dove si scaglia per la disperazione."
+  },
+  "whisky-peak": {
+    "nome": "Whisky Peak",
+    "sottotitolo": "La città che accoglie i pirati come eroi",
+    "descrizione": "Prima città che la ciurma incontra entrando nella Grand Line. Gli abitanti accolgono i pirati in arrivo con feste e festeggiamenti — ma è una trappola: sono tutti cacciatori di taglie e agenti della misteriosa organizzazione Baroque Works.",
+    "curiosita": "È qui che compare per la prima volta Mr. 9 insieme a Miss Wednesday, che si rivelerà essere la principessa Vivi di Arabasta."
+  },
+  "little-garden": {
+    "nome": "Little Garden",
+    "sottotitolo": "L'isola preistorica",
+    "descrizione": "Piccola isola nel nome, immensa nei fatti: un pezzo di mondo rimasto all'era preistorica, popolato da dinosauri e insetti giganti. Vi abitano da cent'anni i due giganti Dorry e Broggy, impegnati in un duello che nessuno dei due ricorda più come sia iniziato.",
+    "curiosita": "I due giganti litigano su quale isola stiano combattendo da cento anni, senza accorgersi che l'eruzione di un vulcano ne ha unite due in una sola."
+  },
+  "drum-island": {
+    "nome": "Regno di Drum",
+    "sottotitolo": "Il regno innevato, oggi Regno di Sakura",
+    "descrizione": "Isola montuosa perennemente coperta di neve, a forma di enorme fungo rovesciato. Governata dal tiranno Wapol quando la ciurma vi approda in cerca di un medico. Dopo la sua cacciata il regno verrà rinominato Regno di Sakura in onore dei ciliegi che vi fioriranno.",
+    "curiosita": "È l'isola natale di Tony Tony Chopper, la renna che diventerà il medico di bordo della ciurma."
+  },
+  "big-horn": {
+    "nome": "Big Horn",
+    "sottotitolo": "La capitale sulla cima del regno",
+    "descrizione": "Capitale del Regno di Drum, costruita sulla sommità della montagna che dà forma a tutta l'isola. Vi si trova il castello reale, conteso fra il tiranno Wapol e il popolo che lo ha cacciato.",
+    "curiosita": ""
+  },
+  "arabasta-kingdom": {
+    "nome": "Regno di Arabasta",
+    "sottotitolo": "Il regno del deserto",
+    "descrizione": "Grande regno desertico della Grand Line, patria della principessa Nefertari Vivi. Attraversato da una guerra civile fomentata in segreto dall'organizzazione Baroque Works e dal suo capo, il Corsaro Crocodile, che vuole impadronirsene per cercare l'arma antica Pluton.",
+    "curiosita": "È il primo regno che la ciurma di Cappello di Paglia salva, invece di limitarsi ad attraversarlo."
+  },
+  "nanohana": {
+    "nome": "Nanohana",
+    "sottotitolo": "Il fiore del Regno di Arabasta",
+    "descrizione": "Città portuale di Arabasta, la prima che la ciurma raggiunge arrivando dal mare. Punto di partenza per attraversare il deserto verso l'interno del regno.",
+    "curiosita": ""
+  },
+  "erumalu": {
+    "nome": "Erumalu",
+    "sottotitolo": "La Città Verde, ora sepolta dalla sabbia",
+    "descrizione": "Un tempo florida città chiamata Città Verde, oggi ridotta a rovine sepolte dal deserto. La sua distruzione è una delle prove più dolorose degli intrighi di Baroque Works ai danni del regno.",
+    "curiosita": ""
+  },
+  "yuba": {
+    "nome": "Yuba",
+    "sottotitolo": "Il villaggio dell'oasi prosciugata",
+    "descrizione": "Piccolo villaggio fondato pochi anni prima attorno a un'oasi, base dell'Esercito Ribelle guidato da Toto e da suo figlio Koza. L'oasi si sta prosciugando, ed è proprio questo a innescare la guerra civile.",
+    "curiosita": ""
+  },
+  "rainbase": {
+    "nome": "Rainbase",
+    "sottotitolo": "La città del casinò",
+    "descrizione": "Una delle poche città di Arabasta ancora florida, costruita attorno al grande casinò Rain Dinners. Sotto il casinò si nasconde la base segreta del Corsaro Crocodile e il quartier generale di Baroque Works.",
+    "curiosita": ""
+  },
+  "alubarna": {
+    "nome": "Alubarna",
+    "sottotitolo": "La capitale del Regno di Arabasta",
+    "descrizione": "Capitale del regno, sede del palazzo reale della famiglia Nefertari. È qui che si combatte lo scontro finale fra l'Esercito Ribelle e le forze di Baroque Works, e fra Rufy e Crocodile.",
+    "curiosita": ""
   }
 }

@@ -56,11 +56,16 @@ const scuro = (x, y) => {
   return (data[i] + data[i + 1] + data[i + 2]) / 3 < LIMITE_SCURO;
 };
 
-/** Riempie l'isola dal centro, fermandosi alla linea di contorno. */
-function riempi(sx, sy) {
+/**
+ * Riempie l'isola dal centro, fermandosi alla linea di contorno.
+ * Accetta più punti di partenza: serve per le isole disegnate in due lobi
+ * separati da un fiume o una baia (es. il Regno di Arabasta), dove un solo
+ * punto di partenza raggiunge solo metà del disegno.
+ */
+function riempi(semi) {
   const visti = new Set();
-  const pila = [[sx, sy]];
-  let minx = sx, maxx = sx, miny = sy, maxy = sy;
+  const pila = semi.map(([x, y]) => [x, y]);
+  let minx = semi[0][0], maxx = semi[0][0], miny = semi[0][1], maxy = semi[0][1];
   while (pila.length) {
     const [x, y] = pila.pop();
     if (x < 1 || y < 1 || x >= W - 1 || y >= H - 1) return null;
@@ -164,14 +169,21 @@ function curvaChiusa(punti) {
   return d + " Z";
 }
 
-/** Ricalca un'isola. Restituisce il contorno e il nuovo centro, o un motivo di fallimento. */
-export function ricalca(luogo) {
+/**
+ * Ricalca un'isola. Restituisce il contorno e il nuovo centro, o un motivo di fallimento.
+ *
+ * `puntiExtra` (opzionale): altri punti nello spazio-mappa da cui partire a riempire,
+ * oltre al centro del luogo. Serve per le isole disegnate in due lobi separati da un
+ * fiume o una baia (es. il Regno di Arabasta): un solo punto ne riempirebbe solo metà.
+ */
+export function ricalca(luogo, puntiExtra = []) {
   let [sx, sy] = versoPx(luogo.coordinate.x, luogo.coordinate.y);
   // se il centro cade su una scritta o sul contorno, si sposta di poco
   for (let d = 0; scuro(sx, sy) && d < 60; d++) sx += 2;
   if (scuro(sx, sy)) return { errore: "il centro cade su una linea scura" };
 
-  const reg = riempi(sx, sy);
+  const semi = [[sx, sy], ...puntiExtra.map(([x, y]) => versoPx(x, y))];
+  const reg = riempi(semi);
   if (!reg) return { errore: "riempimento scappato: contorno aperto, o non è un'isola" };
   if (reg.visti.size < 250) return { errore: "area troppo piccola: nessuna isola qui" };
 

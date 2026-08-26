@@ -75,12 +75,36 @@ sito parta in locale; poi ci si copia dentro `mappa.jpg`.
 
 ## A che punto siamo
 
-**Fase attuale:** Fase 3 in corso — l'East Blue è popolato.
+**Fase attuale:** Fase 3 in corso — dall'East Blue si entra nella Grand Line.
 
 Il sito (**logpose-fanmade-maps.vercel.app**) mostra ora una mappa vera: uno sfondo oceano
 a tutto schermo e otto luoghi cliccabili. Cliccandone uno si apre una scheda con nome,
 descrizione e capitolo di prima apparizione. La selezione resta nell'indirizzo del sito
 (`?luogo=dawn-island`), quindi è un link condivisibile.
+
+**Si è entrati nella Grand Line Paradise.** Dopo l'East Blue, dodici luoghi nuovi coprono
+i capitoli 100-190 circa: Reverse Mountain e Capo Gemello (il confine, dove la balena Laboon
+aspetta), Whisky Peak, Little Garden, il Regno di Drum (futuro Regno di Sakura, con la sua
+capitale Big Horn) e il Regno di Arabasta con le sue prime città (Nanohana, Erumalu, Yuba,
+Rainbase, Alubarna).
+
+**Una scoperta importante, che vale per tutte le prossime centinaia di luoghi:** la mappa
+fan-made usata come riferimento non è tutta ugualmente affidabile. Molte delle isole disegnate
+nel quadrante East Blue (Isola Yotsuba, Isola Sixis, Weatheria e altre) non vengono mai
+nominate nella storia: sono materiale collaterale (SBS, Vivre Card), non capitoli del manga.
+Una prova: Weatheria è disegnata dentro l'East Blue, ma nella storia si trova nel Nuovo Mondo,
+dall'altra parte del mondo. **Regola adottata:** si cataloga solo ciò che ha un capitolo di
+rivelazione verificabile nella storia vera; il resto si rimanda, non si inventa un capitolo.
+Per questo blocco i numeri di capitolo sono stati controllati con una ricerca esterna invece
+che a memoria (Reverse Mountain cap. 101, Whisky Peak cap. 106, Little Garden cap. 114, Drum
+cap. 130-154, Nanohana cap. 155 — fonte: One Piece Wiki). I capitoli delle città interne ad
+Arabasta (Yuba, Erumalu, Rainbase, Alubarna) restano stime più larghe, dichiaratamente meno
+precise.
+
+**Lo strumento di ricalco ora sa unire due lobi.** Il Regno di Arabasta è disegnato sulla mappa
+di riferimento diviso in due dal corso di un fiume: `traccia-isole.mjs` ora accetta punti di
+partenza aggiuntivi per riempire entrambi i lobi come un solo luogo (anche se per Arabasta si è
+comunque scelto di tracciare un solo lobo, il più grande, come approssimazione onesta).
 
 **Le isole hanno la forma vera.** Esiste ora `scripts/traccia-isole.mjs`, che ricava da solo
 il contorno delle isole dalla mappa di riferimento: riempie l'isola partendo dal centro, si
@@ -157,6 +181,7 @@ riconoscibile per chi conosce l'opera.
 - [x] Disposizione completa dello schermo decisa
 - [x] East Blue popolato: le tappe del viaggio dal capitolo 1 al 100
 - [x] Ricalco automatico dei contorni delle isole dalla mappa di riferimento
+- [x] Primo tratto della Grand Line Paradise: Reverse Mountain -> Arabasta
 
 **Strumenti di lavoro**
 - [x] Modalità mappatura (`?mappatura=1`) per leggere le coordinate dal riferimento
@@ -173,16 +198,16 @@ riconoscibile per chi conosce l'opera.
 
 **La prima rotta della ciurma di Cappello di Paglia.**
 
-Ora che le isole ci sono, la rotta ha finalmente dove passare: Isola Dawn → Shells Town →
-Orange Town → Isola degli Animali Strani → Villaggio di Sirop → Baratie → Arlong Park →
-Loguetown. Serve creare `/data/rotte.json`, `/data/ciurme.json` e il codice che disegna il
-tratto fra due tappe.
+Ora la rotta ha dove passare, dall'Isola Dawn fino ad Alubarna. Serve creare `/data/rotte.json`,
+`/data/ciurme.json` e il codice che disegna il tratto fra due tappe.
 
 **Poi, in ordine:**
 
-1. Lo zoom sulla mappa — è ciò che farà comparire i luoghi contenuti (villaggi, città) e che
+1. Continuare la Grand Line Paradise a blocchi (dopo Arabasta: Jaya, Skypiea, Long Ring Long
+   Land, Water Seven, Enies Lobby...), controllando sempre i capitoli con una fonte esterna
+2. Lo zoom sulla mappa — è ciò che farà comparire i luoghi contenuti (villaggi, città) e che
    permetterà di apprezzare i contorni delle isole, oggi grandi pochi pixel
-2. Il controllo unico del progresso (Volume / Episodio / Netflix / Ho letto tutto), che però
+3. Il controllo unico del progresso (Volume / Episodio / Netflix / Ho letto tutto), che però
    resta bloccato finché non si decide l'edizione di riferimento
 
 ---
@@ -206,7 +231,7 @@ tratto fra due tappe.
 
 | Categoria | Fatti | Stimati totali |
 |---|---|---|
-| Luoghi | 14 | ~400 |
+| Luoghi | 26 | ~400 |
 | Personaggi | 0 | ~100 |
 | Ciurme | 0 | ~20 |
 | Rotte | 0 | ~15 |
@@ -222,6 +247,7 @@ tratto fra due tappe.
 |---|---|---|
 | 2026-08-26 | Catalogazione | Popolato l'East Blue: 12 luoghi nuovi (8 sulla mappa, 4 contenuti dentro altri), cioè tutte le tappe del viaggio dal capitolo 1 al 100. Le posizioni **non sono state lette a mano**: Claude ha ritagliato la mappa di riferimento con `sharp`, letto i nomi e convertito i pixel in coordinate con la stessa matematica della modalità mappatura. Controprova: l'Isola Dawn, posizionata a mano da Gabriele a 9440/315, il calcolo la ritrova a 9419/321 |
 | 2026-08-26 | Costruzione | Aggiunto `scripts/traccia-isole.mjs`: ricalca da solo il contorno delle isole dalla mappa di riferimento, sfruttando la linea scura che le cerchia come muro di un riempimento. Richiesta di Gabriele, che aveva notato quanto le forme generate fossero diverse dal riferimento. Ricalcate sei isole dell'East Blue; **sostituito anche il contorno dell'Isola Dawn**, che era stato tracciato a mano da un'altra immagine ed era sproporzionato rispetto alle vicine. Baratie e Shells Town restano con la forma generata, perché sulla mappa non sono terre emerse |
+| 2026-08-26 | Costruzione | Aggiunto il primo tratto della Grand Line Paradise (dodici luoghi, capitoli 100-190 circa): Reverse Mountain, Capo Gemello, Whisky Peak, Little Garden, Regno di Drum con Big Horn, Regno di Arabasta con Nanohana/Erumalu/Yuba/Rainbase/Alubarna. Scoperto durante il lavoro che gran parte delle isole "extra" disegnate sulla mappa di riferimento non sono canone del manga ma materiale collaterale (SBS/Vivre Card): decisione di Gabriele di scartarle e proseguire solo con luoghi verificabili nella storia. Capitoli controllati con una ricerca esterna invece che a memoria |
 | 2026-08-26 | Decisione | Chiarito come lavorare da due computer (PC Windows al lavoro, MacBook a casa): si usa GitHub, non Google Drive. Domanda di Gabriele. Vedi la sezione "Lavorare da due computer" qui sopra |
 | 2026-08-25 | Costruzione | Creato il progetto Next.js, pubblicato su GitHub e collegato a Vercel. Sito online (vuoto). Scelto il nome "Log Pose"; repository rinominato in logpose-fanmade-maps; progetto Vercel ricreato da zero per ottenere il link definitivo logpose-fanmade-maps.vercel.app (rinominare un progetto Vercel esistente non aggiorna da solo l'indirizzo *.vercel.app) |
 | 2026-08-25 | Costruzione | Fase 2: aggiunto lo sfondo mappa (oceano) e la prima isola cliccabile (Villaggio di Fuschia) con scheda informativa. Selezione salvata nell'indirizzo del sito. Configurato Next.js in modalità completamente statica (`output: export`) |

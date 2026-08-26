@@ -256,6 +256,10 @@ compare, e del Baratie, che è un ristorante-nave disegnato e non una terra emer
   (l'allineamento è quello misurato in `MappaPagina.tsx`): i contorni ereditano la stessa
   deformazione, ed è giusto così, altrimenti non combacerebbero con le posizioni
 - di un arcipelago ricalca **l'isola sotto il centro indicato**, non tutte le isolette
+- se un fiume o una baia dividono un'isola in due lobi separati (è il caso del Regno di
+  Arabasta, tagliato in due dal fiume Sandora), un solo punto di partenza riempie solo un lobo.
+  Lo script accetta punti di partenza aggiuntivi per unirli (`ricalca(luogo, [[x, y]])`), oppure
+  — se non serve precisione — si può tracciare solo il lobo più grande, come approssimazione
 
 **Il confine da non passare.** Vale la stessa regola delle posizioni: quello che esce è un
 elenco di punti, non un'immagine, e nessun pixel della mappa altrui entra nel progetto o viene

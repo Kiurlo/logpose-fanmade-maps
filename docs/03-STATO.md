@@ -82,6 +82,19 @@ a tutto schermo e otto luoghi cliccabili. Cliccandone uno si apre una scheda con
 descrizione e capitolo di prima apparizione. La selezione resta nell'indirizzo del sito
 (`?luogo=dawn-island`), quindi è un link condivisibile.
 
+**La Red Line ora è vera, non più un rettangolo.** Gabriele ha notato che Reverse Mountain
+era disegnata come un'isola in mezzo al mare, mentre in realtà è il punto in cui la Red Line —
+la catena montuosa che avvolge il mondo da polo a polo — viene attraversata dalla Grand Line.
+Corretto disegnando la Red Line vera, ricalcata dalla mappa di riferimento riga per riga
+(`scripts/traccia-red-line.mjs`): ora si vede bene la strozzatura intorno a Reverse Mountain,
+che torna a essere un punto dentro una terra invece che un'isola a sé. Introdotto anche un modo
+diverso di disegnare i "punti notevoli" (un segnalino, non una forma piena) — vedi
+`01-ARCHITETTURA.md`, "Come si disegna la Red Line".
+
+Resta da fare l'altra fascia della Red Line, quella della cucitura del mondo (Mary Geoise):
+rimandata perché il segno usato per riconoscerla sulla mappa di riferimento non è affidabile in
+quel punto. Si rifarà insieme alla catalogazione di Marineford e Impel Down.
+
 **Si è entrati nella Grand Line Paradise.** Dopo l'East Blue, dodici luoghi nuovi coprono
 i capitoli 100-190 circa: Reverse Mountain e Capo Gemello (il confine, dove la balena Laboon
 aspetta), Whisky Peak, Little Garden, il Regno di Drum (futuro Regno di Sakura, con la sua
@@ -248,6 +261,7 @@ Ora la rotta ha dove passare, dall'Isola Dawn fino ad Alubarna. Serve creare `/d
 | 2026-08-26 | Catalogazione | Popolato l'East Blue: 12 luoghi nuovi (8 sulla mappa, 4 contenuti dentro altri), cioè tutte le tappe del viaggio dal capitolo 1 al 100. Le posizioni **non sono state lette a mano**: Claude ha ritagliato la mappa di riferimento con `sharp`, letto i nomi e convertito i pixel in coordinate con la stessa matematica della modalità mappatura. Controprova: l'Isola Dawn, posizionata a mano da Gabriele a 9440/315, il calcolo la ritrova a 9419/321 |
 | 2026-08-26 | Costruzione | Aggiunto `scripts/traccia-isole.mjs`: ricalca da solo il contorno delle isole dalla mappa di riferimento, sfruttando la linea scura che le cerchia come muro di un riempimento. Richiesta di Gabriele, che aveva notato quanto le forme generate fossero diverse dal riferimento. Ricalcate sei isole dell'East Blue; **sostituito anche il contorno dell'Isola Dawn**, che era stato tracciato a mano da un'altra immagine ed era sproporzionato rispetto alle vicine. Baratie e Shells Town restano con la forma generata, perché sulla mappa non sono terre emerse |
 | 2026-08-26 | Costruzione | Aggiunto il primo tratto della Grand Line Paradise (dodici luoghi, capitoli 100-190 circa): Reverse Mountain, Capo Gemello, Whisky Peak, Little Garden, Regno di Drum con Big Horn, Regno di Arabasta con Nanohana/Erumalu/Yuba/Rainbase/Alubarna. Scoperto durante il lavoro che gran parte delle isole "extra" disegnate sulla mappa di riferimento non sono canone del manga ma materiale collaterale (SBS/Vivre Card): decisione di Gabriele di scartarle e proseguire solo con luoghi verificabili nella storia. Capitoli controllati con una ricerca esterna invece che a memoria |
+| 2026-08-26 | Costruzione | Disegnata la vera Red Line al posto del rettangolo placeholder, ricalcandola dalla mappa di riferimento con un nuovo script (`traccia-red-line.mjs`, metodo diverso da quello delle isole: qui si scandisce riga per riga invece di riempire da un centro, perché la Red Line non è una macchia chiusa). Corregge un errore concettuale notato da Gabriele: Reverse Mountain era disegnata come un'isola, mentre è un punto dentro la Red Line stessa. Introdotta anche una modalità di disegno diversa per i luoghi `tipo: "punto-notevole"` (un segnalino, non una forma piena). Tracciata solo la fascia di Reverse Mountain; quella della cucitura del mondo (Mary Geoise) resta un rettangolo, rimandata per un segno di riconoscimento inaffidabile in quel punto della mappa |
 | 2026-08-26 | Decisione | Chiarito come lavorare da due computer (PC Windows al lavoro, MacBook a casa): si usa GitHub, non Google Drive. Domanda di Gabriele. Vedi la sezione "Lavorare da due computer" qui sopra |
 | 2026-08-25 | Costruzione | Creato il progetto Next.js, pubblicato su GitHub e collegato a Vercel. Sito online (vuoto). Scelto il nome "Log Pose"; repository rinominato in logpose-fanmade-maps; progetto Vercel ricreato da zero per ottenere il link definitivo logpose-fanmade-maps.vercel.app (rinominare un progetto Vercel esistente non aggiorna da solo l'indirizzo *.vercel.app) |
 | 2026-08-25 | Costruzione | Fase 2: aggiunto lo sfondo mappa (oceano) e la prima isola cliccabile (Villaggio di Fuschia) con scheda informativa. Selezione salvata nell'indirizzo del sito. Configurato Next.js in modalità completamente statica (`output: export`) |

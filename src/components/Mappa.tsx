@@ -12,13 +12,19 @@ import {
 } from "@/lib/geografia";
 import { ui } from "@/lib/contenuti";
 import { contornoGenerato } from "@/lib/forme";
+import { CONTORNO_RED_LINE_PRINCIPALE } from "@/lib/red-line";
 
 const RAGGIO_BASE = 90;
+/** I punti notevoli (Reverse Mountain, Capo Gemello...) non sono isole: sono
+ * un segnalino sulla mappa, non una forma piena. Vedi 01-ARCHITETTURA.md. */
+const RAGGIO_PUNTO_NOTEVOLE = 35;
 
 const COLORE_OCEANO = "#1e5f8c";
 const COLORE_GRAND_LINE = "#2e7fa8";
 const COLORE_RED_LINE = "#8f4b3c";
+const COLORE_RED_LINE_BORDO = "#5c2f22";
 const COLORE_ISOLA = "#d9b26f";
+const COLORE_PUNTO_NOTEVOLE = "#ffe9a8";
 
 /** Etichette dei quattro mari, al centro del rispettivo quadrante. */
 const ETICHETTE_MARI = [
@@ -109,14 +115,16 @@ export default function Mappa({
         />
 
         {/* Red Line: l'anello continentale. Sulla mappa piatta appare come due
-            bande verticali — quella centrale (Reverse Mountain) e quella sulla
-            cucitura del mondo, divisa fra bordo sinistro e bordo destro. */}
-        <rect
-          x={REVERSE_MOUNTAIN_X - SPESSORE_RED_LINE / 2}
-          y={0}
-          width={SPESSORE_RED_LINE}
-          height={ALTEZZA_MAPPA}
+            bande verticali — quella centrale (Reverse Mountain, ricalcata dalla
+            mappa di riferimento: si vede la vera strozzatura della montagna) e
+            quella sulla cucitura del mondo (Mary Geoise, ancora un rettangolo
+            semplice: non ancora ricalcata, vedi 01-ARCHITETTURA.md). */}
+        <path
+          d={CONTORNO_RED_LINE_PRINCIPALE}
           fill={COLORE_RED_LINE}
+          stroke={COLORE_RED_LINE_BORDO}
+          strokeWidth={8}
+          strokeLinejoin="round"
         />
         <rect
           x={CUCITURA_X}
@@ -162,8 +170,45 @@ export default function Mappa({
       </text>
 
       {luoghi.map((luogo) => {
-        const raggio = RAGGIO_BASE * luogo.dimensione;
         const attivo = luogo.id === selezionato;
+
+        // Un punto notevole (Reverse Mountain, Capo Gemello...) non è un'isola:
+        // è un luogo dentro un'altra terra (qui, dentro la Red Line stessa), e
+        // si segna con un piccolo segnalino invece che con una forma piena —
+        // altrimenti sembrerebbe un'isola a sé, che non è. Vedi 01-ARCHITETTURA.md.
+        if (luogo.tipo === "punto-notevole") {
+          return (
+            <g
+              key={luogo.id}
+              onClick={(evento) => {
+                evento.stopPropagation();
+                onSeleziona(luogo.id);
+              }}
+              className="cursor-pointer"
+            >
+              <circle
+                cx={luogo.coordinate.x}
+                cy={luogo.coordinate.y}
+                r={RAGGIO_PUNTO_NOTEVOLE}
+                fill={COLORE_PUNTO_NOTEVOLE}
+                stroke={attivo ? "#ffffff" : "#3f2a14"}
+                strokeWidth={attivo ? 12 : 6}
+              />
+              <text
+                x={luogo.coordinate.x}
+                y={luogo.coordinate.y + RAGGIO_PUNTO_NOTEVOLE + 60}
+                textAnchor="middle"
+                fill="#ffffff"
+                fontSize={70}
+                className="select-none"
+              >
+                {luogo.nome}
+              </text>
+            </g>
+          );
+        }
+
+        const raggio = RAGGIO_BASE * luogo.dimensione;
 
         // Due sole possibilità: il contorno è tracciato a mano nei dati,
         // oppure lo genera il codice dal seme. Vedi src/lib/forme.ts

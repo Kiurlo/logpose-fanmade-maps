@@ -268,6 +268,71 @@ copia che leggere una posizione. Perciò: i contorni così ottenuti restano `pre
 "stimata"`, la fonte resta citata in `03-STATO.md`, e quando la costa vera di un'isola è nota
 dal manga quel contorno va sostituito.
 
+## Come si disegna la Red Line
+
+**Reverse Mountain non è un'isola.** È il punto in cui la Red Line — la catena montuosa che
+avvolge il mondo da polo a polo — viene attraversata dalle acque della Grand Line. All'inizio
+era stata disegnata come un'isola per errore (una scorciatoia presa mentre si popolava l'East
+Blue): Gabriele se n'è accorto e ha chiesto di correggerla.
+
+**La correzione vera non era spostare Reverse Mountain, ma disegnare la Red Line stessa.**
+Finché la Red Line era un semplice rettangolo rosso, qualsiasi luogo messo al suo interno
+sembrava fluttuare nel vuoto. Con la Red Line ricalcata dalla mappa di riferimento, Reverse
+Mountain torna a essere quello che è: un punto **dentro** una terra vera.
+
+### Il ricalco (`scripts/traccia-red-line.mjs`)
+
+La Red Line non è una macchia chiusa come un'isola: è una fascia che attraversa l'intera mappa
+da nord a sud. Il metodo di `traccia-isole.mjs` (riempire da un centro) non funziona qui, perché
+non c'è un "dentro" da riempire — la forma tocca sempre il bordo superiore e inferiore della
+mappa. Il ricalco procede invece **riga per riga**: per ogni altezza (ogni valore di y), si
+scandisce una finestra di x e si cerca la rifinitura rossastra disegnata lungo il bordo della
+Red Line (lo stesso segno distintivo, ma stavolta usato come indicatore di colore invece che
+come muro di un riempimento). Il punto più a ovest e il punto più a est trovati a quell'altezza
+diventano il bordo della fascia in quel punto.
+
+**Una scelta deliberata: si traccia l'inviluppo esterno, non ogni baia.** Sulla mappa di
+riferimento la Red Line è disegnata come una catena di creste con insenature profonde fra loro
+— normale per una catena montuosa. Se si tracciassero anche le insenature, in alcuni punti
+resterebbe un varco d'acqua aperta che attraversa la fascia da parte a parte: sembrerebbe che si
+possa passare lì, il che è falso (la Red Line si attraversa solo a Reverse Mountain e agli
+antipodi). Si prende perciò solo il punto più a ovest e il punto più a est **a ogni altezza**,
+ignorando i varchi interni: il risultato è sempre una barriera unica, come deve essere.
+
+Il risultato, verificato guardando l'immagine, mostra bene la strozzatura intorno a Reverse
+Mountain: la fascia è visibilmente più stretta lì che al nord o al sud, anche se non si
+restringe fino a un punto — le quattro creste che confluiscono verso il passaggio (visibili
+sulla mappa di riferimento come una stella a quattro punte) allargano un poco l'inviluppo anche
+alla latitudine esatta dell'incrocio. Per un riferimento visivo, l'approssimazione è più che
+sufficiente.
+
+### Solo una fascia delle due
+
+La Red Line incrocia la Grand Line in **due punti agli antipodi** (vedi "I punti di ancoraggio"
+più sopra): quello di Reverse Mountain (x = 5000) e quello di Mary Geoise / Isola degli
+Uomini-Pesce (x = 0, cioè x = 10000 — è la cucitura del mondo). Per ora **solo la fascia di
+Reverse Mountain è stata ricalcata.** L'altra resta un rettangolo semplice, con lo stesso metodo
+di sempre.
+
+Non è una dimenticanza: sul lato della cucitura la rifinitura rossastra usata come segno
+distintivo non si distingue con sicurezza in tutti i punti della mappa di riferimento (forse
+perché lì il disegno è diverso, forse per come è stata ritagliata l'immagine). Piuttosto che
+tracciare qualcosa di inaffidabile, si è scelto di rimandare: quella fascia si rifarà quando si
+cataloga la zona che le sta intorno (Marineford, Impel Down, Mary Geoise), sessione in cui sarà
+comunque necessario guardare da vicino quel pezzo di mappa.
+
+### Punti notevoli: un segnalino, non un'isola
+
+Reverse Mountain resta comunque un luogo a sé nello schema dati (serve per la sua scheda, la sua
+descrizione, il suo capitolo di rivelazione). Ma un luogo `tipo: "punto-notevole"` **non si
+disegna più come un'isola**: niente forma piena, solo un piccolo segnalino tondo con
+l'etichetta, esattamente come un punto su una mappa stradale. La differenza sta in `Mappa.tsx`:
+prima di calcolare il contorno generato o tracciato, il codice controlla il tipo del luogo, e se
+è un punto notevole disegna il segnalino e si ferma lì.
+
+Vale anche per Capo Gemello, che è contenuto in Reverse Mountain e comparirà con lo stesso
+segnalino quando ci sarà lo zoom.
+
 ## Modalità mappatura — ricalcare da una mappa di riferimento
 
 Indovinare le coordinate a occhio è faticoso e produce errori. Il metodo giusto è quello dei

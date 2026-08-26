@@ -99,15 +99,22 @@ risolve quello senza saldare anche le isole vicine.
 
 **Soluzione finale: la stessa isola-a-mano dell'Isola Dawn, applicata a Reverse Mountain.** I
 quattro bracci della "stella" dove il fiume confluisce sono stati letti a occhio da una griglia
-di coordinate sovrapposta al ritaglio della mappa, verificati per sovrapposizione. Il passaggio
-fra la stella e il resto della Red Line (un rettangolo, come prima) è un imbuto che allarga i
-bordi fino a toccare le punte della stella, per non lasciare varchi d'acqua aperta a vista.
-Introdotto anche un modo diverso di disegnare i "punti notevoli" (un segnalino, non una forma
-piena) — vedi `01-ARCHITETTURA.md`, "Come si disegna la Red Line".
+di coordinate sovrapposta al ritaglio della mappa, verificati per sovrapposizione. Introdotto
+anche un modo diverso di disegnare i "punti notevoli" (un segnalino, non una forma piena) — vedi
+`01-ARCHITETTURA.md`, "Come si disegna la Red Line".
 
-**Problema noto, non urgente:** l'imbuto è dritto (non curvo), quindi visto da lontano la Red
-Line legge un po' come una vela a punta invece che come una montagna. Da smussare in una sessione
-di tipo Grafica.
+**Un primo tentativo di raccordo era peggio del problema originale.** Per unire il rettangolo
+sottile della Red Line alla stella (molto più larga) si era provato un imbuto che allargava i
+bordi fino a toccare le punte dei bracci più lontani — su un tratto di quasi duemila unità
+diventava un **triangolo enorme che dominava tutto il quadrante nord**, molto più vistoso e
+brutto del problema che doveva risolvere. Segnalato subito da Gabriele guardando il sito vero
+("amico, non ti offendere, ma è venuta una schifezza"). Corretto fermando il rettangolo appena
+dentro il corpo centrale della stella, non alle punte dei suoi bracci: lì la larghezza combacia
+già, senza bisogno di alcun raccordo.
+
+**Lezione per la prossima volta:** un rettangolo di controllo visto da vicino (come nei ritagli
+usati per verificare il ricalco) non basta — va sempre controllato anche l'aspetto **a piena
+mappa**, perché una forma ragionevole in un dettaglio può diventare enorme e assurda in scala.
 
 Resta da fare l'altra fascia della Red Line, quella della cucitura del mondo (Mary Geoise):
 richiederebbe lo stesso lavoro a mano fatto qui, e si farà insieme alla catalogazione di
@@ -321,11 +328,6 @@ rete (attualmente una mappa fan-made in italiano, firmata @Sharpsider).
 ---
 
 ## Problemi noti
-
-**L'imbuto che raccorda la stella di Reverse Mountain al resto della Red Line è dritto.**
-Funziona bene da vicino (le punte combaciano con la costa vera), ma da lontano la Red Line
-legge un po' come una vela a punta invece che come una montagna. Da smussare con qualche punto
-intermedio in una sessione di tipo Grafica; non urgente.
 
 **L'HTML pubblicato è vuoto: la mappa la disegna il browser.**
 Il file `index.html` generato pesa ~7 KB e non contiene né le isole né i nomi dei mari: tutto

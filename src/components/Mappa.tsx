@@ -120,25 +120,25 @@ export default function Mappa({
 
             La fascia di Reverse Mountain è un rettangolo sopra e sotto, con al
             centro la vera strozzatura letta a mano dalla mappa di riferimento
-            (src/lib/red-line.ts). Il passaggio dal rettangolo (stretto) alla
-            stella (larga, i quattro bracci del fiume) è un imbuto che allarga
-            i due bordi fino a toccare esattamente le punte nord-ovest e
-            nord-est della stella: senza, il rettangolo continuerebbe dritto
-            mentre i bracci si allontanano, lasciando un varco di mare aperto
-            in mezzo. Nessuna di queste forme ha un bordo scuro: si toccano
-            esattamente, e un bordo le avrebbe fatte vedere come pezzi
-            separati invece che come un'unica terra. */}
-        <path
-          d={`M ${REVERSE_MOUNTAIN_X - SPESSORE_RED_LINE / 2} 0
-              L ${REVERSE_MOUNTAIN_X + SPESSORE_RED_LINE / 2} 0
-              L 5750 1980 L 4150 2080 Z`}
+            (src/lib/red-line.ts). Il rettangolo si ferma appena dentro il
+            corpo centrale della stella (non alle punte dei suoi bracci, che
+            sono molto più larghe): un primo tentativo li univa con un imbuto
+            fino alle punte, ma su un tratto di quasi duemila unità diventava
+            un enorme triangolo che dominava tutto il quadrante. Fermandosi al
+            corpo centrale non serve alcun raccordo. */}
+        <rect
+          x={REVERSE_MOUNTAIN_X - SPESSORE_RED_LINE / 2}
+          y={0}
+          width={SPESSORE_RED_LINE}
+          height={2430}
           fill={COLORE_RED_LINE}
         />
         <path d={CONTORNO_RED_LINE_PRINCIPALE} fill={COLORE_RED_LINE} />
-        <path
-          d={`M ${REVERSE_MOUNTAIN_X - SPESSORE_RED_LINE / 2} ${ALTEZZA_MAPPA}
-              L ${REVERSE_MOUNTAIN_X + SPESSORE_RED_LINE / 2} ${ALTEZZA_MAPPA}
-              L 4550 2900 Z`}
+        <rect
+          x={REVERSE_MOUNTAIN_X - SPESSORE_RED_LINE / 2}
+          y={2600}
+          width={SPESSORE_RED_LINE}
+          height={ALTEZZA_MAPPA - 2600}
           fill={COLORE_RED_LINE}
         />
         <rect

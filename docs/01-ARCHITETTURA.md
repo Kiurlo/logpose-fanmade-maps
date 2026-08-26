@@ -304,19 +304,21 @@ contorno esterno in ordine orario, verificati per sovrapposizione ridisegnandoli
 l'originale. I sedici punti vivono in `scripts/traccia-red-line.mjs`, commentati; lo script li
 trasforma nella stessa curva morbida delle isole e scrive `src/lib/red-line.ts`.
 
-**Il passaggio dalla stella al resto della Red Line è un imbuto, non un rettangolo dritto.** La
-stella copre solo una piccola fascia di altezza (dove il disegno mostra i quattro bracci); sopra
-e sotto, la Red Line torna al solito rettangolo sottile. Un rettangolo dritto però continuerebbe
-a scendere mentre i bracci della stella si allontanano lateralmente, lasciando un varco di mare
-aperto proprio dove dovrebbe esserci terra — è per questo che in `Mappa.tsx` i due raccordi
-sono un imbuto (un quadrilatero) che allarga i bordi fino a toccare esattamente le punte
-nord-ovest e nord-est della stella, invece di un semplice rettangolo.
+**Il passaggio dalla stella al resto della Red Line è il solito rettangolo sottile, fermato al
+punto giusto.** La stella copre solo una piccola fascia di altezza (dove il disegno mostra i
+quattro bracci); sopra e sotto, la Red Line torna al rettangolo di sempre. Il rettangolo si
+ferma appena **dentro il corpo centrale** della stella — non alle punte dei suoi bracci, molto
+più larghe — perché lì la larghezza dei due combacia già, senza bisogno di alcun raccordo.
 
-**Problema noto: l'imbuto è dritto, quindi spigoloso.** Visto da vicino funziona bene (le punte
-combaciano con la costa vera), ma visto da lontano l'insieme legge più come una vela triangolare
-che come una montagna. Migliorabile aggiungendo qualche punto intermedio per curvare l'imbuto,
-quando capiterà una sessione di tipo Grafica — non è urgente, perché il problema che l'aveva
-causato (l'isola-fantasma e le isole inglobate) è risolto.
+**Un primo tentativo usava un raccordo esplicito, ed è stato scartato.** L'idea iniziale era di
+allargare i bordi del rettangolo con un imbuto fino a toccare le punte dei bracci più lontani
+(nord-ovest e nord-est), per non lasciare un varco di mare aperto fra il rettangolo e la
+stella. Visto in un ritaglio ravvicinato sembrava corretto. Visto sulla mappa intera, quell'imbuto
+attraversava quasi duemila unità di altezza e diventava un **triangolo enorme che dominava tutto
+il quadrante nord** — molto peggio del problema che doveva risolvere. Corretto fermando
+semplicemente il rettangolo al corpo centrale della stella, senza alcun raccordo: la lezione è
+che una forma di controllo vista solo da vicino può nascondere un problema di scala che si vede
+soltanto guardando la mappa intera.
 
 ### Solo una fascia delle due
 

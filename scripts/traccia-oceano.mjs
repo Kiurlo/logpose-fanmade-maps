@@ -24,10 +24,14 @@
  * quindi un colore invece di una linea sottile: molto più robusto.
  *
  * Un problema nuovo, specifico di questa immagine: la cornice decorativa a
- * scacchi intorno al disegno ha un colore troppo simile al beige del mare
- * per distinguerla via colore. Si tratta l'intera fascia di margine (dove
- * finisce la cornice e inizia l'arancione pieno) come muro a prescindere
- * dal colore.
+ * scacchi intorno al disegno ha tre toni (chiaro, scuro, panna) che il
+ * confronto rosso-verde non riconosce come Red Line, ma che non sono
+ * nemmeno il beige del mare. Un primo tentativo trattava l'intera fascia
+ * vicino ai bordi dell'immagine come muro a prescindere dal colore — ma una
+ * costa vera (vicino alla bussola di West Blue) arrivava più vicina al
+ * bordo di quanto quel margine permettesse, e veniva tagliata via. Si
+ * riconoscono invece i tre toni della cornice per luminosità: due sono
+ * troppo scuri o troppo chiari-e-grigi per essere mare o terra.
  *
  * Poi la Red Line si disegna semplicemente come sfondo di *tutta* la mappa,
  * e l'oceano ricalcato qui sopra come un unico grande ritaglio blu — invece
@@ -46,15 +50,33 @@ import { pathToFileURL } from "node:url";
 const RIFERIMENTO = "public/riferimento/mappa-red-line.jpg";
 
 /**
- * Allineamento misurato su due punti: il varco centrale di Reverse Mountain
- * (deve cadere su spazio-mappa 5000,2500) e Isola Polestar (deve cadere
- * vicino a 5723,1675, dove è già catalogata). Diverso da quello di
- * mappa.jpg: è un file con dimensioni diverse.
+ * Allineamento misurato su due punti ben distanti fra loro, entrambi letti
+ * per primi su mappa.jpg (dove la calibrazione è verificata da tempo) e poi
+ * ritrovati qui: il varco centrale di Reverse Mountain (spazio-mappa
+ * 5000,2500) e la bussola in fondo a West Blue (spazio-mappa 3792,4380,
+ * calcolata dalla sua posizione in pixel su mappa.jpg).
+ *
+ * Una prima versione usava un solo punto ben misurato (Reverse Mountain) e
+ * indovinava larghezza e altezza (10000 e 5000, "abbastanza grandi da
+ * coprire la mappa"). Sbagliato: l'altezza vera è 6123, il 22% in più di
+ * quella indovinata. Con l'altezza troppo corta l'oceano finiva schiacciato
+ * verso il centro, lasciando fasce di mare vuoto sopra e sotto e isole (Isola
+ * Dawn, Isole Polestar...) a cavallo con la Red Line — segnalato da Gabriele
+ * guardando il sito vero. Un solo punto non basta mai a misurare una scala:
+ * ne servono due, il più lontani possibile fra loro.
  */
-const ALLINEAMENTO = { x: 114, y: -228, larghezza: 10000, altezza: 5000 };
+const ALLINEAMENTO = { x: 319, y: -841, larghezza: 9579, altezza: 6123 };
 
-/** Dove finisce la cornice a scacchi e inizia l'arancione pieno (misurato a occhio). */
-const MARGINE_CORNICE = 175;
+/**
+ * La cornice decorativa a scacchi ha tre toni (chiaro, scuro, panna),
+ * nessuno arancione ma nessuno uguale al beige del mare — un margine di
+ * pixel indovinato a occhio, usato prima, tagliava via costa vera vicino ai
+ * bordi (una penisola arrivava più vicino al bordo della cornice stessa).
+ * Si riconoscono i tre toni per luminosità invece che con un margine cieco.
+ */
+const SCURO_CORNICE = 145;
+const CHIARO_CORNICE = 195;
+const DESATURATO_CORNICE = 20;
 
 /** Quanto deve essere più chiaro il rosso del verde per contare come Red Line. */
 const SOGLIA_ARANCIONE = 80;
@@ -73,11 +95,14 @@ const versoMappaX = (px) => RX + (px / W) * RW;
 const versoMappaY = (py) => RY + (py / H) * RH;
 
 const redLine = (ix, iy) => {
-  if (ix < MARGINE_CORNICE || iy < MARGINE_CORNICE || ix >= W - MARGINE_CORNICE || iy >= H - MARGINE_CORNICE) {
-    return true;
-  }
+  if (ix < 0 || iy < 0 || ix >= W || iy >= H) return true;
   const i = (iy * W + ix) * C;
-  return data[i] - data[i + 1] > SOGLIA_ARANCIONE;
+  const r = data[i], g = data[i + 1], b = data[i + 2];
+  if (r - g > SOGLIA_ARANCIONE) return true; // arancione: Red Line vera
+  const luminosita = (r + g + b) / 3;
+  if (luminosita < SCURO_CORNICE) return true; // quadretto scuro della cornice
+  if (luminosita > CHIARO_CORNICE && r - g < DESATURATO_CORNICE) return true; // quadretto panna
+  return false;
 };
 
 function riempi(semeMappa, areaMassima) {

@@ -139,6 +139,19 @@ Introdotto anche un modo diverso di disegnare i "punti notevoli" (Reverse Mounta
 Gemello...): un segnalino, non una forma piena, dato che ora sono semplicemente punti dentro la
 Red Line di sfondo.
 
+**Seguito, stesso giorno: il modello era giusto, la misura no.** Confrontando il sito
+pubblicato con la mappa di riferimento, Gabriele ha notato che restava del mare vuoto vicino ai
+poli (nord e sud) e che due isole già catalogate (Isola Dawn, Isole Polestar) cadevano a
+cavallo con la Red Line. Causa: l'allineamento di `mappa-red-line.jpg` era stato misurato su un
+solo punto (Reverse Mountain), indovinando larghezza e altezza dell'immagine invece di
+calcolarle. L'altezza vera era 6123, il 22% in più dei 5000 indovinati — abbastanza da
+schiacciare l'oceano verso il centro e far cadere le isole nella zona sbagliata. Corretto
+misurando un secondo punto ben distante (la bussola in fondo a West Blue, ritrovata sulla
+stessa posizione già verificata su `mappa.jpg`) e ricalcolando larghezza e altezza da due punti
+invece di indovinarle da uno solo. Sistemato nello stesso passaggio anche il filtro della
+cornice a scacchi (vedi sopra): ora riconosce i tre toni della cornice invece di tagliare una
+fascia di margine indovinata, che stava anch'essa mangiando un pezzo di costa vera.
+
 **Si è entrati nella Grand Line Paradise.** Dopo l'East Blue, dodici luoghi nuovi coprono
 i capitoli 100-190 circa: Reverse Mountain e Capo Gemello (il confine, dove la balena Laboon
 aspetta), Whisky Peak, Little Garden, il Regno di Drum (futuro Regno di Sakura, con la sua
@@ -306,6 +319,7 @@ Ora la rotta ha dove passare, dall'Isola Dawn fino ad Alubarna. Serve creare `/d
 | 2026-08-26 | Costruzione | Aggiunto `scripts/traccia-isole.mjs`: ricalca da solo il contorno delle isole dalla mappa di riferimento, sfruttando la linea scura che le cerchia come muro di un riempimento. Richiesta di Gabriele, che aveva notato quanto le forme generate fossero diverse dal riferimento. Ricalcate sei isole dell'East Blue; **sostituito anche il contorno dell'Isola Dawn**, che era stato tracciato a mano da un'altra immagine ed era sproporzionato rispetto alle vicine. Baratie e Shells Town restano con la forma generata, perché sulla mappa non sono terre emerse |
 | 2026-08-26 | Costruzione | Aggiunto il primo tratto della Grand Line Paradise (dodici luoghi, capitoli 100-190 circa): Reverse Mountain, Capo Gemello, Whisky Peak, Little Garden, Regno di Drum con Big Horn, Regno di Arabasta con Nanohana/Erumalu/Yuba/Rainbase/Alubarna. Scoperto durante il lavoro che gran parte delle isole "extra" disegnate sulla mappa di riferimento non sono canone del manga ma materiale collaterale (SBS/Vivre Card): decisione di Gabriele di scartarle e proseguire solo con luoghi verificabili nella storia. Capitoli controllati con una ricerca esterna invece che a memoria |
 | 2026-08-26 | Costruzione | La Red Line, dopo quattro tentativi: rettangolo → stella a mano → ricalco automatico (per colore, poi per riempimento, entrambi scartati per problemi reali del disegno) → di nuovo stella a mano con un imbuto di raccordo (scartato perché diventava un triangolo enorme a piena mappa, segnalato da Gabriele). Il quarto tentativo ha cambiato il modello alla radice, dopo che Gabriele ha fornito una seconda immagine di riferimento a contrasto aumentato (`mappa-red-line.jpg`): la Red Line non è una striscia, avvolge ogni mare su tutti i lati. Ora si disegna come sfondo di tutta la mappa, con l'oceano (i quattro mari e la Grand Line, rivelatisi tutti connessi intorno a Reverse Mountain) ritagliato sopra in un unico ricalco (`scripts/traccia-oceano.mjs`). Introdotta anche una modalità di disegno diversa per i luoghi `tipo: "punto-notevole"` (un segnalino, non una forma piena). Racconto per esteso in questo diario e in `01-ARCHITETTURA.md` |
+| 2026-08-26 | Correzione | Lo stesso giorno, seguito: Gabriele ha confrontato il sito pubblicato con `mappa.jpg` e trovato mare vuoto vicino ai poli e due isole (Isola Dawn, Isole Polestar) a cavallo con la Red Line. Causa: l'allineamento di `mappa-red-line.jpg` era stato misurato su un solo punto, indovinando l'altezza dell'immagine invece di calcolarla — sbagliata del 22%. Corretto misurando un secondo punto ben distante (la bussola di West Blue) e ricalcolando larghezza e altezza da due punti. Corretto insieme anche il filtro della cornice a scacchi, che con un margine indovinato tagliava via un pezzo di costa vera vicino alla bussola |
 | 2026-08-26 | Decisione | Chiarito come lavorare da due computer (PC Windows al lavoro, MacBook a casa): si usa GitHub, non Google Drive. Domanda di Gabriele. Vedi la sezione "Lavorare da due computer" qui sopra |
 | 2026-08-25 | Costruzione | Creato il progetto Next.js, pubblicato su GitHub e collegato a Vercel. Sito online (vuoto). Scelto il nome "Log Pose"; repository rinominato in logpose-fanmade-maps; progetto Vercel ricreato da zero per ottenere il link definitivo logpose-fanmade-maps.vercel.app (rinominare un progetto Vercel esistente non aggiorna da solo l'indirizzo *.vercel.app) |
 | 2026-08-25 | Costruzione | Fase 2: aggiunto lo sfondo mappa (oceano) e la prima isola cliccabile (Villaggio di Fuschia) con scheda informativa. Selezione salvata nell'indirizzo del sito. Configurato Next.js in modalità completamente statica (`output: export`) |

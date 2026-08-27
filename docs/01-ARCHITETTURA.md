@@ -322,20 +322,37 @@ aumentato la Red Line è arancione acceso, nettamente diversa dal beige di mare 
 JPEG che avevano reso inaffidabile il tentativo precedente.
 
 **Un problema nuovo, specifico di questa immagine:** la cornice decorativa a scacchi intorno al
-disegno ha un colore troppo simile al beige del mare per distinguerla via colore (un quadretto
-chiaro e uno scuro, nessuno dei due arancione). Il riempimento ci scappava attraverso fino al
-bordo dell'immagine. Soluzione: si tratta l'intera fascia di margine (dove finisce la cornice e
-inizia l'arancione pieno, misurato a occhio) come muro a prescindere dal colore.
+disegno ha tre toni (chiaro, scuro, panna), nessuno arancione, e il riempimento ci scappava
+attraverso fino al bordo dell'immagine. Un primo tentativo trattava l'intera fascia vicino ai
+bordi come muro a prescindere dal colore — sbrigativo, e sbagliato: una costa vera (vicino alla
+bussola disegnata in fondo a West Blue) arriva più vicina al bordo di quanto quel margine
+permettesse, e veniva tagliata via, appiattendo il contorno proprio lì. Corretto riconoscendo i
+tre toni della cornice per luminosità invece che con un margine cieco: due sono troppo scuri o
+troppo chiari-e-grigi per essere il beige di mare e isole.
 
 ### Un'immagine di riferimento diversa, con il proprio allineamento
 
 `mappa-red-line.jpg` non è un ritaglio identico a `mappa.jpg`: dimensioni diverse, quindi un
-allineamento diverso (`ALLINEAMENTO` dentro `traccia-oceano.mjs`), misurato allo stesso modo di
-sempre — due punti già noti (il varco di Reverse Mountain deve cadere su 5000,2500; Isola
-Polestar deve cadere vicino a dove l'avevamo già catalogata) invece delle percentuali descritte
-più sopra per `mappa.jpg`. Le due immagini restano entrambe utili: `mappa.jpg` per ricalcare le
-isole (la tecnica del muro-a-linea-scura ci lavora bene), `mappa-red-line.jpg` per tutto ciò che
-riguarda la Red Line e l'oceano (dove serve il muro-a-colore).
+allineamento diverso (`ALLINEAMENTO` dentro `traccia-oceano.mjs`). Le due immagini restano
+entrambe utili: `mappa.jpg` per ricalcare le isole (la tecnica del muro-a-linea-scura ci lavora
+bene), `mappa-red-line.jpg` per tutto ciò che riguarda la Red Line e l'oceano (dove serve il
+muro-a-colore).
+
+**Un punto solo non basta a misurare una scala.** La prima misura usava un solo punto ben
+verificato (il varco di Reverse Mountain, su 5000,2500) e *indovinava* larghezza e altezza
+(10000 e 5000 — "abbastanza grandi da coprire la mappa"). Sembrava ragionevole, ma era
+sbagliato: l'altezza vera è 6123, il 22% in più. Con l'altezza troppo corta l'oceano ricalcato
+risultava schiacciato verso il centro della mappa, lasciando fasce di mare vuoto vicino ai poli
+e facendo cadere alcune isole già catalogate (Isola Dawn, Isole Polestar) a cavallo con la Red
+Line — segnalato da Gabriele confrontando il sito pubblicato con la modalità mappatura.
+
+**La misura corretta usa due punti, il più lontani possibile fra loro.** Il varco di Reverse
+Mountain (5000,2500) e la bussola disegnata in fondo a West Blue — quest'ultima localizzata
+prima su `mappa.jpg` (dove la calibrazione è verificata da tempo: cade su 3792,4380) e poi
+ritrovata alla sua posizione in pixel su `mappa-red-line.jpg`. Due punti ben distanti
+permettono di *calcolare* larghezza e altezza invece di indovinarle. Vale come regola generale,
+non solo per questa immagine: un allineamento verificato con un punto solo va sempre
+considerato provvisorio.
 
 ### Punti notevoli dentro la Red Line
 

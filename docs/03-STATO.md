@@ -4,7 +4,7 @@
 > È ciò che permette di riprendere dopo tre settimane di pausa senza perdere il filo.
 > Se una sessione finisce senza aggiornarlo, il progetto ha perso memoria.
 
-**Ultimo aggiornamento:** 2026-08-26
+**Ultimo aggiornamento:** 2026-08-28
 
 ---
 
@@ -29,8 +29,10 @@ la modalità mappatura."*
 
 **Cosa vive solo su questo computer** (non è su GitHub, quindi una chat nuova non lo sa finché
 non glielo si dice): le immagini di riferimento in `public/riferimento/` —
-`mappa.jpg` (l'originale, per ricalcare le isole) e `mappa-red-line.jpg` (la stessa mappa a
-contrasto aumentato, preparata da Gabriele, usata per ricalcare l'oceano e la Red Line).
+`mappa.jpg` (l'originale, per ricalcare le isole), `mappa-red-line.jpg` (la stessa mappa a
+contrasto aumentato, usata per ricalcare l'oceano e la Red Line) e **`mappa-pulita.jpg`**
+(3000×2174, la mappa ripulita a mano da Gabriele — colori piatti, Red Line netta — che
+sostituirà le prime due, vedi sotto). Serve anche per vedere `docs/prototipi/telaio-layout.html`.
 
 ---
 
@@ -232,6 +234,41 @@ Il nome del progetto è **Log Pose** (dal dispositivo di navigazione della serie
 apposta per non usare "One Piece" o "Cappello di Paglia" nel nome pubblico, restando comunque
 riconoscibile per chi conosce l'opera.
 
+**Il 2026-08-28, cambiato il telaio della pagina — e sospeso il ridisegno della mappa finché
+non fosse chiaro.** Prima di ridisegnare Red Line/oceano sulla nuova immagine, Gabriele ha
+chiesto (giustamente) di capire prima come si sarebbe collocata la mappa dentro la pagina, per
+non doverla ridisegnare due volte con proporzioni sbagliate.
+
+**Il problema, misurato con un prototipo dal vivo:** con fasce laterali a larghezza fissa (il
+vecchio modello) e la mappa alle sue proporzioni vere (1,380:1, molto più "quadrata" di uno
+schermo), lo spazio vuoto ai lati arrivava al 30% su una finestra da laptop. Una barra in basso
+toglieva altezza, la misura più preziosa.
+
+**La soluzione, proposta da Gabriele:** invece di fasce a larghezza fissa, due colonne laterali
+che si dividono **esattamente** lo spazio avanzato intorno a una mappa sempre alta quanto lo
+schermo. Niente più barra in basso. Provato dal vivo: a 1600×900 lo spreco è **zero**; sotto una
+certa larghezza (colonne che scenderebbero sotto i 160px) la mappa si restringe lievemente
+invece di far sparire le colonne; sopra una certa larghezza (oltre 380px a colonna) l'eccedenza
+resta come margine esterno invece di gonfiare le colonne all'infinito.
+
+**Poi, un'altra idea di Gabriele: la scheda del luogo va nella colonna destra invece di
+galleggiare.** Nel vecchio modello la scheda (nome, descrizione, capitolo) si apriva fluttuando
+sopra la mappa, dal lato opposto al luogo cliccato. Ora si aggancia alla colonna destra: non
+copre mai la mappa per costruzione, e dà un contenuto vero alla colonna anche prima che i filtri
+esistano. Provato con un testo reale (la scheda di Shells Town): leggibile anche al minimo di
+160px, con scorrimento per testi più lunghi.
+
+Tutto questo è stato verificato in un **prototipo interattivo**, non solo discusso a parole:
+`docs/prototipi/telaio-layout.html` (serve `mappa-pulita.jpg` in locale per vederlo) e una
+copia sempre online — <https://claude.ai/code/artifact/944ffb3d-cc75-4e5e-b4e2-90bb0577da08> —
+con l'immagine già incorporata, aggiornabile da qualunque sessione futura. Dettagli tecnici del
+nuovo modello in `01-ARCHITETTURA.md`, "La disposizione dello schermo".
+
+**Non ancora fatto, di proposito:** nessun codice del sito vero è stato toccato. Il prototipo è
+una pagina a sé, per poter decidere senza rischiare di rompere il sito online. Il ridisegno
+della Red Line/oceano sulla nuova immagine resta sospeso: si riprende ora che il telaio è
+chiaro. Vedi "Prossimo passo".
+
 ---
 
 ## Fatto
@@ -248,7 +285,8 @@ riconoscibile per chi conosce l'opera.
 - [x] Luoghi annidati (`contenutoIn`): un'isola contiene un villaggio
 - [x] Forme delle isole: generate dal nome, oppure ricalcate a mano
 - [x] Colonna sinistra con nome del progetto e disclaimer
-- [x] Disposizione completa dello schermo decisa
+- [x] ~~Disposizione completa dello schermo decisa (fasce fisse)~~ — **superata il 2026-08-28**,
+      vedi il nuovo modello a colonne dinamiche più sotto e in `01-ARCHITETTURA.md`
 - [x] East Blue popolato: le tappe del viaggio dal capitolo 1 al 100
 - [x] Ricalco automatico dei contorni delle isole dalla mappa di riferimento
 - [x] Primo tratto della Grand Line Paradise: Reverse Mountain -> Arabasta
@@ -259,26 +297,37 @@ riconoscibile per chi conosce l'opera.
 
 **Deciso ma non ancora costruito**
 - [ ] Controllo unico del progresso (Volume / Episodio / Netflix / Ho letto tutto)
-- [ ] Fascia destra per i filtri delle rotte
-- [ ] Menu Info / Lingua
+- [ ] Colonna destra: scheda del luogo (agganciata, non più fluttuante) + filtri delle rotte
+- [ ] Menu Info / Come funziona / Contatti + zoom, fluttuanti sopra la mappa
+- [ ] Telaio a colonne dinamiche (validato nel prototipo, non ancora nel codice del sito)
+- [ ] Spazio-mappa astratto da 10000×5000 a 10000×~7247 (proporzioni della nuova immagine)
 
 ---
 
 ## Prossimo passo
 
-**La prima rotta della ciurma di Cappello di Paglia.**
-
-Ora la rotta ha dove passare, dall'Isola Dawn fino ad Alubarna. Serve creare `/data/rotte.json`,
-`/data/ciurme.json` e il codice che disegna il tratto fra due tappe.
+**Decidere cosa mostra la colonna destra quando nessun luogo è selezionato**, prima domanda
+aperta rimasta dalla sessione del 2026-08-28 (vedi sopra e `01-ARCHITETTURA.md`): il pannello
+filtri di default, o qualcos'altro? Una volta deciso, si può passare al resto.
 
 **Poi, in ordine:**
 
-1. Continuare la Grand Line Paradise a blocchi (dopo Arabasta: Jaya, Skypiea, Long Ring Long
-   Land, Water Seven, Enies Lobby...), controllando sempre i capitoli con una fonte esterna
-2. Lo zoom sulla mappa — è ciò che farà comparire i luoghi contenuti (villaggi, città) e che
-   permetterà di apprezzare i contorni delle isole, oggi grandi pochi pixel
-3. Il controllo unico del progresso (Volume / Episodio / Netflix / Ho letto tutto), che però
-   resta bloccato finché non si decide l'edizione di riferimento
+1. **Cambiare lo spazio-mappa astratto** da 10000×5000 a 10000×~7247, per combaciare con le
+   proporzioni vere della nuova immagine (`src/lib/geografia.ts`, con tutto ciò che ne dipende
+   a cascata: `GRAND_LINE_Y` e ogni script di ricalco). Vedi `01-ARCHITETTURA.md`
+2. **Ridisegnare Red Line e oceano** ricalcandoli da `mappa-pulita.jpg` invece delle due
+   immagini precedenti — tabula rasa sulla forma, non sui testi
+3. **Riposizionare i 26 luoghi già catalogati** sul nuovo spazio-mappa e sulla nuova immagine
+   (le posizioni restano fedeli fra le due mappe, quindi non dovrebbe volerci molto); i testi in
+   `content/it/luoghi.json` **restano invariati**, si tocca solo `data/luoghi.json`
+4. **Costruire nel codice del sito** il telaio a colonne dinamiche e la scheda agganciata,
+   seguendo esattamente la logica già validata nel prototipo (`docs/prototipi/telaio-layout.html`)
+5. Riprendere la catalogazione (dopo Arabasta: Jaya, Skypiea, Long Ring Long Land, Water Seven,
+   Enies Lobby...) e la prima rotta della ciurma — **rimandate**, non abbandonate: la rotta ha
+   già dove passare (Isola Dawn → Alubarna), manca solo `/data/rotte.json` e `/data/ciurme.json`
+6. Lo zoom sulla mappa — farà comparire i luoghi contenuti e apprezzare i contorni delle isole
+7. Il controllo unico del progresso (Volume / Episodio / Netflix / Ho letto tutto), bloccato
+   finché non si decide l'edizione di riferimento
 
 ---
 
@@ -286,6 +335,7 @@ Ora la rotta ha dove passare, dall'Isola Dawn fino ad Alubarna. Serve creare `/d
 
 | Tema | Nota |
 |---|---|
+| **Colonna destra senza luogo selezionato** | Cosa mostra di default: pannello filtri, un messaggio di benvenuto, altro? Bloccante per il prossimo passo, vedi sopra |
 | **Edizione di riferimento (volumi e anime)** | Ora **urgente**: il menù del progresso deve dichiarare all'utente di quale edizione parla. Vale sia per i volumi italiani sia per la numerazione degli episodi |
 | ~~Copertine e timeline si sovrappongono?~~ | **Risolto**: un unico strumento di navigazione, con l'unità scelta dall'utente (Volume / Episodio / Netflix / Ho letto tutto). Vedi `01-ARCHITETTURA.md`. Resta da decidere se la barra copertine sopravvive come vista aggiuntiva o sparisce |
 | Netflix: fin dove arriva | Serve stabilire quali capitoli copre ogni puntata, e aggiornare la tabella quando escono nuove stagioni |
@@ -315,6 +365,8 @@ Ora la rotta ha dove passare, dall'Isola Dawn fino ad Alubarna. Serve creare `/d
 
 | Data | Tipo | Cosa è stato fatto |
 |---|---|---|
+| 2026-08-28 | Grafica | Cambiato il telaio della pagina, su proposta di Gabriele, dopo aver scoperto (con un prototipo dal vivo) che le fasce fisse sprecavano fino al 30% dello spazio con le proporzioni vere della nuova mappa. Nuovo modello: colonne laterali che si dividono lo spazio avanzato attorno a una mappa sempre alta quanto lo schermo, niente più barra in basso, con un minimo (160px) e un massimo (380px) per colonna. Seconda idea di Gabriele, anche questa validata: la scheda del luogo si aggancia alla colonna destra invece di fluttuare sopra la mappa. Costruito e verificato un prototipo interattivo (`docs/prototipi/telaio-layout.html`, copia online in questo diario) con un testo vero, non segnaposto. Nessun codice del sito toccato: solo il prototipo e i documenti |
+| 2026-08-28 | Decisione | Salvata `mappa-pulita.jpg`: mappa fan-made ripulita a mano da Gabriele (colori piatti, Red Line netta, posizioni fedeli all'originale), che sostituirà `mappa.jpg` e `mappa-red-line.jpg` per ridisegnare Red Line/oceano/isole. Il ridisegno resta sospeso finché non è chiaro il telaio (vedi sopra) |
 | 2026-08-26 | Catalogazione | Popolato l'East Blue: 12 luoghi nuovi (8 sulla mappa, 4 contenuti dentro altri), cioè tutte le tappe del viaggio dal capitolo 1 al 100. Le posizioni **non sono state lette a mano**: Claude ha ritagliato la mappa di riferimento con `sharp`, letto i nomi e convertito i pixel in coordinate con la stessa matematica della modalità mappatura. Controprova: l'Isola Dawn, posizionata a mano da Gabriele a 9440/315, il calcolo la ritrova a 9419/321 |
 | 2026-08-26 | Costruzione | Aggiunto `scripts/traccia-isole.mjs`: ricalca da solo il contorno delle isole dalla mappa di riferimento, sfruttando la linea scura che le cerchia come muro di un riempimento. Richiesta di Gabriele, che aveva notato quanto le forme generate fossero diverse dal riferimento. Ricalcate sei isole dell'East Blue; **sostituito anche il contorno dell'Isola Dawn**, che era stato tracciato a mano da un'altra immagine ed era sproporzionato rispetto alle vicine. Baratie e Shells Town restano con la forma generata, perché sulla mappa non sono terre emerse |
 | 2026-08-26 | Costruzione | Aggiunto il primo tratto della Grand Line Paradise (dodici luoghi, capitoli 100-190 circa): Reverse Mountain, Capo Gemello, Whisky Peak, Little Garden, Regno di Drum con Big Horn, Regno di Arabasta con Nanohana/Erumalu/Yuba/Rainbase/Alubarna. Scoperto durante il lavoro che gran parte delle isole "extra" disegnate sulla mappa di riferimento non sono canone del manga ma materiale collaterale (SBS/Vivre Card): decisione di Gabriele di scartarle e proseguire solo con luoghi verificabili nella storia. Capitoli controllati con una ricerca esterna invece che a memoria |

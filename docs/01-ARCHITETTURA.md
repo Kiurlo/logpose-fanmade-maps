@@ -83,77 +83,128 @@ tipico — controllare sempre il quadrante prima di scrivere una coordinata.
 
 ## La disposizione dello schermo
 
+> **Rivista il 2026-08-28**, superando il modello a fasce fisse descritto in origine (colonna
+> sinistra 180px + colonna destra ~220px + barra timeline in basso). Il modello sotto è quello
+> attuale; la versione precedente resta solo per memoria in `03-STATO.md`.
+
+**Il problema che ha fatto cambiare modello.** Con la nuova immagine di riferimento (vedi più
+sotto, "Una nuova immagine di riferimento"), le proporzioni vere della mappa sono circa 1,38:1
+— molto più "quadrata" di uno schermo widescreen. Con fasce a **larghezza fissa**, lo spazio che
+la mappa non riesce a occupare (perché lo schermo è più largo di lei) resta semplicemente vuoto
+ai lati. Su una finestra da laptop, misurato con un prototipo dal vivo, lo spreco arrivava al
+30% della larghezza. Una barra in basso, in più, toglie anche altezza — la misura più preziosa,
+proprio quella che serve a far crescere la mappa il più possibile.
+
+**Il nuovo modello: colonne laterali che riempiono lo spazio avanzato, non barre fisse.**
+
 ```
-┌──────────┬──────────────────────────────┬──────────┐
-│ SINISTRA │        [Info · Lingua] ──────┼──┐       │
-│  180 px  │                              │  │DESTRA │
-│  fissa   │         AREA MAPPA           │  │~220px │
-│          │   (la scheda galleggia qui)  │  │ rotte │
-│ copertine│                              │  │ciurme │
-│  volumi  │                              │  │person.│
-│          │                              │  │       │
-│disclaimer│                              │  │       │
-├──────────┴──────────────────────────────┴──┴───────┤
-│      TIMELINE — a che punto della storia sei       │
-└────────────────────────────────────────────────────┘
-   ✅ fatta        ✅ fatta          ⬜ da fare    ⬜ da fare
+┌──────────┬────────────────────────────┬──────────┐
+│ SINISTRA │   [Info · Come funziona ·  │  DESTRA  │
+│ dinamica │    Contatti]  [− +] ───────┤ dinamica │
+│ 160–380px│                            │ 160–380px│
+│          │        AREA MAPPA          │          │
+│ copertine│  (altezza piena, proporzioni│ scheda   │
+│  volumi  │   vere, sempre centrata)   │ del luogo│
+│          │                            │  oppure  │
+│          │                            │  filtri  │
+└──────────┴────────────────────────────┴──────────┘
+   ⬜ da fare      ⬜ da fare (nuova misura)   ⬜ da fare
 ```
 
-**Le fasce e il perché di ciascuna:**
+Niente più barra in basso. La mappa occupa **sempre tutta l'altezza disponibile**; la sua
+larghezza segue di conseguenza (proporzioni fisse, quelle vere del disegno); tutto ciò che
+avanza in larghezza si divide **esattamente a metà** fra le due colonne laterali, che quindi non
+hanno una larghezza fissa ma **calcolata**:
 
-| Fascia | Cosa ci va | Da dove viene |
+```
+altezzaMappa = altezza disponibile
+larghezzaMappa = altezzaMappa × 1,380   (proporzioni della mappa di riferimento)
+colonna = (larghezza disponibile − larghezzaMappa) / 2   (una per lato, uguali)
+```
+
+Con due limiti pratici, verificati nel prototipo:
+
+- **Minimo 160px per colonna.** Sotto questa soglia (finestre molto strette o quasi quadrate)
+  non c'è più spazio sufficiente: le colonne restano al minimo e la mappa si restringe di
+  conseguenza (ricompaiono piccole bande vuote sopra/sotto, ma molto meno che con fasce fisse).
+- **Massimo 380px per colonna.** Sopra questa soglia (monitor molto larghi) l'eccedenza non
+  gonfia ulteriormente le colonne — diventerebbero vuote a loro volta — ma resta come margine
+  esterno, con mappa e colonne centrate nel mezzo.
+
+**Le colonne, cosa contengono:**
+
+| Colonna | Contenuto | Perché |
 |---|---|---|
-| **Sinistra**, 180 px | copertine dei volumi, poi altri filtri; oggi nome e disclaimer | concept #3 |
-| **Destra**, ~220 px | scelta delle rotte da mostrare: per personaggio, ciurma, altro | concept #2 e #5 |
-| **In basso**, tutta larghezza | timeline e progresso no-spoiler | concept #4 |
-| **Area mappa** | ciò che resta | concept #1 |
+| **Sinistra** | copertine dei volumi, poi altri filtri | concept #3, invariato |
+| **Destra** | **la scheda del luogo selezionato** (vedi sotto), oppure i filtri per rotte/ciurma/personaggio quando nulla è selezionato | vedi "La scheda ora vive nella colonna destra" |
 
-La timeline sta **sotto tutto e a tutta larghezza** perché il progresso no-spoiler governa ogni
-altra cosa: quali copertine mostrare, quali rotte esistono, quali luoghi compaiono. Comanda su
-tutto, quindi sta sotto tutto.
+**Cosa flotta ancora sopra la mappa, senza rubarle spazio:** il menu Info/Come funziona/
+Contatti e i pulsanti di zoom, in alto a destra dentro l'area mappa. Stessa logica di sempre
+("galleggiano, non riservano fascia") — vedi la sezione più sotto.
 
-**Scegliere le rotte è filtrare per personaggio.** Il "selettore delle rotte" e i "filtri per
-ciurma e personaggio" del concept sono lo stesso pannello, non due: sta nella fascia destra.
+### La scheda ora vive nella colonna destra, non più fluttuante
 
-### Cosa ruba spazio e cosa galleggia
+Nel modello precedente la scheda del luogo (nome, descrizione, capitolo) si apriva
+**fluttuando** sopra la mappa, dal lato opposto al luogo cliccato, per non coprirlo mai.
+Funzionava, ma lasciava la colonna destra — quando esisterà — senza un compito chiaro nella
+maggior parte dei casi d'uso (si clicca un luogo molto più spesso di quanto si usino i filtri).
 
-Distinzione importante, perché non tutti gli elementi vanno riservati:
+**Idea di Gabriele, il 2026-08-28:** la scheda si aggancia invece alla colonna destra. Vantaggi
+verificati nel prototipo:
 
-- **Rubano spazio** (restringono la mappa): le tre fasce qui sopra
-- **Galleggiano** sopra la mappa, senza cambiare la geometria: la **scheda del luogo** e il
-  **menu Info/Lingua** in alto a destra. Due o tre voci non meritano una fascia propria
+- **non copre mai la mappa**, per costruzione, non per un calcolo di lato-opposto
+- dà alla colonna destra un contenuto vero fin da subito, invece di restare vuota finché non si
+  costruiscono i filtri
+- **testato con un testo vero** (la scheda di Shells Town, presa da `content/it/luoghi.json`):
+  leggibile anche alla larghezza minima di 160px, con scorrimento verticale per schede più
+  lunghe
 
-Tutto ciò che galleggia sta **dentro l'area mappa**, mai sopra le fasce laterali. È per questo
-che la regola "la scheda si apre dal lato opposto al luogo" continua a funzionare senza
-eccezioni anche quando le fasce ci saranno tutte.
+**Cosa resta da decidere:** cosa mostra la colonna destra **quando nessun luogo è selezionato**
+— il pannello filtri di default, o qualcos'altro. Non ancora deciso, vedi `03-STATO.md`.
 
-### Le fasce vuote non si costruiscono
+### Le colonne vuote non si costruiscono
 
-La fascia sinistra è stata fatta subito perché **portava contenuto vero** (nome del progetto e
-disclaimer obbligatorio). Le altre due si costruiranno quando avranno qualcosa dentro: riquadri
-vuoti con scritto "prossimamente" farebbero sembrare il sito un cantiere.
+Vale la stessa regola di sempre: si costruisce una fascia quando ha contenuto vero, non prima.
+Oggi solo la colonna sinistra ha qualcosa (nome del progetto, disclaimer); il resto si farà
+quando ci sarà davvero qualcosa dentro.
 
-Non è un rinvio rischioso, perché **il lavoro caro è già stato fatto**: la struttura è
-"l'area mappa è ciò che resta", quindi aggiungere una fascia riposiziona tutto da solo, e la
-lettura delle coordinate si aggiusta da sé (usa `getScreenCTM`, non calcoli sulla finestra).
-In `page.tsx` i posti sono già indicati come commenti.
+**Su schermo piccolo** (telefono, tablet stretto) il calcolo sopra farebbe collassare le colonne
+a zero: va comunque previsto un comportamento diverso (colonne nascoste, mappa a piena
+larghezza, accesso a copertine/filtri/scheda tramite un menu), non ancora progettato in
+dettaglio — è la stessa cautela già scritta per il vecchio modello, semplicemente riportata qui.
 
-**La mappa non è larga quanto la finestra.** È la regola da tenere a mente: la colonna di
-sinistra è riservata alla barra delle copertine (vedi `00-CONCEPT.md`) e ai filtri, e la mappa
-occupa soltanto lo spazio rimanente.
+**Nota tecnica invariata:** la lettura delle coordinate in modalità mappatura continua a usare
+la matrice di trasformazione dell'SVG (`getScreenCTM`), quindi non risente di come cambia la
+larghezza dell'area mappa.
 
-Lo spazio è stato riservato **prima** di costruire la barra, di proposito. Tutto ciò che si
-aggancia a un bordo — la scheda del luogo, il pannello di mappatura — si posiziona rispetto
-all'area mappa, non allo schermo. Introdurre la colonna dopo avrebbe voluto dire rivedere ogni
-posizionamento già dato per buono, e ricontrollare la lettura delle coordinate.
+### Il prototipo che ha validato questo modello
 
-Su schermo piccolo la barra sparisce e la mappa riprende tutta la larghezza: il telefono non ha
-spazio da regalare a una colonna fissa.
+Costruito come pagina HTML a sé (non nel codice del sito), per poter provare le proporzioni con
+l'immagine vera e senza rischiare di rompere nulla di funzionante. Calcola le misure dal vivo:
+ridimensionando la finestra si vede subito quanto spazio resta vuoto (idealmente zero) e dove
+scattano i limiti minimo/massimo.
 
-**Nota tecnica:** la lettura delle coordinate in modalità mappatura non risente della larghezza
-dell'area mappa, perché converte le posizioni usando la matrice di trasformazione dell'SVG
-(`getScreenCTM`) invece di calcoli fatti a mano sulle dimensioni della finestra. Verificato dopo
-l'introduzione della barra: il punto noto `7500` continua a leggersi `7500`.
+- **Copia nel progetto** (senza l'immagine incorporata, per restare leggero su Git):
+  `docs/prototipi/telaio-layout.html`. Per vederlo serve `mappa-pulita.jpg` in
+  `public/riferimento/` (vedi sotto).
+- **Versione online sempre pronta**, con l'immagine già incorporata: link in `03-STATO.md`.
+
+### Una nuova immagine di riferimento
+
+`public/riferimento/mappa-pulita.jpg` (3000×2174 px, rapporto 1,380:1): Gabriele ha ripulito a
+mano la mappa fan-made usata finora — colori piatti, meno scritte, Red Line evidenziata in modo
+netto — ricalcando sopra l'originale, quindi **le posizioni restano fedeli** a `mappa.jpg`. Sarà
+la base per ridisegnare Red Line, oceano e isole (lavoro non ancora iniziato, vedi "Prossimo
+passo" in `03-STATO.md`); rimpiazza sia `mappa.jpg` che `mappa-red-line.jpg` per quello scopo,
+che restano solo come cronologia del tentativo precedente.
+
+**Conseguenza da non dimenticare:** lo spazio-mappa astratto è oggi 10000×5000 (rapporto 2:1),
+scelto senza legame con nessuna immagine reale. Per evitare di stirare ogni volta il
+riferimento (causa di più di un bug di allineamento in questo diario), va cambiato in
+10000×~7247 (stesso rapporto 1,380:1 della nuova immagine). **Non ancora fatto**: cambia
+`ALTEZZA_MAPPA` in `src/lib/geografia.ts` e, a cascata, `GRAND_LINE_Y` (che deve restare a metà
+altezza) e ogni script di ricalco. Lavoro rimandato di proposito finché non si è deciso il
+telaio — vedi "Prossimo passo" in `03-STATO.md`.
 
 ## Come si disegnano le isole
 

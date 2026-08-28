@@ -1,0 +1,482 @@
+<!--
+  Prototipo di layout — telaio con colonne laterali dinamiche.
+  Per vederlo serve mappa-pulita.jpg in public/riferimento/ (non su Git,
+  va copiato a mano da chi lavora sul progetto — vedi docs/03-STATO.md).
+  Aprire con un doppio clic, oppure con un piccolo server locale.
+  Versione sempre disponibile online: vedi il link in docs/03-STATO.md.
+-->
+<title>Telaio Log Pose</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Lora:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f2ece0;
+    --surface: #fffdf8;
+    --ink: #2b2013;
+    --muted: #7a6b52;
+    --accent: #8f4b3c;
+    --border: #ddd0b4;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #16120c;
+      --surface: #201a11;
+      --ink: #ece1cb;
+      --muted: #a6957a;
+      --accent: #d98a72;
+      --border: #392f1f;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #16120c;
+    --surface: #201a11;
+    --ink: #ece1cb;
+    --muted: #a6957a;
+    --accent: #d98a72;
+    --border: #392f1f;
+  }
+
+  /* Cromatura del sito simulato: mondo visivo fisso, indipendente dal tema
+     dell'artifact — è un'anteprima di una pagina che sarà sempre "notturna". */
+  :root {
+    --site-bg: #0b1a22;
+    --site-panel: #112631;
+    --site-panel-line: rgba(217, 178, 111, 0.16);
+    --site-gold: #d9b26f;
+    --site-text: #ece3d1;
+    --site-text-dim: rgba(236, 227, 209, 0.55);
+    --site-letterbox: #081319;
+    --site-accent: #8f4b3c;
+  }
+
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    height: 100%;
+  }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Lora", Georgia, serif;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  header {
+    flex: none;
+    display: flex;
+    align-items: baseline;
+    gap: 24px;
+    padding: 14px 22px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+    flex-wrap: wrap;
+    row-gap: 6px;
+  }
+  header h1 {
+    font-family: "Cinzel", Georgia, serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    margin: 0;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+  header p {
+    margin: 0;
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.5;
+    max-width: 46ch;
+  }
+  .letture {
+    margin-left: auto;
+    display: flex;
+    gap: 18px;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.74rem;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+  .letture strong {
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .letture .avviso {
+    color: var(--accent);
+  }
+
+  /* --- Il telaio simulato ---
+     Non più barre a larghezza fissa: le due colonne laterali si dividono
+     esattamente lo spazio che avanza attorno alla mappa (altezza piena,
+     centrata), così quello spazio non è più vuoto ma utile. */
+  .telaio {
+    flex: 1;
+    display: flex;
+    min-height: 0;
+    background: var(--site-bg);
+    position: relative;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .sidebar {
+    flex: none;
+    height: 100%;
+    background: var(--site-panel);
+    padding: 20px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    overflow: hidden;
+  }
+  .sidebar-sx { border-right: 1px solid var(--site-panel-line); }
+  .sidebar-dx { border-left: 1px solid var(--site-panel-line); }
+  .sidebar { overflow-y: auto; overflow-x: hidden; }
+  .sidebar .etichetta {
+    font-family: "Cinzel", Georgia, serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--site-gold);
+  }
+  .sidebar .misura {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.7rem;
+    color: var(--site-text-dim);
+  }
+  .sidebar .copertine {
+    margin-top: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+  }
+  .copertina {
+    aspect-ratio: 2 / 3;
+    max-width: 140px;
+    border-radius: 3px;
+    background: linear-gradient(155deg, rgba(217,178,111,0.22), rgba(217,178,111,0.06));
+    border: 1px solid var(--site-panel-line);
+  }
+  .sidebar-dx .copertina { align-self: flex-end; }
+  .sidebar .chip-lista {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+  }
+  .sidebar .chip-lista span {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.66rem;
+    color: var(--site-text-dim);
+    border: 1px solid var(--site-panel-line);
+    border-radius: 999px;
+    padding: 4px 10px;
+  }
+
+  /* La colonna destra ora ha due possibili contenuti: la scheda del luogo
+     selezionato (il vecchio "modale"), o i filtri quando nulla è
+     selezionato. Qui nel telaio si passa dall'uno all'altro a mano, per
+     poterli confrontare. */
+  .scheda-switch {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 2px;
+    flex-wrap: wrap;
+  }
+  .switch-btn {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--site-text-dim);
+    background: transparent;
+    border: 1px solid var(--site-panel-line);
+    border-radius: 999px;
+    padding: 5px 10px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .switch-btn.active {
+    color: var(--site-bg);
+    background: var(--site-gold);
+    border-color: var(--site-gold);
+  }
+  .vista {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+  .vista[hidden] { display: none; }
+  .placeholder-copertina {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    max-width: none;
+  }
+  .scheda-tag {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--site-gold);
+  }
+  .scheda-titolo {
+    font-family: "Cinzel", Georgia, serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--site-text);
+    margin: 0;
+    line-height: 1.25;
+  }
+  .scheda-sottotitolo {
+    font-family: "Lora", Georgia, serif;
+    font-style: italic;
+    font-size: 0.8rem;
+    color: var(--site-text-dim);
+    margin-top: -6px;
+  }
+  .scheda-testo {
+    font-family: "Lora", Georgia, serif;
+    font-size: 0.82rem;
+    line-height: 1.55;
+    color: var(--site-text);
+    margin: 0;
+  }
+  .scheda-curiosita {
+    border-top: 1px solid var(--site-panel-line);
+    padding-top: 10px;
+  }
+  .scheda-curiosita-etichetta {
+    font-family: "Cinzel", Georgia, serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--site-gold);
+    margin-bottom: 4px;
+  }
+  .scheda-curiosita p {
+    font-family: "Lora", Georgia, serif;
+    font-style: italic;
+    font-size: 0.78rem;
+    line-height: 1.5;
+    color: var(--site-text-dim);
+    margin: 0;
+  }
+
+  .mappa-area {
+    flex: none;
+    position: relative;
+    background: var(--site-letterbox);
+    overflow: hidden;
+  }
+  .mappa-area img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+  }
+  .banda {
+    position: absolute;
+    background: repeating-linear-gradient(
+      45deg,
+      rgba(217, 178, 111, 0.05),
+      rgba(217, 178, 111, 0.05) 6px,
+      transparent 6px,
+      transparent 12px
+    );
+    pointer-events: none;
+  }
+
+  .controlli-flottanti {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    background: rgba(11, 26, 34, 0.72);
+    border: 1px solid var(--site-panel-line);
+    border-radius: 999px;
+    backdrop-filter: blur(4px);
+  }
+  .controlli-flottanti nav {
+    display: flex;
+    gap: 14px;
+    padding-right: 10px;
+    border-right: 1px solid var(--site-panel-line);
+  }
+  .controlli-flottanti a {
+    font-family: "Cinzel", Georgia, serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--site-text-dim);
+    text-decoration: none;
+  }
+  .zoom {
+    display: flex;
+    gap: 6px;
+  }
+  .zoom button {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 1px solid var(--site-panel-line);
+    background: transparent;
+    color: var(--site-gold);
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.9rem;
+    line-height: 1;
+    cursor: default;
+  }
+
+  @media (max-width: 720px) {
+    header .letture { display: none; }
+  }
+</style>
+
+<header>
+  <h1>Telaio Log Pose</h1>
+  <p>Niente più barra sotto: le due colonne laterali si dividono lo spazio che avanza attorno alla mappa (altezza piena, larghezza 1,380:1), invece di lasciarlo vuoto. Ridimensiona la finestra per vedere come cambia.</p>
+  <div class="letture" id="letture"></div>
+</header>
+
+<div class="telaio" id="telaio">
+  <aside class="sidebar sidebar-sx" id="sidebarSx">
+    <div>
+      <div class="etichetta">Menù laterale</div>
+      <div class="misura" id="misuraSx">— px</div>
+    </div>
+    <div class="copertine">
+      <div class="copertina"></div>
+      <div class="copertina"></div>
+      <div class="copertina"></div>
+    </div>
+  </aside>
+
+  <div class="mappa-area" id="mappaArea">
+    <img id="mappaImg" src="../../public/riferimento/mappa-pulita.jpg" alt="Mappa ridisegnata" />
+    <div class="controlli-flottanti">
+      <nav>
+        <a href="#">Info</a>
+        <a href="#">Come funziona</a>
+        <a href="#">Contatti</a>
+      </nav>
+      <div class="zoom">
+        <button>&minus;</button>
+        <button>&plus;</button>
+      </div>
+    </div>
+  </div>
+
+  <aside class="sidebar sidebar-dx" id="sidebarDx">
+    <div class="scheda-switch">
+      <button class="switch-btn active" data-vista="scheda" type="button">Scheda</button>
+      <button class="switch-btn" data-vista="filtri" type="button">Filtri</button>
+    </div>
+
+    <!-- Quello che prima era il "modale" al centro dello schermo: ora vive
+         qui, ancorato alla colonna destra. Non copre mai la mappa. Testo
+         vero, preso da content/it/luoghi.json (Shells Town). -->
+    <div class="vista vista-scheda" id="vistaScheda">
+      <div class="copertina placeholder-copertina"></div>
+      <div class="scheda-tag">Rivelato al capitolo 2 · Città · East Blue</div>
+      <h2 class="scheda-titolo">Shells Town</h2>
+      <div class="scheda-sottotitolo">La città della base navale</div>
+      <p class="scheda-testo">Città dell'East Blue che ospita il 153° distretto della Marina, comandato dal capitano Morgan detto «Ascia di ferro», temuto dai suoi stessi uomini quanto dagli abitanti. È qui che Monkey D. Rufy trova Roronoa Zoro legato al palo del cortile della base, e lo convince a unirsi a lui.</p>
+      <div class="scheda-curiosita">
+        <div class="scheda-curiosita-etichetta">Curiosità</div>
+        <p>È il luogo in cui nasce davvero la ciurma: Zoro è il primo compagno che Rufy recluta.</p>
+      </div>
+    </div>
+
+    <div class="vista vista-filtri" id="vistaFiltri" hidden>
+      <div class="etichetta">Filtri &amp; rotte</div>
+      <div class="chip-lista">
+        <span>filtri rapidi</span>
+        <span>timeline</span>
+        <span>note legali</span>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<script>
+  const RAPPORTO_IMG = 3000 / 2174;
+  // Larghezza minima e massima per ciascuna colonna laterale: sotto il
+  // minimo la mappa si restringe (bande sopra/sotto, come su schermi stretti
+  // o telefono); sopra il massimo l'eccedenza resta come margine esterno
+  // invece di gonfiare le colonne all'infinito sui monitor ultra-larghi.
+  const COLONNA_MIN = 160;
+  const COLONNA_MAX = 380;
+
+  function aggiorna() {
+    const telaio = document.getElementById('telaio');
+    const area = document.getElementById('mappaArea');
+    const sidebarSx = document.getElementById('sidebarSx');
+    const sidebarDx = document.getElementById('sidebarDx');
+
+    const totW = telaio.clientWidth;
+    const totH = telaio.clientHeight;
+
+    let mapH = totH;
+    let mapW = mapH * RAPPORTO_IMG;
+    let colonna = (totW - mapW) / 2;
+    let bandaVert = 0;
+
+    if (colonna < COLONNA_MIN) {
+      // Non c'è spazio a sufficienza: le colonne restano al minimo e la
+      // mappa si restringe di conseguenza (comparirebbero bande sopra/sotto).
+      colonna = Math.max(COLONNA_MIN, 0);
+      mapW = Math.max(totW - colonna * 2, 0);
+      mapH = mapW / RAPPORTO_IMG;
+      bandaVert = Math.round((totH - mapH) / 2);
+    } else if (colonna > COLONNA_MAX) {
+      colonna = COLONNA_MAX;
+    }
+
+    area.style.width = Math.round(mapW) + 'px';
+    area.style.height = Math.round(mapH) + 'px';
+    sidebarSx.style.width = Math.round(colonna) + 'px';
+    sidebarDx.style.width = Math.round(colonna) + 'px';
+
+    document.getElementById('misuraSx').textContent = Math.round(colonna) + ' px';
+
+    const margineExtra = Math.max(0, Math.round(totW - mapW - colonna * 2));
+
+    const letture = document.getElementById('letture');
+    letture.innerHTML =
+      '<span>finestra <strong>' + Math.round(window.innerWidth) + '×' + Math.round(window.innerHeight) + '</strong></span>' +
+      '<span>colonne laterali <strong>' + Math.round(colonna) + ' px</strong> ciascuna</span>' +
+      '<span>mappa <strong>' + Math.round(mapW) + '×' + Math.round(mapH) + '</strong></span>' +
+      (bandaVert > 1
+        ? '<span class="avviso">colonne al minimo, bande sopra/sotto: ' + bandaVert + ' px</span>'
+        : margineExtra > 1
+        ? '<span class="avviso">colonne al massimo, margine esterno: ' + margineExtra + ' px</span>'
+        : '<span>nessuno spazio sprecato</span>');
+  }
+
+  window.addEventListener('resize', aggiorna);
+  window.addEventListener('load', aggiorna);
+  aggiorna();
+
+  // Interruttore scheda-luogo / filtri nella colonna destra.
+  document.querySelectorAll('.switch-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.switch-btn').forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+      const vista = btn.dataset.vista;
+      document.getElementById('vistaScheda').hidden = vista !== 'scheda';
+      document.getElementById('vistaFiltri').hidden = vista !== 'filtri';
+    });
+  });
+</script>
